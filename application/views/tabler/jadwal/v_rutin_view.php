@@ -19,7 +19,6 @@
                         <thead>
                             <tr>
                                 <th class="w-1">No.</th>
-                                <th>nn id rutin det</th>
                                 <th>nn id rutin</th>
                                 <th>nn status pekerjaan</th>
                                 <th>Tanggal</th>
@@ -29,6 +28,7 @@
                                 <th>Item</th>
                                 <th>Jenis Pekerjaan</th>
                                 <th>Status</th>
+                                <th>Keterangan</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -102,29 +102,41 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Master Pekerjaan Rutin</h5>
+                    <h5 class="modal-title">Update Status Pekerjaan Rutin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-update">
                     <div class="modal-body">
+                        <div class="card mb-3">
+                            <table class="table table-vcenter card-table">
+                                <tr><td class="w-25">Tanggal</td><td class="w-1">:</td> <td id="upd-tanggal-jadwal">-</td></tr>
+                                <tr><td>Nama Teknisi</td><td>:</td>                     <td id="upd-nama">-</td></tr>
+                                <tr><td>Gedung</td><td>:</td>                           <td id="upd-gedung">-</td></tr>
+                                <tr><td>Ruangan</td><td>:</td>                          <td id="upd-ruangan">-</td></tr>
+                                <tr><td>Item</td><td>:</td>                             <td id="upd-item">-</td></tr>
+                                <tr><td>Jenis Pekerjaan</td><td>:</td>                  <td id="upd-pekerjaan">-</td></tr>
+                            </table>
+                        </div>
                         <div class="">
-                            <input type="hidden" id="upd-id-pkrutin" value="">
+                            <input type="hidden" id="upd-id-rutin" value="">
                             <?php
                             //Buat form input fungsi ada di file helper/h_form_helper.php
+                            
+
                             echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'upd-jenis-pekerjaan',
-                                'label' => 'Jenis Pekerjaan',
-                                'placeholder' => 'Jenis Pekerjaan',
-                                'value' => '',
+                                'type' => 'select',
+                                'id' => 'upd-status-pekerjaan',
+                                'label' => 'Uraian Pekerjaan',
+                                'placeholder' => 'Uraian Pekerjaan',
+                                'value' => $statuspekerjaan,
                                 'attr' => ''
                             ));
 
                             echo create_form(array(
                                 'type' => 'text',
-                                'id' => 'upd-uraian-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
-                                'placeholder' => 'Uraian Pekerjaan',
+                                'id' => 'upd-keterangan',
+                                'label' => 'Keterangan',
+                                'placeholder' => 'Keteragan',
                                 'value' => '',
                                 'attr' => ''
                             ));

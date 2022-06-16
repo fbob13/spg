@@ -42,7 +42,7 @@ create table mst_item (
     nama_item varchar(255) not null,
     merek_item varchar(255) not null,
     tipe_item varchar(255) not null,
-    kategori varchar(255) not null,
+    id_kategori int not null,
     status_item tinyint not null default 1,
     created_at timestamp null
 );
@@ -50,16 +50,20 @@ create table mst_item (
 create table mst_ruangan_item (
     id_ruangan_item int primary key AUTO_INCREMENT,
     id_item int,
+    id_gedung int,
     id_ruangan int,
-    tahun_pengadaan int null,
+    tahun_pengadaan year null,
     created_at timestamp null
 );
+
 create table mst_gedung(
     id_gedung int PRIMARY KEY AUTO_INCREMENT,
     nama_gedung varchar(255) not null,
     keterangan varchar(255) null,
     created_at timestamp null
-) create table mst_ruangan (
+);
+
+ create table mst_ruangan (
     id_ruangan int primary key AUTO_INCREMENT,
     id_gedung int,
     kode_ruangan varchar(255) null,
@@ -73,7 +77,8 @@ create table mst_kategori (
     id_kategori int PRIMARY key AUTO_INCREMENT,
     kode_kategori varchar(255) not null,
     uraian_kategori varchar(255) not null
-) create table mst_pkrutin (
+);
+ create table mst_pkrutin (
     id_pkrutin int primary key AUTO_INCREMENT,
     jenis_pekerjaan varchar(255) not null,
     uraian_pekerjaan varchar(255) not null,
@@ -109,6 +114,8 @@ create table as_nonrutin (
 );
 /* status_nonrutin : 0-open 1-progress 2-pending 3-selesai */
 /*Insert user admin */
+
+
 insert into mst_user (nip, username, nama, spc, password)
 values (
         1,

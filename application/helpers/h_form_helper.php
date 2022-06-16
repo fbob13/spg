@@ -2,7 +2,7 @@
 
 function create_form($arr)
 {
- 
+
     $output = '';
     if ($arr['type'] == 'text') {
 
@@ -38,9 +38,16 @@ function create_form($arr)
         $output = $output . '<div class="col">';
         $output = $output . '<select class="form-select" id="' . $arr['id'] . '" name="' . $arr['id'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<option value=""></option>';
+
         foreach ($arr['value'] as $opt) {
-            $output = $output . '<option value="' . $opt->val . '">' . $opt->deskripsi . '</option>';
+            if (is_object($opt)) {
+
+                $output = $output . '<option value="' . $opt->val . '">' . $opt->deskripsi . '</option>';
+            } else {
+                $output = $output . '<option value="' . $opt['val'] . '">' . $opt['deskripsi'] . '</option>';
+            }
         }
+
         $output = $output . '</select><div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div>';
         $output = $output . '</div>';
         $output = $output . '</div>';
@@ -48,3 +55,4 @@ function create_form($arr)
 
     return $output;
 }
+

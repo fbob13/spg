@@ -98,8 +98,11 @@ $route['master/prutin/new'] = 'C_master/prutin_new';
 $route['master/prutin/upd'] = 'C_master/prutin_upd';
 $route['master/prutin/del'] = 'C_master/prutin_del';
 
+//--------------------------------------------------------
+//-------------------Jadwal Rutin-------------------------
+//--------------------------------------------------------
 
-//Buat Jadwal Rutin
+//Buat Jadwal Rutin | Menu : input jadwal rutin
 $route['jadwal/rutin/new'] = 'C_jadwal/rutin_new';
 $route['jadwal/rutin/query'] = 'C_jadwal/rutin_query';
 
@@ -107,18 +110,14 @@ $route['jadwal/rutin/save/list'] = 'C_jadwal/rutin_save_list';
 $route['jadwal/rutin/save/jadwal'] = 'C_jadwal/rutin_save_jadwal';
 
 
-//Update Jadwal Rutin
+//Update Jadwal Rutin | Menu : Lihat jadwal rutin
 
 $route['empty'] = 'C_jadwal/empty';
 $route['jadwal/rutin/view'] = 'C_jadwal/rutin_view';
 $route['jadwal/rutin/view/data'] = 'C_jadwal/rutin_view_data';
+$route['jadwal/rutin/view/upd'] = 'C_jadwal/rutin_view_upd';
+$route['jadwal/rutin/view/del'] = 'C_jadwal/rutin_view_del';
 
-$route['jadwal/rutin/draft/save'] = 'C_jadwal/rutin_draft_save';
-$route['jadwal/rutin/draft/view'] = 'C_jadwal/rutin_draft_view';
-
-
-$route['jadwal/rutin/data'] = 'C_jadwal/rutin_data';
-$route['jadwal/rutin/upd'] = 'C_jadwal/rutin_upd';
-$route['jadwal/rutin/del'] = 'C_jadwal/rutin_del';
-$route['jadwal/rutin/item'] = 'C_jadwal/rutin_item';
-
+//--------------------------------------------------------
+//-----------------End Jadwal Rutin-----------------------
+//--------------------------------------------------------

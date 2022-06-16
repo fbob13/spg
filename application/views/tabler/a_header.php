@@ -160,11 +160,11 @@
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
 
-                    <a class="dropdown-item <?php echo $sublink == 'perbaikan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/item">
+                    <a class="dropdown-item <?php echo $sublink == 'perbaikan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
                       Permintaan Perbaikan
                     </a>
 
-                    <a class="dropdown-item <?php echo $sublink == 'lihat_keluhan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan">
+                    <a class="dropdown-item <?php echo $sublink == 'lihat_keluhan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
                       Update Status Perbaikan
                     </a>
 
@@ -173,7 +173,7 @@
               </div>
             </li>
             <li class="nav-item <?php echo $link == 'user' ? 'active ' : ''; ?>">
-              <a class="nav-link" href="<?php echo base_url(); ?>">
+              <a class="nav-link" href="<?php echo base_url(); ?>#">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <!-- Download SVG icon from http://tabler-icons.io/i/users -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -190,7 +190,7 @@
               </a>
             </li>
             <li class="nav-item <?php echo $link == 'report' ? 'active ' : ''; ?>">
-              <a class="nav-link" href="<?php echo base_url(); ?>report">
+              <a class="nav-link" href="<?php echo base_url(); ?>#">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <!-- Download SVG icon from http://tabler-icons.io/i/report-analytics -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
