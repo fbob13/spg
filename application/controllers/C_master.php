@@ -1166,14 +1166,14 @@ class C_master extends CI_Controller
                 $this->load->library('form_validation');
 
                 //Ambil data POST
-                (isset($_POST['id_ruangan']))         ? $id_ruangan =       $_POST['id_ruangan']         : $id_ruangan = "";
+                (isset($_POST['id_ruangan_item']))         ? $id_ruangan_item =       $_POST['id_ruangan_item']         : $id_ruangan_item = "";
 
-                if ($id_ruangan == "") {
+                if ($id_ruangan_item == "") {
                     $data['status'] = 'nok';
                     $data['info'] = 'Tidak ada data yang dihapus';
                 } else {
-                    $this->db->where('id_ruangan', $id_ruangan);
-                    $this->db->delete('mst_ruangan');
+                    $this->db->where('id_ruangan_item', $id_ruangan_item);
+                    $this->db->delete('mst_ruangan_item');
                     $data['info'] = 'Data Ruangan Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -1451,6 +1451,267 @@ class C_master extends CI_Controller
                     $this->db->where('id_pkrutin', $id_pkrutin);
                     $this->db->delete('mst_pkrutin');
                     $data['info'] = 'Data Pekerjaan Rutin Berhasil Dihapus';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function kategori()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            return $this->load->view('auth/v_login');
+        }
+
+
+
+        //Jika User = 99(IT) atau 1(admin)
+        if ($spc == 99 || $spc == 1) {
+            $data['link'] = 'master';
+            $data['sublink'] = 'kategori';
+            $data['subsublink'] = '';
+
+            $data['title'] = 'Kategori - ' . $this->config->item('app_name');
+
+            //CSS untuk menampilkan tabel (datatables)
+            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
+
+            //JS untuk menampilkan tabel (datatables)
+            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+
+            $this->load->view('tabler/a_header', $data);
+            $this->load->view('tabler/master/v_kategori', $data);
+            $this->load->view('tabler/a_footer');
+            $this->load->view('tabler/master/v_kategori_js', $data);
+            $this->load->view('tabler/a_end_page');
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            redirect(base_url());
+        }
+        //END FUNCTION
+    }
+
+    public function kategori_data()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($spc == 99 || $spc == 1) {
+            $query = $this->db->query("select * from mst_kategori");
+            $data["data"] = $query->result();
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+
+        //END FUNCTION
+    }
+
+    public function kategori_new()
+    {
+
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($spc == 99 || $spc == 1) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['kode_kategori']))         ? $kode_kategori =       $_POST['kode_kategori']         : $kode_kategori = "";
+                (isset($_POST['uraian_kategori']))         ? $uraian_kategori =      $_POST['uraian_kategori']         : $uraian_kategori = "";
+
+
+                $data['err_kode_kategori'] = "";
+                $data['err_uraian_kategori'] = "";
+
+
+                $pesanError = array(
+                    'required' => "Harus di isi",
+                );
+
+                //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
+                $this->form_validation->set_rules('kode_kategori', 'kode_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('uraian_kategori', 'uraian_kategori', 'trim', $pesanError);
+
+                //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
+                if ($this->form_validation->run() == FALSE) {
+
+                    $data['err_kode_kategori'] = form_error('kode_kategori', '<span>', '</span>');
+                    $data['err_uraian_kategori'] = form_error('uraian_kategori', '<span>', '</span>');
+
+                    $err = true;
+                    $data['status'] = 'nok';
+                }
+
+                //Jika ada error 
+                if ($err) {
+                    //
+                }
+                //Jika tidak ada error
+                else {
+
+                    //Insert data
+                    $data_insert = array(
+                        'kode_kategori' => $kode_kategori,
+                        'uraian_kategori' => $uraian_kategori,
+                    );
+
+                    $this->db->insert('mst_kategori', $data_insert);
+
+                    $data['info'] = 'Data Kategori Berhasil Disimpan';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function kategori_upd()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($spc == 99 || $spc == 1) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['kode_kategori']))         ? $kode_kategori =       $_POST['kode_kategori']         : $kode_kategori = "";
+                (isset($_POST['uraian_kategori']))         ? $uraian_kategori =      $_POST['uraian_kategori']         : $uraian_kategori = "";
+
+                $data['err_kode_kategori'] = "";
+                $data['err_uraian_kategori'] = "";
+
+                $pesanError = array(
+                    'required' => "Harus di isi",
+                );
+
+                //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
+                $this->form_validation->set_rules('kode_kategori', 'kode_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('uraian_kategori', 'uraian_kategori', 'trim', $pesanError);
+
+                //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
+                if ($this->form_validation->run() == FALSE) {
+
+                    $data['err_kode_kategori'] = form_error('kode_kategori', '<span>', '</span>');
+                    $data['err_uraian_kategori'] = form_error('uraian_kategori', '<span>', '</span>');
+
+                    $err = true;
+                    $data['status'] = 'nok';
+                }
+
+                //Jika ada error 
+                if ($err) {
+                    //
+                }
+                //Jika tidak ada error
+                else {
+
+                    //Update data
+                    $data_insert = array(
+                        'kode_kategori' => $kode_kategori,
+                        'uraian_kategori' => $uraian_kategori,
+                    );
+                    $this->db->where('id_kategori', $id_kategori);
+                    $this->db->update('mst_kategori', $data_insert);
+
+                    $data['info'] = 'Data Kategori Berhasil Diupdate';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function kategori_del()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($spc == 99 || $spc == 1) {
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+
+                if ($id_kategori == "") {
+                    $data['status'] = 'nok';
+                    $data['info'] = 'Tidak ada data yang dihapus';
+                } else {
+                    $this->db->where('id_kategori', $id_kategori);
+                    $this->db->delete('mst_kategori');
+                    $data['info'] = 'Data Kategori Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
             }

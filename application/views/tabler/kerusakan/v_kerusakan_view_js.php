@@ -11,15 +11,19 @@
             "orderable": false,
             defaultContent: ''
         }, {
-            data: 'id_rutin',
+            data: 'id_nonrutin',
             visible: false,
             searchable: false,
         }, {
             data: 'status_pekerjaan',
             visible: false,
             searchable: false,
+        },{
+            data: 'id_teknisi',
+            visible: false,
+            searchable: false,
         }, {
-            data: 'tanggal_jadwal',
+            data: 'tanggal_laporan',
             className: 'text-center'
         }, {
             data: 'nama_teknisi',
@@ -34,7 +38,7 @@
             data: 'nama_item',
             className: 'text-center'
         }, {
-            data: 'jenis_pekerjaan',
+            data: 'keluhan',
             className: 'text-center'
         }, {
             data: null,
@@ -65,7 +69,7 @@
         }]
         //Inisialisasi Datatable
         var tb = $('#postsList').DataTable({
-            ajax: '<?php echo base_url(); ?>jadwal/rutin/view/data',
+            ajax: '<?php echo base_url(); ?>kerusakan/view/data',
             pageLength: 10,
             type: 'json',
             columns: col,
@@ -96,19 +100,19 @@
             aksi = $(this).attr('c-aksi');
 
             if (aksi == 'update') {
-                $('#upd-id-rutin').val(data['id_rutin']);
-                $('#upd-tanggal-jadwal').html(data['tanggal_jadwal']);
-                $('#upd-nama').html(data['nama_teknisi']);
+                $('#upd-id-nonrutin').val(data['id_nonrutin']);
+                $('#upd-tanggal-laporan').html(data['tanggal_laporan']);
                 $('#upd-gedung').html(data['nama_gedung']);
                 $('#upd-ruangan').html(data['nama_ruangan']);
                 $('#upd-item').html(data['nama_item']);
-                $('#upd-pekerjaan').html(data['jenis_pekerjaan']);
+                $('#upd-keluhan').html(data['keluhan']);
+                $('#upd-id-teknisi').val(data['id_teknisi']);
 
                 $('#upd-status-pekerjaan').val(data['status_pekerjaan']);
 
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
-                $('#del-id-rutin').val(data['id_rutin']);
+                $('#del-id-nonrutin').val(data['id_nonrutin']);
                 $('#modal-delete').modal('show');
             }
         });
@@ -148,19 +152,20 @@
         $('#form-update').submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "<?php echo base_url(); ?>jadwal/rutin/view/upd",
+                url: "<?php echo base_url(); ?>kerusakan/view/upd",
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_rutin': $('#upd-id-rutin').val(),
+                    'id_nonrutin': $('#upd-id-nonrutin').val(),
                     'status_pekerjaan': $('#upd-status-pekerjaan').val(),
                     'keterangan': $('#upd-keterangan').val(),
+                    'id_teknisi': $('#upd-id-teknisi').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
                         // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
-                        cek_error(response.err_jenis_pekerjaan, 'upd-jenis-pekerjaan');
-                        cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
+                        cek_error(response.err_status_pekerjaan, 'upd-status-pekerjaan');
+                        cek_error(response.err_keterangan, 'upd-keterangan');
 
                     } else {
                         $('#modal-update').modal('hide')
@@ -180,11 +185,11 @@
         $('#form-delete').submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "<?php echo base_url(); ?>jadwal/rutin/view/del",
+                url: "<?php echo base_url(); ?>kerusakan/view/del",
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_rutin': $('#del-id-rutin').val()
+                    'id_nonrutin': $('#del-id-nonrutin').val()
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -220,7 +225,7 @@
 
             tb = $('#postsList').DataTable({
                 destroy: true,
-                ajax: '<?php echo base_url(); ?>jadwal/rutin/view/data',
+                ajax: '<?php echo base_url(); ?>kerusakan/view/data',
                 pageLength: 10,
                 type: 'json',
                 columns: col,

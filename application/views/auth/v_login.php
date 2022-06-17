@@ -135,9 +135,9 @@
             </div>
             <div class="col-12 mt-3">
               <div class="align-middle text-center">
-                Copyright &copy; 2022
-                <a href="<?php echo base_url(); ?>" class="link-secondary"><?php echo $this->config->item('app_name'); ?></a>.
-                All rights reserved.
+              <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
+                      <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
+                      All rights reserved.
               </div>
             </div>
           </div>

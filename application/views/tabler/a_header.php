@@ -87,7 +87,11 @@
               <div class="dropdown-menu <?php echo $link == 'master' ? 'show ' : ''; ?>">
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
-                  <a class="dropdown-item <?php echo $sublink == 'gedung' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/gedung">
+                  <a class="dropdown-item <?php echo $sublink == 'ktegori' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/kategori">
+                      Kategori
+                    </a>
+
+                    <a class="dropdown-item <?php echo $sublink == 'gedung' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/gedung">
                       Gedung
                     </a>
 
@@ -125,7 +129,7 @@
                   </svg>
                 </span>
                 <span class="nav-link-title">
-                Jadwal Rutin
+                  Jadwal Rutin
                 </span>
               </a>
               <div class="dropdown-menu <?php echo $link == 'rutin' ? 'show ' : ''; ?>">
@@ -153,18 +157,18 @@
                   </svg>
                 </span>
                 <span class="nav-link-title">
-                Kerusakan
+                  Kerusakan
                 </span>
               </a>
               <div class="dropdown-menu <?php echo $link == 'nrutin' ? 'show ' : ''; ?>">
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
 
-                    <a class="dropdown-item <?php echo $sublink == 'perbaikan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                    <a class="dropdown-item <?php echo $sublink == 'kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/new">
                       Permintaan Perbaikan
                     </a>
 
-                    <a class="dropdown-item <?php echo $sublink == 'lihat_keluhan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                    <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
                       Update Status Perbaikan
                     </a>
 

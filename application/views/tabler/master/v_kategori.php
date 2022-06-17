@@ -4,8 +4,19 @@
         <div class="d-flex flex-wrap align-items-center">
             <div class="col">
                 <h2 class="page-title">
-                    Jadwal Pekerjaan Rutin
+                    Master Kategori
                 </h2>
+            </div>
+            <div class="ms-auto">
+                <a href="#" class="btn btn-primary d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-new">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Tambah Data
+                </a>
             </div>
         </div>
     </div>
@@ -19,16 +30,9 @@
                         <thead>
                             <tr>
                                 <th class="w-1">No.</th>
-                                <th>nn id rutin</th>
-                                <th>nn status pekerjaan</th>
-                                <th>Tanggal</th>
-                                <th>Nama Teknisi</th>
-                                <th>Gedung</th>
-                                <th>Ruangan</th>
-                                <th>Item</th>
-                                <th>Jenis Pekerjaan</th>
-                                <th>Status</th>
-                                <th>Keterangan</th>
+                                <th>nn</th>
+                                <th>Kode Kategori</th>
+                                <th>Uraian Kategori</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -44,7 +48,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Buat Master Pekerjaan Rutin Baru</h5>
+                    <h5 class="modal-title">Buat Kategori Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-new">
@@ -54,18 +58,18 @@
                             //Buat form input fungsi ada di file helper/h_form_helper.php
                             echo create_form(array(
                                 'type' => 'text',
-                                'id' => 'jenis-pekerjaan',
-                                'label' => 'Jenis Pekerjaan',
-                                'placeholder' => 'Jenis Pekerjaan',
+                                'id' => 'kode-kategori',
+                                'label' => 'Kode Kategori',
+                                'placeholder' => 'Kode Kategori',
                                 'value' => '',
                                 'attr' => ''
                             ));
 
                             echo create_form(array(
                                 'type' => 'text',
-                                'id' => 'uraian-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
-                                'placeholder' => 'Uraian Pekerjaan',
+                                'id' => 'uraian-kategori',
+                                'label' => 'Uraian Kategori',
+                                'placeholder' => 'Uraian Kategori',
                                 'value' => '',
                                 'attr' => ''
                             ));
@@ -102,41 +106,29 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Status Pekerjaan Rutin</h5>
+                    <h5 class="modal-title">Update Master Pekerjaan Rutin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-update">
                     <div class="modal-body">
-                        <div class="card mb-3">
-                            <table class="table table-vcenter card-table">
-                                <tr><td class="w-25">Tanggal</td><td class="w-1">:</td> <td id="upd-tanggal-jadwal">-</td></tr>
-                                <tr><td>Nama Teknisi</td><td>:</td>                     <td id="upd-nama">-</td></tr>
-                                <tr><td>Gedung</td><td>:</td>                           <td id="upd-gedung">-</td></tr>
-                                <tr><td>Ruangan</td><td>:</td>                          <td id="upd-ruangan">-</td></tr>
-                                <tr><td>Item</td><td>:</td>                             <td id="upd-item">-</td></tr>
-                                <tr><td>Jenis Pekerjaan</td><td>:</td>                  <td id="upd-pekerjaan">-</td></tr>
-                            </table>
-                        </div>
                         <div class="">
-                            <input type="hidden" id="upd-id-rutin" value="">
+                            <input type="hidden" id="upd-id-kategori" value="">
                             <?php
                             //Buat form input fungsi ada di file helper/h_form_helper.php
-                            
-
                             echo create_form(array(
-                                'type' => 'select',
-                                'id' => 'upd-status-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
-                                'placeholder' => 'Uraian Pekerjaan',
-                                'value' => $statuspekerjaan,
+                                'type' => 'text',
+                                'id' => 'upd-kode-kategori',
+                                'label' => 'Kode Kategori',
+                                'placeholder' => 'Kode Kategori',
+                                'value' => '',
                                 'attr' => ''
                             ));
 
                             echo create_form(array(
                                 'type' => 'text',
-                                'id' => 'upd-keterangan',
-                                'label' => 'Keterangan',
-                                'placeholder' => 'Keteragan',
+                                'id' => 'upd-uraian-kategori',
+                                'label' => 'Uraian Kategori',
+                                'placeholder' => 'Uraian Kategori',
                                 'value' => '',
                                 'attr' => ''
                             ));
@@ -181,7 +173,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
                     <form id="form-delete">
-                        <input type="hidden" val="" id="del-id-rutin">
+                        <input type="hidden" val="" id="del-id-kategori">
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hapus Data</button>
                     </form>
                 </div>

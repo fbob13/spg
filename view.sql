@@ -69,3 +69,34 @@ left join mst_kategori b on a.id_kategori = b.id_kategori;
 
 
 
+
+/*-------------------------------------------------
+------------------UPD 1----------------------------
+-------------------------------------------------*/
+
+
+CREATE VIEW view_nonrutin AS 
+select a.id_nonrutin,
+a.id_teknisi, d.nama nama_teknisi,
+a.id_pembuat, c.nama nama_pembuat,
+a.tanggal_laporan,
+a.tanggal_perbaikan,
+a.id_gedung, e.nama_gedung,
+a.id_ruangan,  CONCAT_WS(' - ',f.kode_ruangan, f.uraian_ruangan) as nama_ruangan,
+a.id_item,CONCAT_WS(' - ', g.nama_item, g.merek_item, g.tipe_item) AS nama_item,
+a.keluhan,
+a.status_pekerjaan,
+case
+when a.status_pekerjaan = 0 then 'Belum Dikerjakan'
+when a.status_pekerjaan = 1 then 'Progres'
+when a.status_pekerjaan = 2 then 'Pending'
+when a.status_pekerjaan = 3 then 'Selesai'
+when a.status_pekerjaan = 4 then 'Tidak Dikerjakan'
+end status_pekerjaan_text,
+a.keterangan
+from as_nonrutin a
+left join mst_user c on a.id_pembuat = c.id_user
+left join mst_user d on a.id_teknisi = d.id_user
+left join mst_gedung e on a.id_gedung = e.id_gedung
+left join mst_ruangan f on a.id_ruangan = f.id_ruangan
+left join mst_item g on a.id_item = g.id_item;

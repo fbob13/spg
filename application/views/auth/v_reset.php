@@ -56,8 +56,8 @@
             </div>
             <div class="col-12 mt-3">
               <div class="align-middle text-center">
-                Copyright &copy; 2022
-                <a href="<?php echo base_url(); ?>" class="link-secondary">BPN Kota Palopo</a>.
+                <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
+                <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
                 All rights reserved.
               </div>
             </div>
@@ -167,13 +167,13 @@
             //if(response.err_nama_kategori !== "") {$("#upd-nama-kategori").addClass("is-invalid"); $("#iv-upd-nama-kategori").html(response.err_nama_kategori)}else{$("#upd-nama-kategori").removeClass("is-invalid");$("#iv-upd-nama-kategori").html("")};
             //if(response.err_nama_kecamatan !== "") {$("#upd-nama-kecamatan").addClass("is-invalid"); $("#iv-upd-nama-kecamatan").html(response.err_nama_kecamatan)}else{$("#upd-nama-kecamatan").removeClass("is-invalid");$("#iv-upd-nama-kecamatan").html("")};
             $('#modal-danger-info').empty();
-            $('#modal-danger-info').html(response.info);   
-            $('#modal-danger').modal('show') 
+            $('#modal-danger-info').html(response.info);
+            $('#modal-danger').modal('show')
 
           } else {
             $('#modal-success-info').empty();
-            $('#modal-success-info').html(response.info);   
-            $('#modal-success').modal('show') 
+            $('#modal-success-info').html(response.info);
+            $('#modal-success').modal('show')
           }
 
         }

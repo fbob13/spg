@@ -95,7 +95,7 @@
 
                         <div class="form-footer">
                           <div class="d-flex flex-nowrap w-full">
-                          <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Ke Draft</button></div>
+                          <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Jadwal</button></div>
                           
                           
                           </div>

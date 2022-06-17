@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class C_jadwal extends CI_Controller
+class C_kerusakan extends CI_Controller
 {
 
     /**
@@ -30,7 +30,7 @@ class C_jadwal extends CI_Controller
         echo json_encode($data);
     }
 
-    public function rutin_new()
+    public function kerusakan_new()
     {
         //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
@@ -42,11 +42,11 @@ class C_jadwal extends CI_Controller
 
         //Jika User = 99(IT) atau 1(admin)
         if ($spc == 99 || $spc == 1) {
-            $data['link'] = 'rutin';
-            $data['sublink'] = 'input_jadwal';
+            $data['link'] = 'nrutin';
+            $data['sublink'] = 'kerusakan';
             $data['subsublink'] = '';
 
-            $data['title'] = 'Buat Jadwal Rutin - ' . $this->config->item('app_name');
+            $data['title'] = 'Input Kerusakan - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
@@ -68,9 +68,9 @@ class C_jadwal extends CI_Controller
 
 
             $this->load->view('tabler/a_header', $data);
-            $this->load->view('tabler/jadwal/v_rutin', $data);
+            $this->load->view('tabler/kerusakan/v_kerusakan', $data);
             $this->load->view('tabler/a_footer');
-            $this->load->view('tabler/jadwal/v_rutin_js', $data);
+            $this->load->view('tabler/kerusakan/v_kerusakan_js', $data);
             $this->load->view('tabler/a_end_page');
         }
         //Jika bukan kembali ke base_url (home)
@@ -80,68 +80,7 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
-    public function rutin_query()
-    {
-        //Cek jika user Login / variabel "asm_st" ada di session
-        //Kalau sudah login, variabel "asm_st" = "yes"
-        $cek = $this->session->userdata('asm_st');
-        $spc = $this->session->userdata('spc');
-        if (empty($cek) || $cek <> "yes") {
-            $data['status'] = 'nok';
-            $data['info'] = 'Anda Tidak Berhak';
-        }
-        //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
-            (isset($_POST['tipe']))         ? $tipe = $_POST['tipe']         : $tipe = "";
-            if ($tipe <> "") {
-                if ($tipe == "ruangan") {
-                    (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
-                    $query = $this->db->query("select id_ruangan val,CONCAT_WS(' - ', kode_ruangan, uraian_ruangan) AS deskripsi 
-                                from mst_ruangan where status_ruangan = 1 and id_gedung=$id_gedung");
-                } else if ($tipe == "item") {
-                    (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
-                    (isset($_POST['id_ruangan']))         ? $id_ruangan =       $_POST['id_ruangan']         : $id_ruangan = "";
-                    $query = $this->db->query("select id_item val,CONCAT_WS(' - ', nama_item,merek_item, tipe_item) AS deskripsi 
-                                from view_ruangan_item where id_gedung=$id_gedung and id_ruangan = $id_ruangan");
-                } else if ($tipe == "pkrutin") {
-                    (isset($_POST['id_item']))         ? $id_item =       $_POST['id_item']         : $id_item = "";
-                    //Ambil data kategori dari id_item
-                    $query = $this->db->query("select * from mst_item where id_item = $id_item");
-                    $qitem = $query->first_row();
-                    $kategori = $qitem->id_kategori;
-                    //Ambil data pkrutin berdasarkan id_kategori
-                    $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' - ' , jenis_pekerjaan, uraian_pekerjaan) as deskripsi 
-                                from mst_pkrutin where id_kategori =$kategori");
-                } else if ($tipe == "draft") {
-
-                    (isset($_POST['tanggal_jadwal']))   ? $tanggal_jadwal = $_POST['tanggal_jadwal']    : $tanggal_jadwal = "";
-                    (isset($_POST['id_user']))          ? $id_user        = $_POST['id_user']           : $id_user = "";
-                    //Ambil data kategori dari id_item
-                    $query = $this->db->query("select * from view_rutin where id_user = $id_user and tanggal_jadwal='$tanggal_jadwal'");
-                } else if ($tipe == "delete_list") {
-
-                    (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
-                    //Ambil data kategori dari id_item
-                    $this->db->where('id_rutin', $id_rutin);
-                    $this->db->delete('as_rutin');
-                }
-            }
-            if ($tipe == "delete_list" || $tipe == "delete_draft") {
-                $data["data"] = 'ok';
-            } else {
-                $data["data"] = $query->result();
-            }
-        }
-        //Jika bukan kembali ke base_url (home)
-        else {
-            $data['status'] = 'nok';
-            $data['info'] = 'Anda Tidak Berhak';
-        }
-
-        echo json_encode($data);
-    }
-
-    public function rutin_save_list()
+    public function kerusakan_save()
     {
 
 
@@ -165,19 +104,19 @@ class C_jadwal extends CI_Controller
 
                 //Ambil data POST
 
-                (isset($_POST['id_user']))         ? $id_user =      $_POST['id_user']         : $id_user = "";
-                (isset($_POST['tanggal_jadwal']))         ? $tanggal_jadwal =      $_POST['tanggal_jadwal']         : $tanggal_jadwal = "";
+                $id_user = $this->session->userdata['id_user'];
+                (isset($_POST['tanggal_laporan']))         ? $tanggal_laporan =      $_POST['tanggal_laporan']         : $tanggal_laporan = "";
 
                 (isset($_POST['id_gedung']))         ? $id_gedung =      $_POST['id_gedung']         : $id_gedung = "";
                 (isset($_POST['id_ruangan']))         ? $id_ruangan =      $_POST['id_ruangan']         : $id_ruangan = "";
                 (isset($_POST['id_item']))         ? $id_item =      $_POST['id_item']         : $id_item = "";
-                (isset($_POST['id_pkrutin']))         ? $id_pkrutin =      $_POST['id_pkrutin']         : $id_pkrutin = "";
+                (isset($_POST['keluhan']))         ? $keluhan =      $_POST['keluhan']         : $keluhan = "";
 
 
                 $data['err_id_gedung'] = "";
                 $data['err_id_ruangan'] = "";
                 $data['err_id_item'] = "";
-                $data['err_id_pkrutin'] = "";
+                $data['err_keluhan'] = "";
 
                 $pesanError = array(
                     'required' => "Harus di isi",
@@ -187,7 +126,7 @@ class C_jadwal extends CI_Controller
                 $this->form_validation->set_rules('id_gedung', 'id_gedung', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_ruangan', 'id_ruangan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_item', 'id_item', 'trim|required', $pesanError);
-                $this->form_validation->set_rules('id_pkrutin', 'id_pkrutin', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('keluhan', 'keluhan', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -195,7 +134,7 @@ class C_jadwal extends CI_Controller
                     $data['err_id_gedung'] = form_error('id_gedung', '<span>', '</span>');
                     $data['err_id_ruangan'] = form_error('id_ruangan', '<span>', '</span>');
                     $data['err_id_item'] = form_error('id_item', '<span>', '</span>');
-                    $data['err_id_pkrutin'] = form_error('id_pkrutin', '<span>', '</span>');
+                    $data['err_keluhan'] = form_error('keluhan', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -204,7 +143,7 @@ class C_jadwal extends CI_Controller
                 $ip = $this->session->userdata('id_user');
 
                 //Jika jika ada kembar
-
+                /*
                 $query = $this->db->query("select * from as_rutin where id_pembuat = '$ip' and id_gedung = '$id_gedung' 
                         and id_ruangan = '$id_ruangan' and id_item = '$id_item' and id_pkrutin = '$id_pkrutin' and id_user=$id_user and tanggal_jadwal='$tanggal_jadwal'");
                 if ($query->num_rows() >= 1) {
@@ -212,6 +151,8 @@ class C_jadwal extends CI_Controller
                     $data['status'] = 'nok';
                     $data['err_id_pkrutin'] = 'Pekerjaan sudah ada di list';
                 }
+                */
+
 
                 //Jika ada error 
                 if ($err) {
@@ -226,15 +167,14 @@ class C_jadwal extends CI_Controller
                         'id_gedung' => $id_gedung,
                         'id_ruangan' => $id_ruangan,
                         'id_item' => $id_item,
-                        'id_pkrutin' => $id_pkrutin,
-                        'id_user' => $id_user,
-                        'tanggal_jadwal' => $tanggal_jadwal,
+                        'keluhan' => $keluhan,
+                        'tanggal_laporan' => $tanggal_laporan,
                         'created_at' => date("Y-m-d H:i:s")
                     );
 
-                    $this->db->insert('as_rutin', $data_insert);
+                    $this->db->insert('as_nonrutin', $data_insert);
 
-                    $data['info'] = 'Data Pekerjaan Rutin Baru Berhasil Disimpan';
+                    $data['info'] = 'Data Keluhan Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
             }
@@ -249,7 +189,7 @@ class C_jadwal extends CI_Controller
     }
 
 
-    public function rutin_view()
+    public function kerusakan_view()
     {
         //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
@@ -260,17 +200,20 @@ class C_jadwal extends CI_Controller
         }
         //Jika User = 99(IT) atau 1(admin)
         if ($spc == 99 || $spc == 1) {
-            $data['link'] = 'rutin';
-            $data['sublink'] = 'lihat_jadwal';
+            $data['link'] = 'nrutin';
+            $data['sublink'] = 'update_kerusakan';
             $data['subsublink'] = '';
 
-            $data['title'] = 'Pekerjaan Rutin - ' . $this->config->item('app_name');
+            $data['title'] = 'Update Kerusakan - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+
+            $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (1,2)');
+            $data['teknisi'] = $query->result();
 
             $option = array(
                 array("val" => 0, "deskripsi" => "Belum Dikerjakan"),
@@ -284,9 +227,9 @@ class C_jadwal extends CI_Controller
 
 
             $this->load->view('tabler/a_header', $data);
-            $this->load->view('tabler/jadwal/v_rutin_view', $data);
+            $this->load->view('tabler/kerusakan/v_kerusakan_view', $data);
             $this->load->view('tabler/a_footer');
-            $this->load->view('tabler/jadwal/v_rutin_view_js', $data);
+            $this->load->view('tabler/kerusakan/v_kerusakan_view_js', $data);
             $this->load->view('tabler/a_end_page');
         }
         //Jika bukan kembali ke base_url (home)
@@ -296,7 +239,7 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
-    public function rutin_view_data()
+    public function kerusakan_view_data()
     {
         //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
@@ -308,7 +251,7 @@ class C_jadwal extends CI_Controller
         }
         //Jika User = 99(IT) atau 1(admin)
         elseif ($spc == 99 || $spc == 1) {
-            $query = $this->db->query("select * from view_rutin");
+            $query = $this->db->query("select * from view_nonrutin");
             $data["data"] = $query->result();
         }
         //Jika bukan kembali ke base_url (home)
@@ -323,7 +266,7 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
-    public function rutin_view_upd()
+    public function kerusakan_view_upd()
     {
 
         //Cek jika user Login / variabel "asm_st" ada di session
@@ -345,10 +288,11 @@ class C_jadwal extends CI_Controller
                 $this->load->library('form_validation');
 
                 //Ambil data POST
-                (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
+                (isset($_POST['id_nonrutin']))         ? $id_nonrutin =       $_POST['id_nonrutin']         : $id_nonrutin = "";
                 (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
                 (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
-                
+                (isset($_POST['id_teknisi']))         ? $id_teknisi =      $_POST['id_teknisi']         : $id_teknisi = "";
+
 
                 $data['err_status_pekerjaan'] = "";
                 $data['err_keterangan'] = "";
@@ -380,11 +324,12 @@ class C_jadwal extends CI_Controller
 
                     //Update data
                     $data_insert = array(
+                        'id_teknisi' => $id_teknisi,
                         'status_pekerjaan' => $status_pekerjaan,
                         'keterangan' => $keterangan,
                     );
-                    $this->db->where('id_rutin', $id_rutin);
-                    $this->db->update('as_rutin', $data_insert);
+                    $this->db->where('id_nonrutin', $id_nonrutin);
+                    $this->db->update('as_nonrutin', $data_insert);
 
                     $data['info'] = 'Data Berhasil Diupdate';
                     $data['status'] = 'ok';
@@ -400,9 +345,11 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
-    public function rutin_view_del(){
-               //Cek jika user Login / variabel "asm_st" ada di session
+    public function kerusakan_view_del()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
+        
         $cek = $this->session->userdata('asm_st');
         $spc = $this->session->userdata('spc');
         if (empty($cek) || $cek <> "yes") {
@@ -417,16 +364,17 @@ class C_jadwal extends CI_Controller
                 $this->load->library('form_validation');
 
                 //Ambil data POST
-                (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
+                (isset($_POST['id_nonrutin']))         ? $id_nonrutin =       $_POST['id_nonrutin']         : $id_nonrutin = "";
 
-                if ($id_rutin == "") {
+                if ($id_nonrutin == "") {
                     $data['status'] = 'nok';
                     $data['info'] = 'Tidak ada data yang dihapus';
                 } else {
-                    $this->db->where('id_rutin', $id_rutin);
-                    $this->db->delete('as_rutin');
-                    $data['info'] = 'Data Pekerjaan Rutin Berhasil Dihapus';
+                    $this->db->where('id_nonrutin', $id_nonrutin);
+                    $this->db->delete('as_nonrutin');
+                    $data['info'] = 'Data keluhan Berhasil Dihapus';
                     $data['status'] = 'ok';
+                    $data['last'] = $this->db->last_query();
                 }
             }
         } else {

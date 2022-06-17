@@ -8,6 +8,7 @@ send/*
 
 application/cache/*
 !application/cache/index.html
+application/config/database.php
 
 application/logs/*
 !application/logs/index.html

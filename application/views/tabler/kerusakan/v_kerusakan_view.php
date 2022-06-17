@@ -21,12 +21,13 @@
                                 <th class="w-1">No.</th>
                                 <th>nn id rutin</th>
                                 <th>nn status pekerjaan</th>
-                                <th>Tanggal</th>
+                                <th>nn </th>
+                                <th>Tanggal Laporan</th>
                                 <th>Nama Teknisi</th>
                                 <th>Gedung</th>
                                 <th>Ruangan</th>
                                 <th>Item</th>
-                                <th>Jenis Pekerjaan</th>
+                                <th>Keluhan</th>
                                 <th>Status</th>
                                 <th>Keterangan</th>
                                 <th></th>
@@ -109,19 +110,26 @@
                     <div class="modal-body">
                         <div class="card mb-3">
                             <table class="table table-vcenter card-table">
-                                <tr><td class="w-25">Tanggal</td><td class="w-1">:</td> <td id="upd-tanggal-jadwal">-</td></tr>
-                                <tr><td>Nama Teknisi</td><td>:</td>                     <td id="upd-nama">-</td></tr>
+                                <tr><td class="w-25">Tanggal Laporan</td><td class="w-1">:</td> <td id="upd-tanggal-laporan">-</td></tr>
                                 <tr><td>Gedung</td><td>:</td>                           <td id="upd-gedung">-</td></tr>
                                 <tr><td>Ruangan</td><td>:</td>                          <td id="upd-ruangan">-</td></tr>
                                 <tr><td>Item</td><td>:</td>                             <td id="upd-item">-</td></tr>
-                                <tr><td>Jenis Pekerjaan</td><td>:</td>                  <td id="upd-pekerjaan">-</td></tr>
+                                <tr><td>Keluhan</td><td>:</td>                  <td id="upd-keluhan">-</td></tr>
                             </table>
                         </div>
                         <div class="">
-                            <input type="hidden" id="upd-id-rutin" value="">
+                            <input type="hidden" id="upd-id-nonrutin" value="">
                             <?php
                             //Buat form input fungsi ada di file helper/h_form_helper.php
                             
+                            echo create_form(array(
+                                'type' => 'select',
+                                'id' => 'upd-id-teknisi',
+                                'label' => 'Teknisi',
+                                'placeholder' => 'Pilih Teknisi',
+                                'value' => $teknisi,
+                                'attr' => ''
+                            ));
 
                             echo create_form(array(
                                 'type' => 'select',
@@ -181,7 +189,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
                     <form id="form-delete">
-                        <input type="hidden" val="" id="del-id-rutin">
+                        <input type="hidden" val="" id="del-id-nonrutin">
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hapus Data</button>
                     </form>
                 </div>

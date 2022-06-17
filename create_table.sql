@@ -124,3 +124,26 @@ values (
         99,
         'e10adc3949ba59abbe56e057f20f883e'
     );
+
+
+//-------------------------------------------------
+//------------------UPD 1--------------------------
+//-------------------------------------------------
+
+drop table as_nonrutin;
+
+create table as_nonrutin (
+    id_nonrutin bigint primary key AUTO_INCREMENT,
+    id_teknisi int null,
+    id_pembuat int not null,
+    id_gedung int not null,
+    id_ruangan int not null,
+    id_item int not null,
+    tanggal_laporan date not null,
+    tanggal_perbaikan date null,
+    status_pekerjaan tinyint default 0,
+    keluhan text null,
+    keterangan text null,
+    created_at timestamp null
+);
+

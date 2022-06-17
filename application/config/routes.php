@@ -59,6 +59,13 @@ $route['reset'] ='C_index/reset';
 $route['reset_send'] ='C_index/reset_send';
 $route['test_email'] = 'C_index/test_email';
 
+//Ganti Password
+$route['gpass'] = 'C_setting/ganti_password';
+
+// Edit Profile
+$route['profile'] = 'C_setting/profile';
+$route['profile/update'] = 'C_setting/profile_update';
+
 //Master Item
 $route['master/item'] = 'C_master/item';
 $route['master/item/data'] = 'C_master/item_data';
@@ -66,7 +73,7 @@ $route['master/item/new'] = 'C_master/item_new';
 $route['master/item/upd'] = 'C_master/item_upd';
 $route['master/item/del'] = 'C_master/item_del';
 
-//Master Ruangan
+//Master gedung
 $route['master/gedung'] = 'C_master/gedung';
 $route['master/gedung/data'] = 'C_master/gedung_data';
 $route['master/gedung/new'] = 'C_master/gedung_new';
@@ -89,6 +96,13 @@ $route['master/ruangan-item/del'] = 'C_master/ruangan_item_del';
 
 $route['master/ruangan-item/query'] = 'C_master/ruangan_item_query';
 
+
+//Master Kategori
+$route['master/kategori'] = 'C_master/kategori';
+$route['master/kategori/data'] = 'C_master/kategori_data';
+$route['master/kategori/new'] = 'C_master/kategori_new';
+$route['master/kategori/upd'] = 'C_master/kategori_upd';
+$route['master/kategori/del'] = 'C_master/kategori_del';
 
 
 //Master Pekerjaan Rutin
@@ -120,4 +134,27 @@ $route['jadwal/rutin/view/del'] = 'C_jadwal/rutin_view_del';
 
 //--------------------------------------------------------
 //-----------------End Jadwal Rutin-----------------------
+//--------------------------------------------------------
+
+
+
+
+//--------------------------------------------------------
+//-----------------Laporan Kerusakan----------------------
+//--------------------------------------------------------
+
+//Buat Laporan Kerusakan | Menu : permintaaan perbaikan
+$route['kerusakan/new'] = 'C_kerusakan/kerusakan_new';
+$route['kerusakan/save'] = 'C_kerusakan/kerusakan_save';
+
+
+//Update Status Perbaikan | Menu : update status perbaikan
+
+$route['kerusakan/view'] = 'C_kerusakan/kerusakan_view';
+$route['kerusakan/view/data'] = 'C_kerusakan/kerusakan_view_data';
+$route['kerusakan/view/upd'] = 'C_kerusakan/kerusakan_view_upd';
+$route['kerusakan/view/del'] = 'C_kerusakan/kerusakan_view_del';
+
+//--------------------------------------------------------
+//---------------End Laporan Kerusakan--------------------
 //--------------------------------------------------------

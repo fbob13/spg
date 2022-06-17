@@ -87,7 +87,7 @@
                 $('#upd-tahun-pengadaan').val(data['tahun_pengadaan']);
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
-                $('#del-id-item').val(data['id_item']);
+                $('#del-id-ruangan-item').val(data['id_ruangan_item']);
                 $('#modal-delete').modal('show');
             }
         });
@@ -117,6 +117,11 @@
                         $('#modal-success-info').html(response.info);
                         $('#modal-success').modal('show')
                         $('#modal-success').modal('hide')
+
+                        clear_form('gedung')
+                        clear_form('ruangan')
+                        clear_form('item')
+                        clear_form('tahun-pengadaan')
 
                         update_datatables()
 
@@ -155,6 +160,11 @@
                         $('#modal-success-info').html(response.info);
                         $('#modal-success').modal('show')
 
+                        clear_form('upd-gedung')
+                        clear_form('upd-ruangan')
+                        clear_form('upd-item')
+                        clear_form('upd-tahun-pengadaan')
+
                         update_datatables()
 
                     }
@@ -171,7 +181,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_item': $('#del-id-ruangan-item').val()
+                    'id_ruangan_item': $('#del-id-ruangan-item').val()
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -281,6 +291,11 @@
                     $('#upd-ruangan').val(value);
                 }
             });
+        }
+
+        function clear_form(id){
+            $('#' + id + '').val('')
+            $('#' + id + '').removeClass('is-invalid')
         }
 
 
