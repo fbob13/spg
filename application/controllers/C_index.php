@@ -150,8 +150,8 @@ class C_index extends CI_Controller
 		$config['smtp_crypto'] = 'ssl';
 		$config['smtp_host'] = 'smtp.hostinger.com';
 		$config['smtp_port'] = '465';
-		$config['smtp_user'] = 'cclasha01@gmail.com';
-		$config['smtp_pass'] = 'clash234';
+		$config['smtp_user'] = 'xx@gmail.com';
+		$config['smtp_pass'] = '';
 		$config['newline'] = "\r\n";
 		$config['crlf'] = "\r\n";
 		$config['charset'] = "utf-8";
@@ -160,10 +160,10 @@ class C_index extends CI_Controller
 		$this->email->initialize($config);
 
 		//SEND EMAIL
-		$this->email->from('cclasha01@gmail.com', 'E-Warkah');
+		$this->email->from('cclasha01@gmail.com', 'E');
 		$this->email->to('frits130by@gmail.com');
 
-		$this->email->subject('Reset Password Aplikasi E-Warkah');
+		$this->email->subject('Reset Password Aplikasi E');
 		$password_baru = $this->random_str(8);
 
 
