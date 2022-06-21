@@ -60,6 +60,20 @@
                       ));
 
                       echo create_form(array(
+                        'type' => 'select',
+                        'id' => 'prioritas',
+                        'label' => 'Prioritas',
+                        'placeholder' => '',
+                        'value' => array(
+                          array('val'=>1,'deskripsi'=>'Rendah'),
+                          array('val'=>2,'deskripsi'=>'Menengah'),
+                          array('val'=>3,'deskripsi'=>'Tinggi'),
+                          array('val'=>4,'deskripsi'=>'Urgent'),
+                        ),
+                        'attr' => ''
+                      ));
+
+                      echo create_form(array(
                         'type' => 'textarea',
                         'id' => 'keluhan',
                         'label' => 'Keluhan',
@@ -67,6 +81,8 @@
                         'value' => '',
                         'attr' => ''
                       ));
+
+
 
 
                       ?>

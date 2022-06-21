@@ -13,8 +13,16 @@
             data: 'id_pkrutin',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'id_kategori',
+            visible: false,
+            searchable: false,
+        },{
+            data: 'pengali',
+            visible: false,
+            searchable: false,
+        },{
+            data: 'interval_hari',
             visible: false,
             searchable: false,
         }, {
@@ -26,6 +34,19 @@
         }, {
             data: 'kode_kategori',
             className: 'text-center'
+        },{
+            data: 'xx',
+            className: 'text-center',
+            render : function(data,value,row){
+                str_pengali = ''
+                if(row.pengali == 1) str_pengali = 'Hari'
+                else if(row.pengali == 7) str_pengali = 'Minggu'
+                else if(row.pengali == 30) str_pengali = 'Bulan'
+                else if(row.pengali == 365) str_pengali = 'Tahun'
+                
+                return row.interval_hari + " " + str_pengali;
+            }
+
         }, {
             data: null,
             className: 'text-center',
@@ -72,6 +93,9 @@
                 $('#upd-uraian-pekerjaan').val(data['uraian_pekerjaan']);
                 $('#upd-id-kategori').val(data['id_kategori']);
 
+                $('#upd-interval').val(data['interval_hari']);
+                $('#upd-interval-sel').val(data['pengali']);
+
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
                 $('#del-id-pkrutin').val(data['id_pkrutin']);
@@ -89,12 +113,15 @@
                     'jenis_pekerjaan': $('#jenis-pekerjaan').val(),
                     'uraian_pekerjaan': $('#uraian-pekerjaan').val(),
                     'id_kategori': $('#id-kategori').val(),
+                    'interval_hari': $('#interval').val(),
+                    'pengali': $('#interval-sel').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
                         cek_error(response.err_jenis_pekerjaan, 'jenis-pekerjaan');
                         cek_error(response.err_uraian_pekerjaan, 'uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'id-kategori');
+                        cek_error(response.err_interval_hari, 'interval');
 
                     } else {
                         $('#modal-new').modal('hide')
@@ -104,6 +131,10 @@
                         $('#modal-success').modal('hide')
 
                         update_datatables()
+
+                        clear_form('jenis-pekerjaan')
+                        clear_form('uraian-pekerjaan')
+                        clear_form('id-kategori')
 
 
                     }
@@ -124,6 +155,8 @@
                     'jenis_pekerjaan': $('#upd-jenis-pekerjaan').val(),
                     'uraian_pekerjaan': $('#upd-uraian-pekerjaan').val(),
                     'id_kategori': $('#upd-id-kategori').val(),
+                    'interval_hari': $('#upd-interval').val(),
+                    'pengali': $('#upd-interval-sel').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -131,6 +164,7 @@
                         cek_error(response.err_jenis_pekerjaan, 'upd-jenis-pekerjaan');
                         cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'upd-id-kategori');
+                        cek_error(response.err_interval_hari, 'upd-interval');
 
                     } else {
                         $('#modal-update').modal('hide')
@@ -185,6 +219,19 @@
                 $("#er-" + id).html("")
             };
         }
+
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
+        }
+
+        $('#modal-new').on('show.bs.modal', function() {
+            clear_form('jenis-pekerjaan')
+            clear_form('uraian-pekerjaan')
+            clear_form('id-kategori')
+
+        })
 
         function update_datatables() {
 

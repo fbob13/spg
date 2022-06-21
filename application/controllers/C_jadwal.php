@@ -348,7 +348,7 @@ class C_jadwal extends CI_Controller
                 (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
                 (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
                 (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
-                
+
 
                 $data['err_status_pekerjaan'] = "";
                 $data['err_keterangan'] = "";
@@ -378,6 +378,32 @@ class C_jadwal extends CI_Controller
                 //Jika tidak ada error
                 else {
 
+                    $this->db->trans_begin();
+
+                    if ($status_pekerjaan == 3) {
+                        //Jika pekerjaan selesai buat jadwal sesuai periodenya
+                        //ambil data pekerjaan yang di update
+                        $query = $this->db->query("select * from as_rutin where id_rutin ='$id_rutin' ");
+                        $data_jadwal = $query->first_row();
+                        
+                        $query = $this->db->query("select * from mst_pkrutin where id_pkrutin ='$data_jadwal->id_pkrutin' ");
+                        $data_pkrutin = $query->first_row();
+                        $tgl =  date("Y-m-d");
+                        
+                        $data_insert = array(
+                            'id_user'           => $data_jadwal->id_user,
+                            'id_pembuat'        => $data_jadwal->id_pembuat,
+                            'id_gedung'         => $data_jadwal->id_gedung,
+                            'id_ruangan'        => $data_jadwal->id_ruangan,
+                            'id_item'           => $data_jadwal->id_item,
+                            'id_pkrutin'        => $data_jadwal->id_pkrutin,
+                            'tanggal_jadwal'    => date('Y-m-d',strtotime($tgl . "+ " . ($data_pkrutin->interval_hari * $data_pkrutin->pengali) . " days")),
+                            'created_at'        => date("Y-m-d H:i:s")
+                        );
+
+                        $this->db->insert('as_rutin', $data_insert);
+                    }
+
                     //Update data
                     $data_insert = array(
                         'status_pekerjaan' => $status_pekerjaan,
@@ -386,8 +412,15 @@ class C_jadwal extends CI_Controller
                     $this->db->where('id_rutin', $id_rutin);
                     $this->db->update('as_rutin', $data_insert);
 
-                    $data['info'] = 'Data Berhasil Diupdate';
-                    $data['status'] = 'ok';
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $data['info'] = 'Data Gagal Diupdate';
+                        $data['status'] = 'nok';
+                    } else {
+                        $this->db->trans_commit();
+                        $data['info'] = 'Data Berhasil Diupdate';
+                        $data['status'] = 'ok';
+                    }
                 }
             }
         } else {
@@ -400,8 +433,9 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
-    public function rutin_view_del(){
-               //Cek jika user Login / variabel "asm_st" ada di session
+    public function rutin_view_del()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
         $cek = $this->session->userdata('asm_st');
         $spc = $this->session->userdata('spc');

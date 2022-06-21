@@ -24,7 +24,7 @@
             data: 'id_ruangan_item',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'nama_gedung',
             className: 'text-center'
         }, {
@@ -99,7 +99,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_gedung' : $('#gedung').val(),
+                    'id_gedung': $('#gedung').val(),
                     'id_ruangan': $('#ruangan').val(),
                     'id_item': $('#item').val(),
                     'tahun_pengadaan': $('#tahun-pengadaan').val(),
@@ -140,8 +140,8 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_ruangan_item' : $('#upd-id-ruangan-item').val(),
-                    'id_gedung' : $('#upd-gedung').val(),
+                    'id_ruangan_item': $('#upd-id-ruangan-item').val(),
+                    'id_gedung': $('#upd-gedung').val(),
                     'id_ruangan': $('#upd-ruangan').val(),
                     'id_item': $('#upd-item').val(),
                     'tahun_pengadaan': $('#upd-tahun-pengadaan').val(),
@@ -273,7 +273,7 @@
             });
         }
 
-        function ambil_gedung_update(value="") {
+        function ambil_gedung_update(value = "") {
             //$("#cari_kelurahan").empty();
             gedung = $('#upd-gedung').val();
 
@@ -293,10 +293,18 @@
             });
         }
 
-        function clear_form(id){
-            $('#' + id + '').val('')
-            $('#' + id + '').removeClass('is-invalid')
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
         }
+
+        $('#modal-new').on('show.bs.modal', function() {
+            clear_form('gedung')
+            clear_form('ruangan')
+            clear_form('item')
+            clear_form('tahun-pengadaan')
+        })
 
 
     });

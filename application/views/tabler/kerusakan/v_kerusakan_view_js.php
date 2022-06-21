@@ -22,6 +22,10 @@
             data: 'id_teknisi',
             visible: false,
             searchable: false,
+        },{
+            data: 'prioritas',
+            visible: false,
+            searchable: false,
         }, {
             data: 'tanggal_laporan',
             className: 'text-center'
@@ -40,6 +44,23 @@
         }, {
             data: 'keluhan',
             className: 'text-center'
+        },{
+            data: null,
+            className: 'text-center',
+            render: function(data, type, row) {
+                if(row.prioritas ==0){
+                    return '<span class="text-blue">' + row.prioritas_text + '</span>'
+                }else if(row.prioritas ==1){
+                    return '<span class="text-blue">' + row.prioritas_text + '</span>'
+                }else if(row.prioritas ==2){
+                    return '<span class="text-yellow">' + row.prioritas_text + '</span>'
+                }else if(row.prioritas ==3){
+                    return '<span class="text-orange">' + row.prioritas_text + '</span>'
+                }else if(row.prioritas ==4){
+                    return '<span class="text-red">' + row.prioritas_text + '</span>'
+                }
+                
+            }
         }, {
             data: null,
             className: 'text-center',
@@ -109,6 +130,7 @@
                 $('#upd-id-teknisi').val(data['id_teknisi']);
 
                 $('#upd-status-pekerjaan').val(data['status_pekerjaan']);
+                $('#upd-prioritas').val(data['prioritas']);
 
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
@@ -116,37 +138,7 @@
                 $('#modal-delete').modal('show');
             }
         });
-        //Simpan data baru (form insert) 
-        $('#form-new').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "<?php echo base_url(); ?>master/prutin/new",
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    'jenis_pekerjaan': $('#jenis-pekerjaan').val(),
-                    'uraian_pekerjaan': $('#uraian-pekerjaan').val(),
-                },
-                success: function(response) {
-                    if (response.status == 'nok') {
-                        cek_error(response.err_jenis_pekerjaan, 'jenis-pekerjaan');
-                        cek_error(response.err_uraian_pekerjaan, 'uraian-pekerjaan');
 
-                    } else {
-                        $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
-
-                        update_datatables()
-
-
-                    }
-
-                }
-            });
-        });
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
@@ -160,6 +152,7 @@
                     'status_pekerjaan': $('#upd-status-pekerjaan').val(),
                     'keterangan': $('#upd-keterangan').val(),
                     'id_teknisi': $('#upd-id-teknisi').val(),
+                    'prioritas': $('#upd-prioritas').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {

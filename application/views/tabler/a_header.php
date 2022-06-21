@@ -176,8 +176,8 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item <?php echo $link == 'user' ? 'active ' : ''; ?>">
-              <a class="nav-link" href="<?php echo base_url(); ?>#">
+            <li class="nav-item dropdown <?php echo $link == 'admin' ? 'active ' : ''; ?>">
+              <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <!-- Download SVG icon from http://tabler-icons.io/i/users -->
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -189,9 +189,24 @@
                   </svg>
                 </span>
                 <span class="nav-link-title">
-                  Kelola User
+                Admin
                 </span>
               </a>
+              <div class="dropdown-menu <?php echo $link == 'admin' ? 'show ' : ''; ?>">
+                <div class="dropdown-menu-columns">
+                  <div class="dropdown-menu-column">
+
+                    <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                      Kelola User
+                    </a>
+
+                    <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                      Grup Pengguna
+                    </a>
+
+                  </div>
+                </div>
+              </div>
             </li>
             <li class="nav-item <?php echo $link == 'report' ? 'active ' : ''; ?>">
               <a class="nav-link" href="<?php echo base_url(); ?>#">

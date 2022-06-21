@@ -1284,11 +1284,14 @@ class C_master extends CI_Controller
                 (isset($_POST['jenis_pekerjaan']))         ? $jenis_pekerjaan =       $_POST['jenis_pekerjaan']         : $jenis_pekerjaan = "";
                 (isset($_POST['uraian_pekerjaan']))         ? $uraian_pekerjaan =      $_POST['uraian_pekerjaan']         : $uraian_pekerjaan = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['interval_hari']))         ? $interval_hari =      $_POST['interval_hari']         : $interval_hari = "";
+                (isset($_POST['pengali']))         ? $pengali =      $_POST['pengali']         : $pengali = "";
 
 
                 $data['err_jenis_pekerjaan'] = "";
                 $data['err_uraian_pekerjaan'] = "";
                 $data['err_id_kategori'] = "";
+                $data['err_interval'] = "";
 
 
                 $pesanError = array(
@@ -1299,6 +1302,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('jenis_pekerjaan', 'jenis_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('uraian_pekerjaan', 'uraian_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('interval_hari', 'interval_hari', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -1306,6 +1310,7 @@ class C_master extends CI_Controller
                     $data['err_jenis_pekerjaan'] = form_error('jenis_pekerjaan', '<span>', '</span>');
                     $data['err_uraian_pekerjaan'] = form_error('uraian_pekerjaan', '<span>', '</span>');
                     $data['err_id_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_interval'] = form_error('interval_hari', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -1323,6 +1328,8 @@ class C_master extends CI_Controller
                         'jenis_pekerjaan' => $jenis_pekerjaan,
                         'uraian_pekerjaan' => $uraian_pekerjaan,
                         'id_kategori' => $id_kategori,
+                        'interval_hari' => $interval_hari,
+                        'pengali' => $pengali,
                         'created_at' => date("Y-m-d H:i:s")
                     );
 
@@ -1368,10 +1375,13 @@ class C_master extends CI_Controller
                 (isset($_POST['jenis_pekerjaan']))         ? $jenis_pekerjaan =       $_POST['jenis_pekerjaan']         : $jenis_pekerjaan = "";
                 (isset($_POST['uraian_pekerjaan']))         ? $uraian_pekerjaan =      $_POST['uraian_pekerjaan']         : $uraian_pekerjaan = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['interval_hari']))         ? $interval_hari =      $_POST['interval_hari']         : $interval_hari = "";
+                (isset($_POST['pengali']))         ? $pengali =      $_POST['pengali']         : $pengali = "";
 
                 $data['err_jenis_pekerjaan'] = "";
                 $data['err_uraian_pekerjaan'] = "";
                 $data['err_id_kategori'] = "";
+                $data['err_interval'] = "";
 
                 $pesanError = array(
                     'required' => "Harus di isi",
@@ -1381,6 +1391,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('jenis_pekerjaan', 'jenis_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('uraian_pekerjaan', 'uraian_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('interval_hari', 'interval_hari', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -1388,6 +1399,7 @@ class C_master extends CI_Controller
                     $data['err_jenis_pekerjaan'] = form_error('jenis_pekerjaan', '<span>', '</span>');
                     $data['err_uraian_pekerjaan'] = form_error('uraian_pekerjaan', '<span>', '</span>');
                     $data['err_id_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_interval'] = form_error('interval_hari', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -1405,6 +1417,8 @@ class C_master extends CI_Controller
                         'jenis_pekerjaan' => $jenis_pekerjaan,
                         'uraian_pekerjaan' => $uraian_pekerjaan,
                         'id_kategori' => $id_kategori,
+                        'interval_hari' => $interval_hari,
+                        'pengali' => $pengali,
                     );
                     $this->db->where('id_pkrutin', $id_pkrutin);
                     $this->db->update('mst_pkrutin', $data_insert);

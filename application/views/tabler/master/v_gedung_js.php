@@ -9,7 +9,7 @@
             "searchable": false,
             "orderable": false,
             defaultContent: ''
-        },{
+        }, {
             data: 'id_gedung',
             visible: false,
             searchable: false,
@@ -94,6 +94,9 @@
 
                         update_datatables()
 
+                        clear_form('nama-gedung')
+                        clear_form('keterangan')
+
 
                     }
 
@@ -109,7 +112,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    
+
                     'id_gedung': $('#upd-id-gedung').val(),
                     'nama_gedung': $('#upd-nama-gedung').val(),
                     'keterangan': $('#upd-keterangan').val(),
@@ -173,6 +176,18 @@
                 $("#er-" + id).html("")
             };
         }
+
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
+
+        };
+
+        $('#modal-new').on('show.bs.modal', function() {
+            clear_form('nama-gedung')
+            clear_form('keterangan')
+        })
 
         function update_datatables() {
 

@@ -64,6 +64,28 @@ function create_form($arr)
 
         
 
+    }elseif ($arr['type'] == 'text-select') {
+
+        $output = $output . '<div class="form-group mb-3 row">';
+        $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
+        $output = $output . '<div class="col"><div class="d-flex flex-nowrap">';
+        $output = $output . '<input type="text" class="form-control w-75" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" ' . $arr['attr'] . '>';
+        $output = $output . '<select class="form-select w-25" id="' . $arr['id'] . '-sel" name="' . $arr['id'] . '-sel" ' . $arr['attr'] . '>';
+        foreach ($arr['value'] as $opt) {
+            if (is_object($opt)) {
+
+                $output = $output . '<option value="' . $opt->val . '">' . $opt->deskripsi . '</option>';
+            } else {
+                $output = $output . '<option value="' . $opt['val'] . '">' . $opt['deskripsi'] . '</option>';
+            }
+        }
+
+        $output = $output . '</select><div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div></div>';
+        $output = $output . '</div>';
+        $output = $output . '</div>';
+
+        
+
     }
 
     return $output;

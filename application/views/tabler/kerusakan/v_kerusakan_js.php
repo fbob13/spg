@@ -37,7 +37,8 @@
           'id_item': $('#id-item').val(),
           'id_pkrutin': $('#id-pkrutin').val(),
           'tanggal_laporan': $('#tanggal-laporan').val(),
-          'keluhan': $('#keluhan').val()
+          'keluhan': $('#keluhan').val(),
+          'prioritas': $('#prioritas').val(),
         },
         dataType: 'json',
         success: function(response) {
@@ -52,6 +53,7 @@
             cek_error(response.err_id_item, 'id-item');
             cek_error(response.err_id_pkrutin, 'id-pkrutin');
             cek_error(response.err_keluhan, 'keluhan');
+            cek_error(response.err_prioritas, 'prioritas');
           }
 
         }

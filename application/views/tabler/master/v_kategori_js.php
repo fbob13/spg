@@ -94,12 +94,17 @@
 
                         update_datatables()
 
+                        clear_form('kode-kategori')
+                        clear_form('uraian-kategori')
+
 
                     }
 
                 }
             });
         });
+
+
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
@@ -172,6 +177,19 @@
                 $("#er-" + id).html("")
             };
         }
+
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
+
+        };
+
+        $('#modal-new').on('show.bs.modal', function() {
+            clear_form('kode-kategori')
+            clear_form('uraian-kategori')
+        })
+
 
         function update_datatables() {
 

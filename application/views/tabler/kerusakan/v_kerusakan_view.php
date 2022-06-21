@@ -22,12 +22,14 @@
                                 <th>nn id rutin</th>
                                 <th>nn status pekerjaan</th>
                                 <th>nn </th>
+                                <th>nn </th>
                                 <th>Tanggal Laporan</th>
                                 <th>Nama Teknisi</th>
                                 <th>Gedung</th>
                                 <th>Ruangan</th>
                                 <th>Item</th>
                                 <th>Keluhan</th>
+                                <th>Prioritas</th>
                                 <th>Status</th>
                                 <th>Keterangan</th>
                                 <th></th>
@@ -133,9 +135,19 @@
 
                             echo create_form(array(
                                 'type' => 'select',
+                                'id' => 'upd-prioritas',
+                                'label' => 'Prioritas',
+                                'placeholder' => '',
+                                'value' => $prioritas,
+                                'attr' => ''
+                            ));
+
+
+                            echo create_form(array(
+                                'type' => 'select',
                                 'id' => 'upd-status-pekerjaan',
                                 'label' => 'Uraian Pekerjaan',
-                                'placeholder' => 'Uraian Pekerjaan',
+                                'placeholder' => '',
                                 'value' => $statuspekerjaan,
                                 'attr' => ''
                             ));

@@ -17,10 +17,10 @@
             data: 'id_gedung',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'nama_gedung',
             className: 'text-center'
-        },{
+        }, {
             data: 'kode_ruangan',
             className: 'text-center'
         }, {
@@ -110,6 +110,12 @@
 
                         update_datatables()
 
+                        clear_form('id-gedung')
+                        clear_form('kode-ruangan')
+                        clear_form('uraian-ruangan')
+                        clear_form('keterangan')
+
+
 
                     }
 
@@ -192,6 +198,21 @@
                 $("#er-" + id).html("")
             };
         }
+
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
+
+        };
+
+        $('#modal-new').on('show.bs.modal', function() {
+            clear_form('id-gedung')
+            clear_form('kode-ruangan')
+            clear_form('uraian-ruangan')
+            clear_form('keterangan')
+        })
+
 
         function update_datatables() {
 

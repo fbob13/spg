@@ -32,9 +32,12 @@
                                 <th class="w-1">No.</th>
                                 <th>nn</th>
                                 <th>nn</th>
+                                <th>nn</th>
+                                <th>nn</th>
                                 <th>Jenis Pekerjaan</th>
                                 <th>Uraian Pekerjaan</th>
                                 <th>Kategori</th>
+                                <th>Interval</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -62,7 +65,7 @@
                                 'type' => 'text',
                                 'id' => 'jenis-pekerjaan',
                                 'label' => 'Jenis Pekerjaan',
-                                'placeholder' => 'Jenis Pekerjaan',
+                                'placeholder' => '',
                                 'value' => '',
                                 'attr' => ''
                             ));
@@ -71,7 +74,7 @@
                                 'type' => 'text',
                                 'id' => 'uraian-pekerjaan',
                                 'label' => 'Uraian Pekerjaan',
-                                'placeholder' => 'Uraian Pekerjaan',
+                                'placeholder' => '',
                                 'value' => '',
                                 'attr' => ''
                             ));
@@ -80,8 +83,17 @@
                                 'type' => 'select',
                                 'id' => 'id-kategori',
                                 'label' => 'Kategori',
-                                'placeholder' => 'Pilih Kategori',
+                                'placeholder' => '',
                                 'value' => $kategori,
+                                'attr' => ''
+                            ));
+
+                            echo create_form(array(
+                                'type' => 'text-select',
+                                'id' => 'interval',
+                                'label' => 'interval',
+                                'placeholder' => 'Interval pekerjaan',
+                                'value' => array(array('val'=>1,'deskripsi'=>'Hari'),array('val'=>7,'deskripsi'=>'Minggu'),array('val'=>30,'deskripsi'=>'Bulan'),array('val'=>365,'deskripsi'=>'Tahun')),
                                 'attr' => ''
                             ));
 
@@ -150,6 +162,15 @@
                                 'label' => 'Kategori',
                                 'placeholder' => 'Pilih Kategori',
                                 'value' => $kategori,
+                                'attr' => ''
+                            ));
+
+                            echo create_form(array(
+                                'type' => 'text-select',
+                                'id' => 'upd-interval',
+                                'label' => 'interval',
+                                'placeholder' => 'Interval pekerjaan',
+                                'value' => array(array('val'=>1,'deskripsi'=>'Hari'),array('val'=>7,'deskripsi'=>'Minggu'),array('val'=>30,'deskripsi'=>'Bulan'),array('val'=>365,'deskripsi'=>'Tahun')),
                                 'attr' => ''
                             ));
 

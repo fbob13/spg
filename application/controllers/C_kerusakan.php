@@ -111,12 +111,14 @@ class C_kerusakan extends CI_Controller
                 (isset($_POST['id_ruangan']))         ? $id_ruangan =      $_POST['id_ruangan']         : $id_ruangan = "";
                 (isset($_POST['id_item']))         ? $id_item =      $_POST['id_item']         : $id_item = "";
                 (isset($_POST['keluhan']))         ? $keluhan =      $_POST['keluhan']         : $keluhan = "";
+                (isset($_POST['prioritas']))         ? $prioritas =      $_POST['prioritas']         : $prioritas = "";
 
 
                 $data['err_id_gedung'] = "";
                 $data['err_id_ruangan'] = "";
                 $data['err_id_item'] = "";
                 $data['err_keluhan'] = "";
+                $data['err_prioritas'] = "";
 
                 $pesanError = array(
                     'required' => "Harus di isi",
@@ -127,6 +129,7 @@ class C_kerusakan extends CI_Controller
                 $this->form_validation->set_rules('id_ruangan', 'id_ruangan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_item', 'id_item', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('keluhan', 'keluhan', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('prioritas', 'prioritas', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -135,6 +138,7 @@ class C_kerusakan extends CI_Controller
                     $data['err_id_ruangan'] = form_error('id_ruangan', '<span>', '</span>');
                     $data['err_id_item'] = form_error('id_item', '<span>', '</span>');
                     $data['err_keluhan'] = form_error('keluhan', '<span>', '</span>');
+                    $data['err_keluhan'] = form_error('prioritas', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -169,6 +173,7 @@ class C_kerusakan extends CI_Controller
                         'id_item' => $id_item,
                         'keluhan' => $keluhan,
                         'tanggal_laporan' => $tanggal_laporan,
+                        'prioritas' => $prioritas,
                         'created_at' => date("Y-m-d H:i:s")
                     );
 
@@ -225,6 +230,15 @@ class C_kerusakan extends CI_Controller
 
             $data['statuspekerjaan'] = $option;
 
+
+            $optionx = array(
+                array("val" => 1, "deskripsi" => "Rendah"),
+                array("val" => 2, "deskripsi" => "Menengah"),
+                array("val" => 3, "deskripsi" => "Tinggi"),
+                array("val" => 4, "deskripsi" => "Urgent"),
+            );
+
+            $data['prioritas'] = $optionx;
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/kerusakan/v_kerusakan_view', $data);
@@ -349,7 +363,7 @@ class C_kerusakan extends CI_Controller
     {
         //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
-        
+
         $cek = $this->session->userdata('asm_st');
         $spc = $this->session->userdata('spc');
         if (empty($cek) || $cek <> "yes") {

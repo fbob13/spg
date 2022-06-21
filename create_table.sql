@@ -126,9 +126,9 @@ values (
     );
 
 
-//-------------------------------------------------
-//------------------UPD 1--------------------------
-//-------------------------------------------------
+-------------------------------------------------
+------------------UPD 1--------------------------
+-------------------------------------------------
 
 drop table as_nonrutin;
 
@@ -147,3 +147,11 @@ create table as_nonrutin (
     created_at timestamp null
 );
 
+-------------------------------------------------
+------------------UPD 2--------------------------
+-------------------------------------------------
+
+alter table as_nonrutin add prioritas tinyint default 1 after id_item;
+
+alter table mst_pkrutin add interval_hari int default 0 after id_kategori;
+alter table mst_pkrutin add pengali int default 1 after interval_hari;
