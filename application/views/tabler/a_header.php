@@ -248,6 +248,8 @@
     <header class="navbar navbar-expand-md navbar-light   d-lg-flex d-print-none">
       <div class="container-fluid">
         <div class="navbar-nav flex-row order-last">
+
+        <?php /*
           <a id="icon-booked" href="<?php echo base_url(); ?>dokumen/keluar/booked" class="nav-link text-mute pe-0" title="Booked" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Booked">
             <!-- Download SVG icon from http://tabler-icons.io/i/file-search -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-md" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -273,6 +275,8 @@
 
           </a>
           <span class="badge badge-pill bg-mute" id="badge-ready">0</span>
+          */
+          ?>
           <div class="nav-item dropdown ps-2">
 
             <a href="#" class="nav-link d-flex lh-1 text-reset p-0 ps-2" data-bs-toggle="dropdown" aria-label="Open user menu">
