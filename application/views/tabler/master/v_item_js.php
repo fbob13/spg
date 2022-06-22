@@ -35,8 +35,11 @@
             data: 'tipe_item',
             className: 'text-center'
         }, {
-            data: 'kode_kategori',
-            className: 'text-center'
+            data: '',
+            className: 'text-center',
+            render : function (data, value, row){
+                return row.uraian_kategori + ' (' + row.kode_kategori + ')'
+            }
         }, {
             data: null,
             className: 'text-center',
