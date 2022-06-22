@@ -44,7 +44,7 @@
       top: 10px;
       left: 10px;
       z-index: 99999;
-      width: 50px;
+      width: 150px;
     }
   </style>
 
