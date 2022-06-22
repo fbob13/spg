@@ -157,7 +157,7 @@
                   </svg>
                 </span>
                 <span class="nav-link-title">
-                  Kerusakan
+                  Perbaikan
                 </span>
               </a>
               <div class="dropdown-menu <?php echo $link == 'nrutin' ? 'show ' : ''; ?>">
