@@ -40,3 +40,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 
 ZZ-SEND/*
+
+
+b_create_table.sql
+b_view.sql
