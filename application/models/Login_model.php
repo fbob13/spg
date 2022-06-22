@@ -85,4 +85,40 @@ class Login_model extends CI_Model
     }
     return $hasil;
   }
+
+  //Fungsi cek login dan role halaman
+  public function cekLogin($kode_halaman = "", $aksi = "")
+  {
+    $status = false;
+    $spc = $this->session->userdata('spc');
+    $cek = $this->session->userdata('asm_st');
+    if (empty($cek) || $cek <> "yes") {
+      $status = false;
+    } else {
+      if ($kode_halaman <> "" and $aksi <> "") {
+        $query = $this->db->query("select * from view_akses where spc =$spc and kode_halaman='$kode_halaman'");
+        $akses = $query->first_row();
+        $hasil = 0;
+        if ($query->num_rows() >= 1) {
+          if ($aksi == 'view') {
+            $hasil = $akses->vw;
+          } else if ($aksi == 'edit') {
+            $hasil = $akses->edt;
+          } else if ($aksi == 'delete') {
+            $hasil = $akses->del;
+          }
+          if ($hasil == 1) {
+            $status = true;
+          } else {
+            $status = false;
+          }
+        } else {
+          $status = false;
+        }
+      } else {
+        $status = true;
+      }
+    }
+    return $status;
+  }
 }

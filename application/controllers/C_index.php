@@ -62,7 +62,7 @@ class C_index extends CI_Controller
 
 		$this->session->sess_destroy();
 
-		$data['title'] = 'Reset Password - E-Warkah';
+		$data['title'] = 'Reset Password';
 
 		$this->load->view('auth/v_reset', $data);
 	}

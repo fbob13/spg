@@ -196,12 +196,12 @@
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
 
-                    <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                    <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/user">
                       Kelola User
                     </a>
 
-                    <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
-                      Grup Pengguna
+                    <a class="dropdown-item <?php echo $sublink == 'hak_akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                      Hak Akses
                     </a>
 
                   </div>
