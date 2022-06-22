@@ -217,7 +217,7 @@ class C_kerusakan extends CI_Controller
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
-            $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (1,2)');
+            $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (0)');
             $data['teknisi'] = $query->result();
 
             $option = array(
@@ -337,18 +337,35 @@ class C_kerusakan extends CI_Controller
                 //Jika tidak ada error
                 else {
 
+                    $this->db->trans_begin();
+                    $tanggal_perbaikan = null;
+
+                    if ($status_pekerjaan == 3){
+                        $tanggal_perbaikan =  date("Y-m-d");
+                    }
                     //Update data
                     $data_insert = array(
                         'id_teknisi' => $id_teknisi,
                         'status_pekerjaan' => $status_pekerjaan,
                         'keterangan' => $keterangan,
-                        'prioritas' => $prioritas
+                        'prioritas' => $prioritas,
+                        'tanggal_perbaikan' => $tanggal_perbaikan
                     );
                     $this->db->where('id_nonrutin', $id_nonrutin);
                     $this->db->update('as_nonrutin', $data_insert);
 
-                    $data['info'] = 'Data Berhasil Diupdate';
-                    $data['status'] = 'ok';
+
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $data['info'] = 'Data Gagal Diupdate';
+                        $data['status'] = 'nok';
+                    } else {
+                        $this->db->trans_commit();
+                        $data['info'] = 'Data Berhasil Diupdate';
+                        $data['status'] = 'ok';
+                    }
+
+
                 }
             }
         } else {

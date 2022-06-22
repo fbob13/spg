@@ -20,6 +20,7 @@
                             <tr>
                                 <th class="w-1">No.</th>
                                 <th>nn id rutin</th>
+                                <th>nn </th>
                                 <th>nn status pekerjaan</th>
                                 <th>Tanggal</th>
                                 <th>Nama Teknisi</th>
@@ -110,7 +111,6 @@
                         <div class="card mb-3">
                             <table class="table table-vcenter card-table">
                                 <tr><td class="w-25">Tanggal</td><td class="w-1">:</td> <td id="upd-tanggal-jadwal">-</td></tr>
-                                <tr><td>Nama Teknisi</td><td>:</td>                     <td id="upd-nama">-</td></tr>
                                 <tr><td>Gedung</td><td>:</td>                           <td id="upd-gedung">-</td></tr>
                                 <tr><td>Ruangan</td><td>:</td>                          <td id="upd-ruangan">-</td></tr>
                                 <tr><td>Item</td><td>:</td>                             <td id="upd-item">-</td></tr>
@@ -122,6 +122,15 @@
                             <?php
                             //Buat form input fungsi ada di file helper/h_form_helper.php
                             
+
+                            echo create_form(array(
+                                'type' => 'select',
+                                'id' => 'upd-id-user',
+                                'label' => 'Teknisi',
+                                'placeholder' => '',
+                                'value' => $teknisi,
+                                'attr' => ''
+                            ));
 
                             echo create_form(array(
                                 'type' => 'select',

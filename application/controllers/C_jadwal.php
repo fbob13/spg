@@ -282,6 +282,9 @@ class C_jadwal extends CI_Controller
 
             $data['statuspekerjaan'] = $option;
 
+            $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (0)');
+            $data['teknisi'] = $query->result();
+
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/jadwal/v_rutin_view', $data);
@@ -308,7 +311,7 @@ class C_jadwal extends CI_Controller
         }
         //Jika User = 99(IT) atau 1(admin)
         elseif ($spc == 99 || $spc == 1) {
-            $query = $this->db->query("select * from view_rutin");
+            $query = $this->db->query("select * from view_rutin order by tanggal_jadwal desc");
             $data["data"] = $query->result();
         }
         //Jika bukan kembali ke base_url (home)
@@ -348,6 +351,7 @@ class C_jadwal extends CI_Controller
                 (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
                 (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
                 (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
+                (isset($_POST['id_user']))         ? $id_user =      $_POST['id_user']         : $id_user = "";
 
 
                 $data['err_status_pekerjaan'] = "";
@@ -380,34 +384,41 @@ class C_jadwal extends CI_Controller
 
                     $this->db->trans_begin();
 
+                    $tanggal_realisasi = null;
+
                     if ($status_pekerjaan == 3) {
+                        $tanggal_realisasi =  date("Y-m-d");
                         //Jika pekerjaan selesai buat jadwal sesuai periodenya
                         //ambil data pekerjaan yang di update
                         $query = $this->db->query("select * from as_rutin where id_rutin ='$id_rutin' ");
                         $data_jadwal = $query->first_row();
-                        
-                        $query = $this->db->query("select * from mst_pkrutin where id_pkrutin ='$data_jadwal->id_pkrutin' ");
-                        $data_pkrutin = $query->first_row();
-                        $tgl =  date("Y-m-d");
-                        
-                        $data_insert = array(
-                            'id_user'           => $data_jadwal->id_user,
-                            'id_pembuat'        => $data_jadwal->id_pembuat,
-                            'id_gedung'         => $data_jadwal->id_gedung,
-                            'id_ruangan'        => $data_jadwal->id_ruangan,
-                            'id_item'           => $data_jadwal->id_item,
-                            'id_pkrutin'        => $data_jadwal->id_pkrutin,
-                            'tanggal_jadwal'    => date('Y-m-d',strtotime($tgl . "+ " . ($data_pkrutin->interval_hari * $data_pkrutin->pengali) . " days")),
-                            'created_at'        => date("Y-m-d H:i:s")
-                        );
 
-                        $this->db->insert('as_rutin', $data_insert);
+                        if ($data_jadwal->status_pekerjaan <> 3) {
+                            $query = $this->db->query("select * from mst_pkrutin where id_pkrutin ='$data_jadwal->id_pkrutin' ");
+                            $data_pkrutin = $query->first_row();
+                            $tgl =  date("Y-m-d");
+
+                            $data_insert = array(
+                                'id_user'           => $id_user,
+                                'id_pembuat'        => $data_jadwal->id_pembuat,
+                                'id_gedung'         => $data_jadwal->id_gedung,
+                                'id_ruangan'        => $data_jadwal->id_ruangan,
+                                'id_item'           => $data_jadwal->id_item,
+                                'id_pkrutin'        => $data_jadwal->id_pkrutin,
+                                'tanggal_jadwal'    => date('Y-m-d', strtotime($tgl . "+ " . ($data_pkrutin->interval_hari * $data_pkrutin->pengali) . " days")),
+                                'created_at'        => date("Y-m-d H:i:s")
+                            );
+
+                            $this->db->insert('as_rutin', $data_insert);
+                        }
                     }
 
                     //Update data
                     $data_insert = array(
                         'status_pekerjaan' => $status_pekerjaan,
                         'keterangan' => $keterangan,
+                        'tanggal_realisasi' => $tanggal_realisasi,
+                        'id_user' => $id_user
                     );
                     $this->db->where('id_rutin', $id_rutin);
                     $this->db->update('as_rutin', $data_insert);

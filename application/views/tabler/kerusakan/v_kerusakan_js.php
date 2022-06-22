@@ -47,6 +47,13 @@
             $('#modal-success-info').empty();
             $('#modal-success-info').html(response.info);
             $('#modal-success').modal('show')
+
+            $('#tanggal-laporan').val(hari_ini())
+            clear_form('id-gedung')
+            clear_form('id-ruangan')
+            clear_form('id-item')
+            clear_form('prioritas')
+            clear_form('keluhan')
           } else {
             cek_error(response.err_id_gedung, 'id-gedung');
             cek_error(response.err_id_ruangan, 'id-ruangan');
@@ -364,8 +371,21 @@
     });
 
 
+    function clear_form(id) {
+      $("#" + id).removeClass("is-invalid");
+      $("#" + id).val("");
+      $("#er-" + id).val('')
 
+    };
 
+    function hari_ini() {
+      var today = new Date();
+      var dd = ("0" + today.getDate()).slice(-2)
+
+      var mm = ("0" + (today.getMonth() + 1)).slice(-2)
+      var yyyy = today.getFullYear();
+      return yyyy + '-' + mm + '-' + dd
+    }
 
 
   });
@@ -373,7 +393,7 @@
   // @formatter:off
   document.addEventListener("DOMContentLoaded", function() {
     window.Litepicker && (new Litepicker({
-      element: document.getElementById('tanggal-jadwal'),
+      element: document.getElementById('tanggal-laporan'),
       buttonText: {
         previousMonth: `<!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>`,
