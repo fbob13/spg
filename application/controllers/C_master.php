@@ -1166,14 +1166,14 @@ class C_master extends CI_Controller
                 $this->load->library('form_validation');
 
                 //Ambil data POST
-                (isset($_POST['id_ruangan_item']))         ? $id_ruangan_item =       $_POST['id_ruangan_item']         : $id_ruangan_item = "";
+                (isset($_POST['id_ruangan']))         ? $id_ruangan =       $_POST['id_ruangan']         : $id_ruangan = "";
 
-                if ($id_ruangan_item == "") {
+                if ($id_ruangan == "") {
                     $data['status'] = 'nok';
                     $data['info'] = 'Tidak ada data yang dihapus';
                 } else {
-                    $this->db->where('id_ruangan_item', $id_ruangan_item);
-                    $this->db->delete('mst_ruangan_item');
+                    $this->db->where('id_ruangan', $id_ruangan);
+                    $this->db->delete('mst_ruangan');
                     $data['info'] = 'Data Ruangan Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
