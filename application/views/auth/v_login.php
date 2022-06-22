@@ -45,9 +45,6 @@
       left: 10px;
       z-index: 99999;
       width: 50px;
-
-
-
     }
 
     .test{
