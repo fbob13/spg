@@ -127,7 +127,7 @@
               </div>
               <div class="form-footer text-center">
                 <button type="submit" class="btn btn-primary w-100 mb-2">Masuk</button>
-                <a href="<?php echo base_url(); ?>reset">Lupa Password</a>
+                <!-- <a href="<?php echo base_url(); ?>reset">Lupa Password</a> -->
               </div>
             </div>
             <div class="col-12 mt-3">
