@@ -306,6 +306,7 @@ class C_kerusakan extends CI_Controller
                 (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
                 (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
                 (isset($_POST['id_teknisi']))         ? $id_teknisi =      $_POST['id_teknisi']         : $id_teknisi = "";
+                (isset($_POST['prioritas']))         ? $prioritas =      $_POST['prioritas']         : $prioritas = "";
 
 
                 $data['err_status_pekerjaan'] = "";
@@ -341,6 +342,7 @@ class C_kerusakan extends CI_Controller
                         'id_teknisi' => $id_teknisi,
                         'status_pekerjaan' => $status_pekerjaan,
                         'keterangan' => $keterangan,
+                        'prioritas' => $prioritas
                     );
                     $this->db->where('id_nonrutin', $id_nonrutin);
                     $this->db->update('as_nonrutin', $data_insert);
