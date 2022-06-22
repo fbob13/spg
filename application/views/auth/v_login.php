@@ -46,10 +46,6 @@
       z-index: 99999;
       width: 50px;
     }
-
-    .test{
-      position : fixed;
-    }
   </style>
 
   <script type="text/javascript">
