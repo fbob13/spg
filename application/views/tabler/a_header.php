@@ -169,7 +169,7 @@
                     </a>
 
                     <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
-                      Update Status Perbaikan
+                      Status Perbaikan
                     </a>
 
                   </div>
