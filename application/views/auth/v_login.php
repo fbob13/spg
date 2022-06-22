@@ -49,6 +49,10 @@
 
 
     }
+
+    .test{
+      position : fixed;
+    }
   </style>
 
   <script type="text/javascript">
