@@ -41,16 +41,13 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <h1 class="navbar-brand navbar-brand-autodark">
-          <a href="<?php echo base_url(); ?>" style="word-wrap:break-word;  white-space: normal; display:block; text-align:center;">
-            <?php /*
-            <img src="<?php echo base_url(); ?>static/logo-white-trans-04.png" alt="E-Warkah" class="navbar-brand-image">
-            */
-            echo $this->config->item('app_name');
-            ?>
-
+        <div><img src="<?php echo base_url(); ?>static/g20-1.png"  class="navbar-brand-image" style="display: block; margin-left: auto;margin-right: auto;width: 70px; height:auto;"></div>
+        <!-- <h1 class="navbar-brand navbar-brand-autodark"> -->
+        
+          <a href="<?php echo base_url(); ?>" style="text-align:center; color:floralwhite ">
+            SISFO PEMELIHARAAN GEDUNG
           </a>
-        </h1>
+        <!-- </h1> -->
         <div class="collapse navbar-collapse" id="navbar-menu">
           <ul class="navbar-nav pt-lg-3">
             <li class="nav-item <?php echo $link == 'dashboard' ? 'active ' : ''; ?>">
