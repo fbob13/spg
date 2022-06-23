@@ -535,4 +535,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['app_name'] = 'Sisfo Pemeliharan Gedung';
+$config['app_name'] = 'SISFO PEMELIHARAAN GEDUNG';

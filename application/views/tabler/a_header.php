@@ -42,7 +42,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark">
-          <a href="<?php echo base_url(); ?>">
+          <a href="<?php echo base_url(); ?>" style="word-wrap:break-word;  white-space: normal; display:block; text-align:center;">
             <?php /*
             <img src="<?php echo base_url(); ?>static/logo-white-trans-04.png" alt="E-Warkah" class="navbar-brand-image">
             */

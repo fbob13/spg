@@ -40,10 +40,13 @@
     }
 
     .g20 {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 99999;
+      /* position: absolute;
+      top: 60px;
+      left: 60px;
+      z-index: 99999; */
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
       width: 150px;
     }
   </style>
@@ -69,7 +72,7 @@
 
 <body class="d-flex flex-column ">
 
-  <div class="g20  "><img src="<?php echo base_url(); ?>static/g20-1.png"></div>
+  <!-- <div class="g20  "><img src="<?php echo base_url(); ?>static/g20-1.png"></div> -->
   <div class="page page-center container-login100" style="background-image: url('<?php echo base_url(); ?>static/bg1.jpg');">
 
     <div id="eloader" class="">
@@ -79,7 +82,7 @@
       </div>
 
     </div>
-    <div class="text-center ms-auto d-none" style="width : 50px"><img src="<?php echo base_url(); ?>static/g20-1.png"></div>
+    <!-- <div class="text-center ms-auto d-none" style="width : 50px"><img src="<?php echo base_url(); ?>static/g20-1.png"></div> -->
     <div id="econtent" class="container-narrow py-md-4 p-sm-0" style="display:none;">
 
       <div class="text-center mb-2">
@@ -95,46 +98,54 @@
 
         <div class="card-body">
           <div class="row">
-            <div class="col-12">
 
-              <h1 class="text-center">Login Aplikasi <?php echo $this->config->item('app_name'); ?></h1>
+            <div class="row d-flex justify-content-center">
+
+              <div class="col-md-12  ">
+                <!-- <h1 class="text-center">Login Aplikasi <?php echo $this->config->item('app_name'); ?></h1> -->
+                <div class="g20"><img src="<?php echo base_url(); ?>static/g20-1.png"></div>
+              </div>
 
             </div>
-              <div class="col-md-12">
 
-              <div class="mb-2">
-                <label class="form-label d-none d-md-block d-lg-block">Username</label>
-                <input type="text" class="form-control" placeholder="Username" name="nik" value="">
-              </div>
-              <div class="mb-2">
-                <label class="form-label d-none d-md-block d-lg-block">
-                  Password
-                </label>
-                <div class="input-group input-group-flat">
-                  <input type="password" class="form-control" value="" autocomplete="off" id="pass_log_id" name="password" placeholder="password">
-                  <span class="input-group-text bg-white">
-                    <a href="#" class="input-group-link toggle-password"><svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <line x1="3" y1="3" x2="21" y2="21" />
-                        <path d="M10.584 10.587a2 2 0 0 0 2.828 2.83" />
-                        <path d="M9.363 5.365a9.466 9.466 0 0 1 2.637 -.365c4 0 7.333 2.333 10 7c-.778 1.361 -1.612 2.524 -2.503 3.488m-2.14 1.861c-1.631 1.1 -3.415 1.651 -5.357 1.651c-4 0 -7.333 -2.333 -10 -7c1.369 -2.395 2.913 -4.175 4.632 -5.341" />
-                      </svg></a>
-                  </span>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-6">
+
+                <div class="mb-2">
+                  <label class="form-label d-none d-md-block d-lg-block">Username</label>
+                  <input type="text" class="form-control" placeholder="Username" name="nik" value="">
                 </div>
-                <!-- div class="input-group input-group-flat">
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="off" name="password" value="123456">
-                </div -->
-              </div>
-              <div class="form-footer text-center">
-                <button type="submit" class="btn btn-primary w-100 mb-2">Masuk</button>
-                <!-- <a href="<?php echo base_url(); ?>reset">Lupa Password</a> -->
+                <div class="mb-2">
+                  <label class="form-label d-none d-md-block d-lg-block">
+                    Password
+                  </label>
+                  <div class="input-group input-group-flat">
+                    <input type="password" class="form-control" value="" autocomplete="off" id="pass_log_id" name="password" placeholder="Password">
+                    <span class="input-group-text bg-white">
+                      <a href="#" class="input-group-link toggle-password"><svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <line x1="3" y1="3" x2="21" y2="21" />
+                          <path d="M10.584 10.587a2 2 0 0 0 2.828 2.83" />
+                          <path d="M9.363 5.365a9.466 9.466 0 0 1 2.637 -.365c4 0 7.333 2.333 10 7c-.778 1.361 -1.612 2.524 -2.503 3.488m-2.14 1.861c-1.631 1.1 -3.415 1.651 -5.357 1.651c-4 0 -7.333 -2.333 -10 -7c1.369 -2.395 2.913 -4.175 4.632 -5.341" />
+                        </svg></a>
+                    </span>
+                  </div>
+                  <!-- div class="input-group input-group-flat">
+                    <input type="password" class="form-control" placeholder="Password" autocomplete="off" name="password" value="123456">
+                  </div -->
+                </div>
+                <div class="form-footer text-center">
+                  <button type="submit" class="btn btn-primary w-100 mb-2">Masuk</button>
+                  <a href="<?php echo base_url(); ?>reset">Lupa Password</a>
+                </div>
               </div>
             </div>
-            <div class="col-12 mt-3">
+
+            <div class="col-md-12">
               <div class="align-middle text-center">
-              <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
-                      <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
-                      All rights reserved.
+                <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
+                <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
+                All rights reserved.
               </div>
             </div>
           </div>
