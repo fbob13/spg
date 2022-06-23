@@ -41,7 +41,7 @@ class C_jadwal extends CI_Controller
         }
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('RUTIN_INPUT', 'view')) {
             $data['link'] = 'rutin';
             $data['sublink'] = 'input_jadwal';
             $data['subsublink'] = '';
@@ -91,7 +91,7 @@ class C_jadwal extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('RUTIN_INPUT', 'view')) {
             (isset($_POST['tipe']))         ? $tipe = $_POST['tipe']         : $tipe = "";
             if ($tipe <> "") {
                 if ($tipe == "ruangan") {
@@ -154,7 +154,7 @@ class C_jadwal extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('RUTIN_INPUT', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -259,7 +259,7 @@ class C_jadwal extends CI_Controller
             return $this->load->view('auth/v_login');
         }
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('RUTIN_DATA', 'view')) {
             $data['link'] = 'rutin';
             $data['sublink'] = 'lihat_jadwal';
             $data['subsublink'] = '';
@@ -310,7 +310,7 @@ class C_jadwal extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('RUTIN_DATA', 'view')) {
             $query = $this->db->query("select * from view_rutin order by tanggal_jadwal desc");
             $data["data"] = $query->result();
         }
@@ -338,7 +338,7 @@ class C_jadwal extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('RUTIN_DATA', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -455,7 +455,7 @@ class C_jadwal extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('RUTIN_DATA', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));

@@ -200,7 +200,7 @@
                       Kelola User
                     </a>
 
-                    <a class="dropdown-item <?php echo $sublink == 'hak_akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>#">
+                    <a class="dropdown-item <?php echo $sublink == 'akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/akses">
                       Hak Akses
                     </a>
 

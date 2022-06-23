@@ -32,7 +32,7 @@ class C_master extends CI_Controller
 
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_ITE', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'item';
             $data['subsublink'] = '';
@@ -71,7 +71,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_ITE', 'view')) {
             $query = $this->db->query("select * from view_item where status_item = 1");
             $data["data"] = $query->result();
         }
@@ -100,7 +100,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_ITE', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -186,7 +186,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_ITE', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -280,7 +280,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_ITE', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));
@@ -322,7 +322,7 @@ class C_master extends CI_Controller
 
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_GED', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'gedung';
             $data['subsublink'] = '';
@@ -359,7 +359,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_GED', 'view')) {
             $query = $this->db->query("select * from mst_gedung");
             $data["data"] = $query->result();
         }
@@ -388,7 +388,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_GED', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -466,7 +466,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_GED', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -542,7 +542,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_GED', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));
@@ -584,7 +584,7 @@ class C_master extends CI_Controller
 
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_RUA_ITE', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'ruangan_item';
             $data['subsublink'] = '';
@@ -629,7 +629,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA_ITE', 'view')) {
             $query = $this->db->query("select * from view_ruangan_item order by id_ruangan_item desc");
             $data["data"] = $query->result();
         }
@@ -658,7 +658,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA_ITE', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -744,7 +744,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA_ITE', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -831,7 +831,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA_ITE', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));
@@ -871,7 +871,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA_ITE', 'view')) {
             (isset($_POST['tabel']))         ? $tabel =       $_POST['tabel']         : $tabel = "";
 
             if ($tabel == "ruangan") {
@@ -903,7 +903,7 @@ class C_master extends CI_Controller
         }
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_RUA', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'ruangan';
             $data['subsublink'] = '';
@@ -943,7 +943,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA', 'view')) {
             $query = $this->db->query("select * from view_ruangan where status_ruangan = 1 order by id_gedung,kode_ruangan");
             $data["data"] = $query->result();
         }
@@ -970,7 +970,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1065,7 +1065,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1159,7 +1159,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_RUA', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));
@@ -1198,7 +1198,7 @@ class C_master extends CI_Controller
             return $this->load->view('auth/v_login');
         }
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_PEK', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'prutin';
             $data['subsublink'] = '';
@@ -1242,7 +1242,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_PEK', 'view')) {
             $query = $this->db->query("select * from view_pkrutin");
             $data["data"] = $query->result();
         }
@@ -1271,7 +1271,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_PEK', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1361,7 +1361,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_PEK', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1449,7 +1449,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_PEK', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));
@@ -1491,7 +1491,7 @@ class C_master extends CI_Controller
 
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('MST_KAT', 'view')) {
             $data['link'] = 'master';
             $data['sublink'] = 'kategori';
             $data['subsublink'] = '';
@@ -1528,7 +1528,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_KAT', 'view')) {
             $query = $this->db->query("select * from mst_kategori");
             $data["data"] = $query->result();
         }
@@ -1557,7 +1557,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_KAT', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1634,7 +1634,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_KAT', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -1710,7 +1710,7 @@ class C_master extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('MST_KAT', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));

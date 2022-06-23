@@ -23,7 +23,7 @@ class C_setting extends CI_Controller
 
     public function ganti_password()
     {
-        $data['title'] = 'Ganti Password - E-Warkah';
+        $data['title'] = 'Ganti Password';
         $data['cust_css'] = '';
         $data['cust_js'] = '';
         $data['link'] = '';

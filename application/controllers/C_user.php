@@ -20,19 +20,13 @@ class C_user extends CI_Controller
             $data['sublink'] = 'user';
             $data['subsublink'] = '';
 
-            $data['title'] = 'Pekerjaan Rutin - ' . $this->config->item('app_name');
+            $data['title'] = 'User aplikasi - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
-
-            $query = $this->db->query('select id_ruangan val,CONCAT_WS(\' - \', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1');
-            $data['ruangan'] = $query->result();
-
-            $query = $this->db->query("select id_kategori val, kode_kategori deskripsi from mst_kategori");
-            $data['kategori'] = $query->result();
 
 
             $this->load->view('tabler/a_header', $data);
@@ -170,7 +164,7 @@ class C_user extends CI_Controller
                         'telepon' => $telepon,
                         'email' => $email,
                         'spc' => $spc,
-                        'password' =>'e10adc3949ba59abbe56e057f20f883e',
+                        'password' => 'e10adc3949ba59abbe56e057f20f883e',
                         'created_at' => date("Y-m-d H:i:s")
                     );
 
@@ -353,21 +347,133 @@ class C_user extends CI_Controller
 
     public function akses_view()
     {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            return $this->load->view('auth/v_login');
+        }
+        //Jika User = 99(IT) atau 1(admin)
+
+        if ($this->Login_model->cekLogin('ADM_AKSES', 'view')) {
+            $data['link'] = 'admin';
+            $data['sublink'] = 'akses';
+            $data['subsublink'] = '';
+
+            $data['title'] = 'Hak Akses - ' . $this->config->item('app_name');
+
+            //CSS untuk menampilkan tabel (datatables)
+            $data['cust_css'] = '';
+
+            //JS untuk menampilkan tabel (datatables)
+            $data['cust_js'] = '';
+
+
+            $this->load->view('tabler/a_header', $data);
+            $this->load->view('tabler/admin/v_akses', $data);
+            $this->load->view('tabler/a_footer');
+            $this->load->view('tabler/admin/v_akses_js', $data);
+            $this->load->view('tabler/a_end_page');
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            redirect(base_url());
+        }
+        //END FUNCTION
     }
 
     public function akses_data()
     {
-    }
 
-    public function akses_new()
-    {
+        //$data = $this->db->query('select a.kode_role, b.nama_role,vw,edt,dlt from mst_user_role a left join mst_role b on a.kode_role = b.kode_role where nik = \'' . $nik . '\' and a.kode_role not in (\'SET_KTR\',\'SET_PROV\',\'SET_WEB\',\'SET_UPLOAD\') order by b.nama_role');
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('ADM_AKSES', 'view')) {
+
+            if (isset($_POST['spc'])) {
+                $spc =    $_POST['spc'];
+                $query = $this->db->query("select * from view_akses_spc where spc=$spc order by spc,kode_halaman");
+                $data["data"] = $query->result();
+            }
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+
+        //END FUNCTION
     }
 
     public function akses_upd()
     {
-    }
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('ADM_AKSES', 'edit')) {
 
-    public function akses_del()
-    {
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                (isset($_POST['spc'])) ? $spc = $_POST['spc'] : $spc = "";
+                (isset($_POST['role_view'])) ? $view = $_POST['role_view'] : $view = "";
+                (isset($_POST['role_edit'])) ? $edit = $_POST['role_edit'] : $edit = "";
+                (isset($_POST['role_delete'])) ? $delete = $_POST['role_delete'] : $delete = "";
+
+                $this->db->trans_begin();
+
+                $this->db->query("update mst_akses_detail set vw=0,edt=0,del=0 where spc=$spc");
+
+                foreach ($view as $vw) {
+                    $this->db->query("update mst_akses_detail set vw=1 where spc=$spc and kode_halaman='$vw'");
+                }
+                foreach ($edit as $edt) {
+                    $this->db->query("update mst_akses_detail set edt=1 where spc=$spc and kode_halaman='$edt'");
+                }
+                foreach ($delete as $dlt) {
+                    $this->db->query("update mst_akses_detail set del=1 where spc=$spc and kode_halaman='$dlt'");
+                }
+
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $data['status'] = 'nok';
+                    $data['info'] = 'Akses gagal diupdate';
+                } else {
+                    $this->db->trans_commit();
+                    $data['status'] = 'ok';
+                    $data['info'] = 'Akses berhasil diupdate';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
     }
 }

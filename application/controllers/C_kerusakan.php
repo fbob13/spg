@@ -41,7 +41,7 @@ class C_kerusakan extends CI_Controller
         }
 
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('NRUTIN_INPUT', 'view')) {
             $data['link'] = 'nrutin';
             $data['sublink'] = 'kerusakan';
             $data['subsublink'] = '';
@@ -93,7 +93,7 @@ class C_kerusakan extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('NRUTIN_INPUT', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -204,7 +204,7 @@ class C_kerusakan extends CI_Controller
             return $this->load->view('auth/v_login');
         }
         //Jika User = 99(IT) atau 1(admin)
-        if ($spc == 99 || $spc == 1) {
+        if ($this->Login_model->cekLogin('NRUTIN_DATA', 'view')) {
             $data['link'] = 'nrutin';
             $data['sublink'] = 'update_kerusakan';
             $data['subsublink'] = '';
@@ -264,7 +264,7 @@ class C_kerusakan extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('NRUTIN_DATA', 'view')) {
             $query = $this->db->query("select * from view_nonrutin");
             $data["data"] = $query->result();
         }
@@ -292,7 +292,7 @@ class C_kerusakan extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('NRUTIN_DATA', 'edit')) {
 
             $data['info'] = "";
             $err = false;
@@ -390,7 +390,7 @@ class C_kerusakan extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($spc == 99 || $spc == 1) {
+        elseif ($this->Login_model->cekLogin('NRUTIN_DATA', 'delete')) {
 
             if (!empty($_POST)) {
                 $this->load->helper(array('form', 'url'));

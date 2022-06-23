@@ -80,3 +80,27 @@ when j_kelamin = 'p' then 'Perempuan'
 END j_kelamin_text,
 telepon,email,foto,created_at,updated_at FROM mst_user a, mst_akses_spc b
 WHERE a.spc = b.spc;
+
+
+
+
+
+/* SETELAH UPDATE BUAT USER */
+/* COMMIT UPDATE HAK AKSES*/
+/* jalankan query di bawah*/
+
+CREATE VIEW view_akses_spc as
+SELECT a.spc,
+d.kode_halaman,deskripsi_halaman,vw,edt,del
+FROM mst_akses_detail a
+left JOIN mst_akses_halaman d ON a.kode_halaman = d.kode_halaman;
+
+
+
+INSERT INTO mst_akses_detail (spc,kode_halaman,vw,edt,del) values 
+(0,'MST_RUA_ITE',0,0,0),
+(1,'MST_RUA_ITE',0,0,0),
+(2,'MST_RUA_ITE',0,0,0),
+(99,'MST_RUA_ITE',1,1,1);
+
+insert into mst_akses_halaman (kode_halaman,deskripsi_halaman) values ('MST_RUA_ITE','Master Ruangan Item');
