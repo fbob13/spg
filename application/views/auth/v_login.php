@@ -102,8 +102,9 @@
             <div class="row d-flex justify-content-center">
 
               <div class="col-md-12  ">
-                <!-- <h1 class="text-center">Login Aplikasi <?php echo $this->config->item('app_name'); ?></h1> -->
+                
                 <div class="g20"><img src="<?php echo base_url(); ?>static/g20-1.png"></div>
+                <h2 class="text-center"> <?php echo $this->config->item('app_name'); ?></h2>
               </div>
 
             </div>
@@ -144,8 +145,8 @@
             <div class="col-md-12">
               <div class="align-middle text-center">
                 <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
-                <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
-                All rights reserved.
+                <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>
+                <br>All rights reserved.
               </div>
             </div>
           </div>
