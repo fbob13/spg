@@ -144,7 +144,7 @@
 
             <div class="col-md-12">
               <div class="align-middle text-center">
-                <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
+                <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; <?php $tanggal = time () ;$tahun= date("Y",$tanggal);echo  $tahun; ?>
                 <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>
                 <br>All rights reserved.
               </div>

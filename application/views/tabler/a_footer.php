@@ -88,7 +88,7 @@
                 <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                   <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
-                      <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; 2022
+                      <span class="text-indigo"><?php echo $this->config->item('app_name'); ?></span> | Copyright &copy; <?php $tanggal = time () ;$tahun= date("Y",$tanggal);echo  $tahun; ?>
                       <a href="<?php echo base_url(); ?>" class="link-secondary">BPK Perwakilan Papua Barat</a>.
                       All rights reserved.
                     </li>
