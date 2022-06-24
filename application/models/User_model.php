@@ -5,6 +5,7 @@
 class User_model extends CI_Model
 {
   //
+
   public function create_user($nik, $username, $kode_cabang, $password, $spc)
   {
     $this->db->query('insert into mst_user
@@ -41,7 +42,7 @@ class User_model extends CI_Model
 
     return 'Password berhasil di reset menjadi <span class="text-primary">123456</span>';
   }
-
+/*
   public function getUserRoleStrict($nik)
   {
     $data = $this->db->query('select a.kode_role, b.nama_role,vw,edt,dlt from mst_user_role a left join mst_role b on a.kode_role = b.kode_role where nik = \'' . $nik . '\' and a.kode_role not in (\'SET_KTR\',\'SET_PROV\',\'SET_WEB\',\'SET_UPLOAD\') order by b.nama_role');
@@ -51,10 +52,11 @@ class User_model extends CI_Model
     }
     return $hasil;
   }
-
+*/
   public function getUserRole($nik)
   {
-    $data = $this->db->query('select a.kode_role, b.nama_role,vw,edt,dlt from mst_user_role a left join mst_role b on a.kode_role = b.kode_role where nik = \'' . $nik . '\' order by b.nama_role');
+    //$data = $this->db->query('select a.kode_role, b.nama_role,vw,edt,dlt from mst_user_role a left join mst_role b on a.kode_role = b.kode_role where nik = \'' . $nik . '\' order by b.nama_role');
+    $data = $this->db->query("select kode_halaman, vw, edt,del from view_akses where id_user = '$nik'");
 
     foreach ($data->result() as $row) {
       $hasil[] = $row;
@@ -62,6 +64,7 @@ class User_model extends CI_Model
     return $hasil;
   }
 
+  /*
   public function updateUserRole($nik, $view, $edit, $delete)
   {
     $this->db->query('update mst_user_role set vw=0,edt=0,dlt=0 where nik=\'' . $nik . '\' and kode_role not in (\'SET_KTR\',\'SET_PROV\',\'SET_WEB\',\'SET_UPLOAD\')');
@@ -77,7 +80,7 @@ class User_model extends CI_Model
     }
     return 'Hak Akses Berhasil di Update';
   }
-
+*/
   public function update_password($nik, $password_baru)
   {
     $this->db->query('update mst_user set password = \'' . md5($password_baru) . '\'
@@ -101,32 +104,4 @@ class User_model extends CI_Model
     }
   }
 
-  public function getNotif()
-  {
-    $nik = $this->session->userdata('nik');
-    $data = array();
-    $this->db->trans_begin();
-    
-    $query = $this->db->query("select * from notification where nik = '". $nik ."' and flag_buka = 0");
-    $data['tot_notif'] = $query->num_rows();
-    $data['result'] = $query->result();
-
-    $query = $this->db->query("update notification set flag_buka = 1 where nik = '". $nik ."' and flag_buka = 0");
-
-
-
-    if ($this->db->trans_status() === FALSE) {
-      $this->db->trans_rollback();
-      $data['status'] = 'nok';
-      return $data;
-    } else {
-      $data['status'] = 'ok';
-      $this->db->trans_commit();
-      return $data;
-    }
-  }
-
-  public function createNotif($nik,$flag_icon,$header,$info){
-    //
-  }
 }

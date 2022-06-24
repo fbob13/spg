@@ -1,3 +1,19 @@
+<?php
+$user_role = $this->User_model->getUserRole($this->session->userdata('id_user'));
+
+function cek_role($array, $kode_halaman)
+{
+  $hasil['value'] = 0;
+  foreach ($array as $data) {
+    if ($data->kode_halaman == $kode_halaman) {
+      $hasil['value'] = $data->vw;
+    }
+  }
+  return $hasil['value'];
+}
+
+?>
+
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -41,12 +57,12 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div><img src="<?php echo base_url(); ?>static/g20-1.png"  class="navbar-brand-image" style="display: block; margin-left: auto;margin-right: auto;width: 70px; height:auto;"></div>
+        <div><img src="<?php echo base_url(); ?>static/g20-1.png" class="navbar-brand-image" style="display: block; margin-left: auto;margin-right: auto;width: 70px; height:auto;"></div>
         <!-- <h1 class="navbar-brand navbar-brand-autodark"> -->
-        
-          <a href="<?php echo base_url(); ?>" style="text-align:center; color:floralwhite ">
-            SISFO PEMELIHARAAN GEDUNG
-          </a>
+
+        <a href="<?php echo base_url(); ?>" style="text-align:center; color:floralwhite ">
+          SISFO PEMELIHARAAN GEDUNG
+        </a>
         <!-- </h1> -->
         <div class="collapse navbar-collapse" id="navbar-menu">
           <ul class="navbar-nav pt-lg-3">
@@ -66,163 +82,207 @@
                 </span>
               </a>
             </li>
-            <li class="nav-item dropdown <?php echo $link == 'master' ? 'active ' : ''; ?>">
-              <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/database -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
-                    <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-                    <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">
-                  Data Master
-                </span>
-              </a>
-              <div class="dropdown-menu <?php echo $link == 'master' ? 'show ' : ''; ?>">
-                <div class="dropdown-menu-columns">
-                  <div class="dropdown-menu-column">
-                  <a class="dropdown-item <?php echo $sublink == 'ktegori' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/kategori">
-                      Kategori
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'gedung' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/gedung">
-                      Gedung
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'ruangan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan">
-                      Ruangan
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/item">
-                      Item
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'ruangan_item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan-item">
-                      Ruangan Item
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'prutin' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/prutin">
-                      Pekerjaan Rutin
-                    </a>
+            <?php
+            $countrole = cek_role($user_role, 'MST_KAT') + cek_role($user_role, 'MST_GED') + cek_role($user_role, 'MST_RUA') + cek_role($user_role, 'MST_ITE') + cek_role($user_role, 'MST_PEK') + cek_role($user_role, 'MST_RUA_ITE');
+            if ($countrole >= 1) {
+            ?>
+              <li class="nav-item dropdown <?php echo $link == 'master' ? 'active ' : ''; ?>">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/database -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                      <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                      <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">
+                    Data Master
+                  </span>
+                </a>
+                <div class="dropdown-menu <?php echo $link == 'master' ? 'show ' : ''; ?>">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                      <?php if (cek_role($user_role, 'MST_KAT') == 1) { ?>
+                        <a class="dropdown-item <?php echo $sublink == 'kategori' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/kategori">
+                          Kategori
+                        </a>
+                      <?php }
+                      if (cek_role($user_role, 'MST_GED') == 1) {
+                      ?>
+                        <a class="dropdown-item <?php echo $sublink == 'gedung' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/gedung">
+                          Gedung
+                        </a>
+                      <?php }
+                      if (cek_role($user_role, 'MST_RUA') == 1) {
+                      ?>
+                        <a class="dropdown-item <?php echo $sublink == 'ruangan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan">
+                          Ruangan
+                        </a>
+                      <?php }
+                      if (cek_role($user_role, 'MST_ITE') == 1) {
+                      ?>
+                        <a class="dropdown-item <?php echo $sublink == 'item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/item">
+                          Item
+                        </a>
+                      <?php }
+                      if (cek_role($user_role, 'MST_RUA_ITE') == 1) {
+                      ?>
+                        <a class="dropdown-item <?php echo $sublink == 'ruangan_item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan-item">
+                          Ruangan Item
+                        </a>
+                      <?php }
+                      if (cek_role($user_role, 'MST_PEK') == 1) {
+                      ?>
+                        <a class="dropdown-item <?php echo $sublink == 'prutin' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/prutin">
+                          Pekerjaan Rutin
+                        </a>
+                      <?php } ?>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown <?php echo $link == 'rutin' ? 'active ' : ''; ?>">
-              <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/list-details -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M13 5h8" />
-                    <path d="M13 9h5" />
-                    <path d="M13 15h8" />
-                    <path d="M13 19h5" />
-                    <rect x="3" y="4" width="6" height="6" rx="1" />
-                    <rect x="3" y="14" width="6" height="6" rx="1" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">
-                  Jadwal Rutin
-                </span>
-              </a>
-              <div class="dropdown-menu <?php echo $link == 'rutin' ? 'show ' : ''; ?>">
-                <div class="dropdown-menu-columns">
-                  <div class="dropdown-menu-column">
-
-                    <a class="dropdown-item <?php echo $sublink == 'input_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/new">
-                      Input Jadwal Rutin
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'lihat_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/view">
-                      Lihat Jadwal Rutin
-                    </a>
+              </li>
+            <?php } ?>
+            <?php
+            $countrole = cek_role($user_role, 'RUTIN_INPUT') + cek_role($user_role, 'RUTIN_DATA');
+            if ($countrole >= 1) {
+            ?>
+              <li class="nav-item dropdown <?php echo $link == 'rutin' ? 'active ' : ''; ?>">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/list-details -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M13 5h8" />
+                      <path d="M13 9h5" />
+                      <path d="M13 15h8" />
+                      <path d="M13 19h5" />
+                      <rect x="3" y="4" width="6" height="6" rx="1" />
+                      <rect x="3" y="14" width="6" height="6" rx="1" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">
+                    Jadwal Rutin
+                  </span>
+                </a>
+                <div class="dropdown-menu <?php echo $link == 'rutin' ? 'show ' : ''; ?>">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                    <?php if (cek_role($user_role, 'RUTIN_INPUT') == 1) { ?>
+                      <a class="dropdown-item <?php echo $sublink == 'input_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/new">
+                        Input Jadwal Rutin
+                      </a>
+                      <?php }
+                      if (cek_role($user_role, 'RUTIN_DATA') == 1) {
+                      ?>
+                      <a class="dropdown-item <?php echo $sublink == 'lihat_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/view">
+                        Lihat Jadwal Rutin
+                      </a>
+                      <?php } ?>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown <?php echo $link == 'nrutin' ? 'active ' : ''; ?>">
-              <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/tool -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">
-                  Perbaikan
-                </span>
-              </a>
-              <div class="dropdown-menu <?php echo $link == 'nrutin' ? 'show ' : ''; ?>">
-                <div class="dropdown-menu-columns">
-                  <div class="dropdown-menu-column">
-
-                    <a class="dropdown-item <?php echo $sublink == 'kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/new">
-                      Permintaan Perbaikan
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
-                      Status Perbaikan
-                    </a>
-
+              </li>
+            <?php } ?>
+            <?php
+            $countrole = cek_role($user_role, 'NRUTIN_INPUT') + cek_role($user_role, 'NRUTIN_DATA');
+            if ($countrole >= 1) {
+            ?>
+              <li class="nav-item dropdown <?php echo $link == 'nrutin' ? 'active ' : ''; ?>">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/tool -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M7 10h3v-3l-3.5 -3.5a6 6 0 0 1 8 8l6 6a2 2 0 0 1 -3 3l-6 -6a6 6 0 0 1 -8 -8l3.5 3.5" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">
+                    Perbaikan
+                  </span>
+                </a>
+                <div class="dropdown-menu <?php echo $link == 'nrutin' ? 'show ' : ''; ?>">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                    <?php if (cek_role($user_role, 'NRUTIN_INPUT') == 1) { ?>
+                      <a class="dropdown-item <?php echo $sublink == 'kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/new">
+                        Permintaan Perbaikan
+                      </a>
+                      <?php }
+                      if (cek_role($user_role, 'NRUTIN_DATA') == 1) {
+                      ?>
+                      <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
+                        Status Perbaikan
+                      </a>
+                      <?php } ?>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown <?php echo $link == 'admin' ? 'active ' : ''; ?>">
-              <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/users -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">
-                Admin
-                </span>
-              </a>
-              <div class="dropdown-menu <?php echo $link == 'admin' ? 'show ' : ''; ?>">
-                <div class="dropdown-menu-columns">
-                  <div class="dropdown-menu-column">
-
-                    <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/user">
-                      Kelola User
-                    </a>
-
-                    <a class="dropdown-item <?php echo $sublink == 'akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/akses">
-                      Hak Akses
-                    </a>
-
+              </li>
+            <?php } ?>
+            <?php
+            $countrole = cek_role($user_role, 'ADM_USER') + cek_role($user_role, 'ADM_AKSES');
+            if ($countrole >= 1) {
+            ?>
+              <li class="nav-item dropdown <?php echo $link == 'admin' ? 'active ' : ''; ?>">
+                <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/users -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">
+                    Admin
+                  </span>
+                </a>
+                <div class="dropdown-menu <?php echo $link == 'admin' ? 'show ' : ''; ?>">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                    <?php if (cek_role($user_role, 'ADM_USER') == 1) { ?>
+                      <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/user">
+                        Kelola User
+                      </a>
+                      <?php }
+                      if (cek_role($user_role, 'ADM_AKSES') == 1) {
+                      ?>
+                      <a class="dropdown-item <?php echo $sublink == 'akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/akses">
+                        Hak Akses
+                      </a>
+                      <?php } ?>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li class="nav-item <?php echo $link == 'report' ? 'active ' : ''; ?>">
-              <a class="nav-link" href="<?php echo base_url(); ?>#">
-                <span class="nav-link-icon d-md-none d-lg-inline-block">
-                  <!-- Download SVG icon from http://tabler-icons.io/i/report-analytics -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-                    <rect x="9" y="3" width="6" height="4" rx="2" />
-                    <path d="M9 17v-5" />
-                    <path d="M12 17v-1" />
-                    <path d="M15 17v-3" />
-                  </svg>
-                </span>
-                <span class="nav-link-title">
-                  Report
-                </span>
-              </a>
-            </li>
+              </li>
+            <?php } ?>
+            <?php
+            $countrole = cek_role($user_role, 'REP');
+            if ($countrole >= 1) {
+            ?>
+              <li class="nav-item <?php echo $link == 'report' ? 'active ' : ''; ?>">
+                <a class="nav-link" href="<?php echo base_url(); ?>#">
+                  <span class="nav-link-icon d-md-none d-lg-inline-block">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/report-analytics -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                      <rect x="9" y="3" width="6" height="4" rx="2" />
+                      <path d="M9 17v-5" />
+                      <path d="M12 17v-1" />
+                      <path d="M15 17v-3" />
+                    </svg>
+                  </span>
+                  <span class="nav-link-title">
+                    Report
+                  </span>
+                </a>
+              </li>
+            <?php } ?>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url(); ?>logout">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -246,7 +306,7 @@
       <div class="container-fluid">
         <div class="navbar-nav flex-row order-last">
 
-        <?php /*
+          <?php /*
           <a id="icon-booked" href="<?php echo base_url(); ?>dokumen/keluar/booked" class="nav-link text-mute pe-0" title="Booked" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Booked">
             <!-- Download SVG icon from http://tabler-icons.io/i/file-search -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-md" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
