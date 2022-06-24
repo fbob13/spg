@@ -117,7 +117,7 @@ class C_user extends CI_Controller
                 );
 
                 //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
-                $this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[6]', $pesanError);
+                $this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[2]', $pesanError);
                 $this->form_validation->set_rules('nama', 'nama', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('nip', 'nip', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required', $pesanError);
@@ -232,7 +232,7 @@ class C_user extends CI_Controller
                 );
 
                 //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
-                //$this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[6]', $pesanError);
+                $this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[2]', $pesanError);
                 $this->form_validation->set_rules('nama', 'nama', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('nip', 'nip', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required', $pesanError);

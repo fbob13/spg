@@ -313,7 +313,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-detail-hapus">
-                    Yakin akan menghapus data data <span class="text-danger" id="desc_delete"> </span>?
+                    Yakin akan menghapus data <span class="text-danger" id="desc_delete"> </span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
