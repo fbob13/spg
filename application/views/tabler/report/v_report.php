@@ -73,7 +73,7 @@ $judul['terlambat'] = 'Pencarian : Dokumen Terlambat Dikembalikan';
                     </div>
                     <hr>
                     <div class="table-responsive" id="tbl-wrap">
-                        <table id="result-report" class="table card-table table-bordered table-vcenter text-nowrap datatable" style="width:100%">
+                        <table id="result-report" class="table table-bordered table-vcenter text-nowrap datatable" style="width:100%">
                             <thead>
                                 <?php
                                 if ($type == '0') {
