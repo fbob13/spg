@@ -38,7 +38,7 @@
             data: '',
             className: 'text-center',
             render : function (data, value, row){
-                return row.uraian_kategori + ' (' + row.kode_kategori + ')'
+                return row.uraian_kategori //+ ' (' + row.kode_kategori + ')'
             }
         }, {
             data: null,
