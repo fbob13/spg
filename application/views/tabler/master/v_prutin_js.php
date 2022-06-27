@@ -35,7 +35,7 @@
             data: '',
             className: 'text-center',
             render : function (data, value, row){
-                return row.uraian_kategori + ' (' + row.kode_kategori + ')'
+                return row.uraian_kategori //+ ' (' + row.kode_kategori + ')'
             }
         },{
             data: 'xx',
@@ -226,13 +226,14 @@
         function clear_form(id) {
             $("#" + id).removeClass("is-invalid");
             $("#" + id).val("");
-            $("#er-" + id).val('')
+            $("#er-" + id).val('');
         }
 
         $('#modal-new').on('show.bs.modal', function() {
             clear_form('jenis-pekerjaan')
             clear_form('uraian-pekerjaan')
             clear_form('id-kategori')
+            clear_form('interval')
 
         })
 

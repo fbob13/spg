@@ -45,7 +45,7 @@ class C_master extends CI_Controller
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
-            $query = $this->db->query("select id_kategori val, kode_kategori deskripsi from mst_kategori");
+            $query = $this->db->query("select id_kategori val, uraian_kategori deskripsi from mst_kategori");
             $data['kategori'] = $query->result();
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/master/v_item', $data);
@@ -1214,7 +1214,7 @@ class C_master extends CI_Controller
             $query = $this->db->query('select id_ruangan val,CONCAT_WS(\' - \', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1');
             $data['ruangan'] = $query->result();
 
-            $query = $this->db->query("select id_kategori val, kode_kategori deskripsi from mst_kategori");
+            $query = $this->db->query("select id_kategori val, uraian_kategori deskripsi from mst_kategori");
             $data['kategori'] = $query->result();
 
 
