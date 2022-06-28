@@ -67,6 +67,10 @@ class C_kerusakan extends CI_Controller
             $data['pkrutin'] = $query->result();
 
 
+            $query = $this->db->query("select id_item val,CONCAT_WS(' - ', nama_item, merek_item) deskripsi from view_item");
+            $data['item'] = $query->result();
+
+
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/kerusakan/v_kerusakan', $data);
             $this->load->view('tabler/a_footer');

@@ -55,7 +55,7 @@
                         'id' => 'id-item',
                         'label' => 'Item',
                         'placeholder' => 'Pilih Item',
-                        'value' => $item,
+                        'value' => array(),
                         'attr' => ''
                       ));
 

@@ -71,7 +71,7 @@
     $('#id-gedung').change(function(e) {
       if ($('#id-gedung').val() == "") {
         $('#id-ruangan').html("");
-        //$('#id-item').html("");
+        $('#id-item').html("");
         $('#id-pkrutin').html("");
         return
       }
@@ -85,13 +85,12 @@
         dataType: 'json',
         success: function(response) {
           $('#id-ruangan').html(create_option(response.data));
-          //$('#id-item').html("");
+          $('#id-item').html("");
           $('#id-pkrutin').html("");
         }
       });
     });
 
-    /*
     $('#id-ruangan').change(function(e) {
       if ($('#id-ruangan').val() == "") {
         $('#id-item').html("");
@@ -113,7 +112,25 @@
         }
       });
     });
-    */
+
+    $('#id-item').change(function(e) {
+      if ($('#id-item').val() == "") {
+        $('#id-pkrutin').html("");
+        return
+      }
+      $.ajax({
+        url: '<?= base_url() ?>jadwal/rutin/query',
+        type: 'post',
+        data: {
+          'tipe': 'pkrutin',
+          'id_item': $('#id-item').val(),
+        },
+        dataType: 'json',
+        success: function(response) {
+          $('#id-pkrutin').html(create_option(response.data));
+        }
+      });
+    });
 
     $('#form-draft').submit(function(e) {
       e.preventDefault()
