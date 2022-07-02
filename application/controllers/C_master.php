@@ -43,7 +43,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $query = $this->db->query("select id_kategori val, uraian_kategori deskripsi from mst_kategori");
             $data['kategori'] = $query->result();
@@ -333,7 +333,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/master/v_gedung', $data);
@@ -440,7 +440,7 @@ class C_master extends CI_Controller
 
                     $this->db->insert('mst_gedung', $data_insert);
 
-                    $data['info'] = 'Data Gedung Berhasil Disimpan';
+                    $data['info'] = 'Data Gedung Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
             }
@@ -516,7 +516,7 @@ class C_master extends CI_Controller
                     $this->db->where('id_gedung', $id_gedung);
                     $this->db->update('mst_gedung', $data_insert);
 
-                    $data['info'] = 'Data Item Berhasil Diupdate';
+                    $data['info'] = 'Data Gedung Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
             }
@@ -595,7 +595,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $query = $this->db->query('select id_item val,CONCAT_WS(\' - \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
             $data['item'] = $query->result();
@@ -914,7 +914,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $query = $this->db->query("select id_gedung val, nama_gedung deskripsi from mst_gedung");
             $data['gedung'] = $query->result();
@@ -1209,7 +1209,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $query = $this->db->query('select id_ruangan val,CONCAT_WS(\' - \', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1');
             $data['ruangan'] = $query->result();
@@ -1502,7 +1502,7 @@ class C_master extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/master/v_kategori', $data);

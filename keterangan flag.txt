@@ -1,0 +1,25 @@
+Tabel mst_user
+    spc : 99 -> IT
+          0  -> Teknisi
+          1  -> Admin
+          2  -> User
+
+
+Tabel as_rutin
+    status_pekerjaan : 0 -> Belum dikerjakan
+                       1 -> On Progres
+                       2 -> Pending
+                       3 -> Selesai (not approve by admin)
+                       4 -> Tidak dikerjakan
+                       5 -> Selesai (approve by admin)
+
+
+
+Tabel as_nonrutin
+    status_pekerjaan : 0 -> Belum dikerjakan
+                       1 -> On Progres
+                       2 -> Pending
+                       3 -> Selesai (not approve by admin)
+                       4 -> Tidak dikerjakan
+                       5 -> Selesai (approve by admin)
+

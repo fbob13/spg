@@ -17,11 +17,11 @@
             data: 'id_kategori',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'pengali',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'interval_hari',
             visible: false,
             searchable: false,
@@ -34,19 +34,19 @@
         }, {
             data: '',
             className: 'text-center',
-            render : function (data, value, row){
+            render: function(data, value, row) {
                 return row.uraian_kategori //+ ' (' + row.kode_kategori + ')'
             }
-        },{
+        }, {
             data: 'xx',
             className: 'text-center',
-            render : function(data,value,row){
+            render: function(data, value, row) {
                 str_pengali = ''
-                if(row.pengali == 1) str_pengali = 'Hari'
-                else if(row.pengali == 7) str_pengali = 'Minggu'
-                else if(row.pengali == 30) str_pengali = 'Bulan'
-                else if(row.pengali == 365) str_pengali = 'Tahun'
-                
+                if (row.pengali == 1) str_pengali = 'Hari'
+                else if (row.pengali == 7) str_pengali = 'Minggu'
+                else if (row.pengali == 30) str_pengali = 'Bulan'
+                else if (row.pengali == 365) str_pengali = 'Tahun'
+
                 return row.interval_hari + " " + str_pengali;
             }
 
@@ -110,6 +110,21 @@
         //Simpan data baru (form insert) 
         $('#form-new').submit(function(e) {
             e.preventDefault();
+            $('#modal-new').modal('hide')
+            $('#modal-konfirmasi-new').modal('show')
+
+        });
+
+        $('#btn-batal-new').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-new').modal('hide')
+            $('#modal-new').modal('show')
+
+
+        })
+
+        $('#btn-yes-new').on('click', function(e) {
+            e.preventDefault();
             $.ajax({
                 url: "<?php echo base_url(); ?>master/prutin/new",
                 type: 'post',
@@ -127,14 +142,13 @@
                         cek_error(response.err_uraian_pekerjaan, 'uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'id-kategori');
                         cek_error(response.err_interval_hari, 'interval');
-
+                        $('#modal-konfirmasi-new').modal('hide')
+                        $('#modal-new').modal('show')
                     } else {
+                        $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
 
+                        createNotification(3, response.info)
                         update_datatables()
 
                         clear_form('jenis-pekerjaan')
@@ -146,11 +160,28 @@
 
                 }
             });
-        });
+        })
+
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
             e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>master/prutin/upd",
                 type: 'post',
@@ -170,20 +201,21 @@
                         cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'upd-id-kategori');
                         cek_error(response.err_interval_hari, 'upd-interval');
-
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
                     } else {
+                        $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-
+                        createNotification(3, response.info)
                         update_datatables()
 
                     }
 
                 }
             });
-        });
+
+        })
+
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -197,16 +229,11 @@
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-del').modal('hide')
-                        $('#modal-danger-info').empty();
-                        $('#modal-danger-info').html(response.info);
-                        $('#modal-danger').modal('show')
+                        $('#modal-delete').modal('hide')
+                        createNotification(1, response.info)
                     } else {
-                        $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-
+                        $('#modal-delete').modal('hide')
+                        createNotification(3, response.info)
                         update_datatables()
                     }
 
@@ -231,7 +258,7 @@
             $("#er-" + id).val('');
         }
 
-        $('#modal-new').on('show.bs.modal', function() {
+        $('#btn-new').on('click', function() {
             clear_form('jenis-pekerjaan')
             clear_form('uraian-pekerjaan')
             clear_form('id-kategori')
@@ -248,8 +275,8 @@
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',

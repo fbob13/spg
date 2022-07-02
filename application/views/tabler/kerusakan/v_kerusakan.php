@@ -65,10 +65,10 @@
                         'label' => 'Prioritas',
                         'placeholder' => '',
                         'value' => array(
-                          array('val'=>1,'deskripsi'=>'Rendah'),
-                          array('val'=>2,'deskripsi'=>'Menengah'),
-                          array('val'=>3,'deskripsi'=>'Tinggi'),
-                          array('val'=>4,'deskripsi'=>'Urgent'),
+                          array('val' => 1, 'deskripsi' => 'Rendah'),
+                          array('val' => 2, 'deskripsi' => 'Menengah'),
+                          array('val' => 3, 'deskripsi' => 'Tinggi'),
+                          array('val' => 4, 'deskripsi' => 'Urgent'),
                         ),
                         'attr' => ''
                       ));
@@ -103,4 +103,18 @@
 
         </div>
 
-        
+        <!-- Modal Konfirmasi -->
+        <div class="modal modal-blur fade" id="modal-konfirmasi" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="modal-title">Anda Yakin</div>
+                <div>Menyimpan data keluhan baru</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal">Batal</button>
+                <button type="button" class="btn btn-success  " id="btn-yes">Ya, Simpan Data</button>
+              </div>
+            </div>
+          </div>
+        </div>

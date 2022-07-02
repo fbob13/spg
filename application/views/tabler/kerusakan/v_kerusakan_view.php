@@ -7,6 +7,57 @@
                     Status Perbaikan
                 </h2>
             </div>
+            <div class="d-flex flex-wrap mt-3 mt-md-0">
+
+                <div class="d-flex flex-nowrap">
+                    <div class="pe-2">
+                        <select class="form-select" id="s-month">
+                            <option value="99">Pilih Bulan</option>
+                            <option value="01">Januari</option>
+                            <option value="02">Februari</option>
+                            <option value="03">Maret</option>
+                            <option value="04">April</option>
+                            <option value="05">Mei</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">Agustus</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="010">November</option>
+                            <option value=10>Desember</option>
+                        </select>
+                    </div>
+                    <div class="pe-2">
+                        <input type="text" class="form-control" id="s-year" style="width:60px;" value="">
+                    </div>
+
+                </div>
+                <div class="d-flex flex-nowrap mt-2 mt-md-0">
+                    <div class="pe-2">
+                        <select class="form-select " id="s-status">
+                            <option value="99" selected>Pilih Status</option>
+                            <option value="0">Belum Dikerjakan</option>
+                            <option value="1">On Progress</option>
+                            <option value="2">Pending</option>
+                            <option value="3">Selesai</option>
+                            <option value="4">Tidak Dikerjakan</option>
+                        </select>
+                    </div>
+                    <div class="pe-2">
+                        <select class="form-select " id="s-prioritas">
+                            <option value="" selected>Pilih Prioritas</option>
+                            <option value="1">Rendah</option>
+                            <option value="2">Menengah</option>
+                            <option value="3">Tinggi</option>
+                            <option value="4">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-2 mt-md-0">
+                    <button class="btn btn-primary" id="btn-query">Query</button>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
@@ -112,18 +163,38 @@
                     <div class="modal-body">
                         <div class="card mb-3">
                             <table class="table table-vcenter card-table">
-                                <tr><td class="w-25">Tanggal Laporan</td><td class="w-1">:</td> <td id="upd-tanggal-laporan">-</td></tr>
-                                <tr><td>Gedung</td><td>:</td>                           <td id="upd-gedung">-</td></tr>
-                                <tr><td>Ruangan</td><td>:</td>                          <td id="upd-ruangan">-</td></tr>
-                                <tr><td>Item</td><td>:</td>                             <td id="upd-item">-</td></tr>
-                                <tr><td>Keluhan</td><td>:</td>                  <td id="upd-keluhan">-</td></tr>
+                                <tr>
+                                    <td class="w-25">Tanggal Laporan</td>
+                                    <td class="w-1">:</td>
+                                    <td id="upd-tanggal-laporan">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Gedung</td>
+                                    <td>:</td>
+                                    <td id="upd-gedung">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Ruangan</td>
+                                    <td>:</td>
+                                    <td id="upd-ruangan">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Item</td>
+                                    <td>:</td>
+                                    <td id="upd-item">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Keluhan</td>
+                                    <td>:</td>
+                                    <td id="upd-keluhan">-</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="">
                             <input type="hidden" id="upd-id-nonrutin" value="">
                             <?php
                             //Buat form input fungsi ada di file helper/h_form_helper.php
-                            
+
                             echo create_form(array(
                                 'type' => 'select',
                                 'id' => 'upd-id-teknisi',
@@ -204,6 +275,22 @@
                         <input type="hidden" val="" id="del-id-nonrutin">
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hapus Data</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Data sebelumnya akan di update</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes">Ya, update data</button>
                 </div>
             </div>
         </div>

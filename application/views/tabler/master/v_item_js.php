@@ -98,6 +98,22 @@
         //Simpan data baru (form insert) 
         $('#form-new').submit(function(e) {
             e.preventDefault();
+            $('#modal-new').modal('hide')
+            $('#modal-konfirmasi-new').modal('show')
+
+        });
+
+        $('#btn-batal-new').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-new').modal('hide')
+            $('#modal-new').modal('show')
+
+
+        })
+
+        $('#btn-yes-new').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: url_new,
                 type: 'post',
@@ -114,14 +130,12 @@
                         cek_error(response.err_merek_item, 'merek-item');
                         cek_error(response.err_tipe_item, 'tipe-item');
                         cek_error(response.err_kategori, 'kategori');
-
+                        $('#modal-konfirmasi-new').modal('hide')
+                        $('#modal-new').modal('show')
                     } else {
+                        $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
-
+                        createNotification(3,  response.info)
                         update_datatables()
 
                         clear_form('nama-item')
@@ -134,11 +148,32 @@
 
                 }
             });
-        });
+
+      
+
+
+        })
+
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
             e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: url_upd,
                 type: 'post',
@@ -157,20 +192,21 @@
                         cek_error(response.err_merek_item, 'upd-merek-item');
                         cek_error(response.err_tipe_item, 'upd-tipe-item');
                         cek_error(response.err_id_kategori, 'upd-kategori');
-
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
                     } else {
+                        $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-
+                        createNotification(3,  response.info)
                         update_datatables()
 
                     }
 
                 }
             });
-        });
+
+        })
+
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -185,15 +221,12 @@
                 success: function(response) {
                     if (response.status == 'nok') {
                         $('#modal-del').modal('hide')
-                        $('#modal-danger-info').empty();
-                        $('#modal-danger-info').html(response.info);
-                        $('#modal-danger').modal('show')
+ 
+                        createNotification(1,  response.info)
                     } else {
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-
+ 
+                        createNotification(3,  response.info)
                         update_datatables()
                     }
 
@@ -219,7 +252,7 @@
 
         };
 
-        $('#modal-new').on('show.bs.modal', function() {
+        $('#btn-new').on('click', function() {
             clear_form('nama-item')
             clear_form('merek-item')
             clear_form('tipe-item')

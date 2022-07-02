@@ -1,0 +1,31 @@
+Todo
+
+-1. confirmation alkert saat rubah status atau saat save
+   done[x] no[ ] progres[ ]
+
+-2. status yg sdh berubah jd selesai langsung disabel
+   done[x] no[ ] progres[ ]
+
+-3. keterangan saat ubah status harus diisi
+   done[x] no[ ] progres[ ]
+
+-4. filter warna baris
+   done[x] no[ ] progres[ ]
+
+-5. filter status di tabel
+   done[x] no[ ] progres[ ]
+
+-6. filter periode sebulan atau setahun
+   done[x] no[ ] progres[ ]
+
+-7. dashboard - grafik jumlah oekerjaan isidentil dan rutin dlm bentuk lingkaran
+   done[x] no[ ] progres[ ]1
+
+-8. dashboard - jumlah berdasar status
+   done[x] no[ ] progres[ ]
+
+-9. dashboard - junlah berdasarkan prioritas
+   done[x] no[ ] progres[ ]
+
+10. dashboard - login pekerja dashbord yg tampil hanya nama dia
+   done[ ] no[x] progres[ ]

@@ -26,7 +26,7 @@ class C_user extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
 
             $this->load->view('tabler/a_header', $data);
@@ -232,7 +232,7 @@ class C_user extends CI_Controller
                 );
 
                 //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
-                $this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[2]', $pesanError);
+                //$this->form_validation->set_rules('username', 'username', 'trim|required|is_unique[mst_user.username]|min_length[2]', $pesanError);
                 $this->form_validation->set_rules('nama', 'nama', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('nip', 'nip', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required', $pesanError);
@@ -259,6 +259,7 @@ class C_user extends CI_Controller
 
                     $err = true;
                     $data['status'] = 'nok';
+                    $data['err_form'] = 'yes';
                 }
 
                 //Jika ada error 
@@ -446,17 +447,21 @@ class C_user extends CI_Controller
                 $this->db->trans_begin();
 
                 $this->db->query("update mst_akses_detail set vw=0,edt=0,del=0 where spc=$spc");
-
-                foreach ($view as $vw) {
-                    $this->db->query("update mst_akses_detail set vw=1 where spc=$spc and kode_halaman='$vw'");
+                if ($view <> "" ) {
+                    foreach ($view as $vw) {
+                        $this->db->query("update mst_akses_detail set vw=1 where spc=$spc and kode_halaman='$vw'");
+                    }
                 }
-                foreach ($edit as $edt) {
-                    $this->db->query("update mst_akses_detail set edt=1 where spc=$spc and kode_halaman='$edt'");
+                if ($edit<> "") {
+                    foreach ($edit as $edt) {
+                        $this->db->query("update mst_akses_detail set edt=1 where spc=$spc and kode_halaman='$edt'");
+                    }
                 }
-                foreach ($delete as $dlt) {
-                    $this->db->query("update mst_akses_detail set del=1 where spc=$spc and kode_halaman='$dlt'");
+                if ($delete <> "") {
+                    foreach ($delete as $dlt) {
+                        $this->db->query("update mst_akses_detail set del=1 where spc=$spc and kode_halaman='$dlt'");
+                    }
                 }
-
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
                     $data['status'] = 'nok';

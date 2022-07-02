@@ -41,7 +41,7 @@ class C_report extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
             <script src="' . base_url() . 'dist/libs/litepicker/dist/litepicker.js"></script>';
 
             $hari = date("Y-m-d");

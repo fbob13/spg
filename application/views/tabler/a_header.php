@@ -169,16 +169,16 @@ function cek_role($array, $kode_halaman)
                 <div class="dropdown-menu <?php echo $link == 'rutin' ? 'show ' : ''; ?>">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
-                    <?php if (cek_role($user_role, 'RUTIN_INPUT') == 1) { ?>
-                      <a class="dropdown-item <?php echo $sublink == 'input_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/new">
-                        Input Jadwal Rutin
-                      </a>
+                      <?php if (cek_role($user_role, 'RUTIN_INPUT') == 1) { ?>
+                        <a class="dropdown-item <?php echo $sublink == 'input_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/new">
+                          Input Jadwal Rutin
+                        </a>
                       <?php }
                       if (cek_role($user_role, 'RUTIN_DATA') == 1) {
                       ?>
-                      <a class="dropdown-item <?php echo $sublink == 'lihat_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/view">
-                        Lihat Jadwal Rutin
-                      </a>
+                        <a class="dropdown-item <?php echo $sublink == 'lihat_jadwal' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>jadwal/rutin/view">
+                          Lihat Jadwal Rutin
+                        </a>
                       <?php } ?>
                     </div>
                   </div>
@@ -205,16 +205,16 @@ function cek_role($array, $kode_halaman)
                 <div class="dropdown-menu <?php echo $link == 'nrutin' ? 'show ' : ''; ?>">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
-                    <?php if (cek_role($user_role, 'NRUTIN_INPUT') == 1) { ?>
-                      <a class="dropdown-item <?php echo $sublink == 'kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/new">
-                        Permintaan Perbaikan
-                      </a>
+                      <?php if (cek_role($user_role, 'NRUTIN_INPUT') == 1) { ?>
+                        <a class="dropdown-item <?php echo $sublink == 'kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/new">
+                          Permintaan Perbaikan
+                        </a>
                       <?php }
                       if (cek_role($user_role, 'NRUTIN_DATA') == 1) {
                       ?>
-                      <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
-                        Status Perbaikan
-                      </a>
+                        <a class="dropdown-item <?php echo $sublink == 'update_kerusakan' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>kerusakan/view">
+                          Status Perbaikan
+                        </a>
                       <?php } ?>
                     </div>
                   </div>
@@ -244,16 +244,16 @@ function cek_role($array, $kode_halaman)
                 <div class="dropdown-menu <?php echo $link == 'admin' ? 'show ' : ''; ?>">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
-                    <?php if (cek_role($user_role, 'ADM_USER') == 1) { ?>
-                      <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/user">
-                        Kelola User
-                      </a>
+                      <?php if (cek_role($user_role, 'ADM_USER') == 1) { ?>
+                        <a class="dropdown-item <?php echo $sublink == 'user' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/user">
+                          Kelola User
+                        </a>
                       <?php }
                       if (cek_role($user_role, 'ADM_AKSES') == 1) {
                       ?>
-                      <a class="dropdown-item <?php echo $sublink == 'akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/akses">
-                        Hak Akses
-                      </a>
+                        <a class="dropdown-item <?php echo $sublink == 'akses' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>admin/akses">
+                          Hak Akses
+                        </a>
                       <?php } ?>
                     </div>
                   </div>
@@ -334,6 +334,88 @@ function cek_role($array, $kode_halaman)
           <span class="badge badge-pill bg-mute" id="badge-ready">0</span>
           */
           ?>
+          <div class="nav-item dropdown d-md-flex">
+            <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications" aria-expanded="false">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16">
+                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+              </svg>
+              <span id="badge-rutin" class=""></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
+              <div class="card">
+                <div class="card-body" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
+                  <div class="divide-y" id="container-rutin">
+                    <?php  /*
+                    for ($x = 1; $x <= 10; $x++) {
+                    ?>
+
+                      <div>
+                        <div class="row">
+                          <div class="col border-start border-5 border-danger">
+                            <div class="d-flex justify-content-between">
+                              <div>Kantor</div>
+                              <div>2022-06-25</div>
+                            </div>
+                            <div class="d-flex">
+                              <div>RUANG SUB BAGIAN HUKUM</div>
+                            </div>
+                            <div class="">
+                              AC Daikin - Membersihkan AC
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <?php } 
+                    */
+                    ?>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item dropdown d-md-flex">
+            <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications" aria-expanded="false">
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16">
+                <path d="M16 4.5a4.492 4.492 0 0 1-1.703 3.526L13 5l2.959-1.11c.027.2.041.403.041.61Z" />
+                <path d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.49 4.49 0 0 0 11.5 9Zm-1.292-4.361-.596.893.809-.27a.25.25 0 0 1 .287.377l-.596.893.809-.27.158.475-1.5.5a.25.25 0 0 1-.287-.376l.596-.893-.809.27a.25.25 0 0 1-.287-.377l.596-.893-.809.27-.158-.475 1.5-.5a.25.25 0 0 1 .287.376ZM3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+              </svg>
+              <span id="badge-nonrutin" class=""></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
+              <div class="card">
+                <div class="card-body" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
+                  <div class="divide-y" id="container-nonrutin">
+                    <?php /*
+                    for ($x = 1; $x <= 10; $x++) {
+                    ?>
+
+                      <div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="d-flex justify-content-between">
+                              <div>Kantor</div>
+                              <div>2022-06-25</div>
+                            </div>
+                            <div class="d-flex">
+                              <div>RUANG SUB BAGIAN HUKUM</div>
+                            </div>
+                            <div class="">
+                              Genset tidak bisa menyala, tolong di cek bosku, Genset tidak bisa menyala, tolong di cek bosku , Genset tidak bisa menyala, tolong di cek bosku
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <?php } */?>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="nav-item dropdown ps-2">
 
             <a href="#" class="nav-link d-flex lh-1 text-reset p-0 ps-2" data-bs-toggle="dropdown" aria-label="Open user menu">

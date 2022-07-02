@@ -59,6 +59,10 @@ $route['reset'] ='C_index/reset';
 $route['reset_send'] ='C_index/reset_send';
 $route['test_email'] = 'C_index/test_email';
 
+//dashboard/data/"tipe"/"bulan";
+$route['dashboard/data/:any/:any'] = 'C_index/data';
+$route['dashboard/info/:any'] = 'C_index/info';
+
 //Ganti Password
 $route['gpass'] = 'C_setting/ganti_password';
 

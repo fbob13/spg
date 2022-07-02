@@ -95,9 +95,9 @@
 
                         <div class="form-footer">
                           <div class="d-flex flex-nowrap w-full">
-                          <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Jadwal</button></div>
-                          
-                          
+                            <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Jadwal</button></div>
+
+
                           </div>
                         </div>
                       </form>
@@ -117,7 +117,7 @@
                               <th>Ruangan</th>
                               <th>Item</th>
                               <th>Pekerjaan Rutin</th>
-                              
+
                             </tr>
                           </thead>
                           <tbody id="tabel-body">
@@ -137,4 +137,34 @@
 
         </div>
 
-        
+        <!-- Modal Konfirmasi -->
+        <div class="modal modal-blur fade" id="modal-konfirmasi" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="modal-title">Anda Yakin</div>
+                <div>Menyimpan data jadwal baru</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal">Batal</button>
+                <button type="button" class="btn btn-danger" id="btn-yes">Ya, update data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Konfirmasi -->
+        <div class="modal modal-blur fade" id="modal-konfirmasi-del" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="modal-title">Anda Yakin</div>
+                <div>Data akan di Hapus</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-del">Batal</button>
+                <button type="button" class="btn btn-danger" id="btn-yes-del">Ya, update data</button>
+              </div>
+            </div>
+          </div>
+        </div>

@@ -96,6 +96,7 @@ class C_setting extends CI_Controller
         $this->load->view('tabler/a_header', $data);
         $this->load->view('tabler/setting/v_ganti_password', $data);
         $this->load->view('tabler/a_footer', $data);
+        $this->load->view('tabler/setting/v_ganti_password_js', $data);
         $this->load->view('tabler/a_end_page', $data);
     }
 
@@ -133,7 +134,7 @@ class C_setting extends CI_Controller
 
     public function profile_update()
     {
-        
+
         $cek = $this->session->userdata('asm_st');
         $spc = $this->session->userdata('spc');
 
@@ -260,18 +261,27 @@ class C_setting extends CI_Controller
                 $old_data = $this->db->get_where('mst_user', array('id_user' => $this->session->userdata('id_user')), 1);
                 $old_data_res = $old_data->first_row();
                 $check = $this->db->get_where('mst_user', array('username' => $nomor_induk), 1);
-                if ($check->num_rows() > 0) {
-                    //$this->set_message('unique_kode_kategori', 'Kode telah terdaftar');
-                    //return FALSE;
-                    if ($nomor_induk == $old_data_res->username) {
-                        $data['err_nomor_induk'] = '';
-                    } else {
-                        $data['err_nomor_induk'] = '<span>Username sudah terdaftar</span>';
-                        $err = true;
-                        $data['status'] = 'nok';
+
+                if ($nomor_induk == "") {
+                    $err = true;
+                    $data['err_nomor_induk'] = '<span>Silahkan mengisi username</span>';
+                } else {
+
+                    if ($check->num_rows() > 0) {
+                        //$this->set_message('unique_kode_kategori', 'Kode telah terdaftar');
+                        //return FALSE;
+                        if ($nomor_induk == $old_data_res->username) {
+                            $data['err_nomor_induk'] = '';
+                        } else if ($nomor_induk == "") {
+                            $err = true;
+                            $data['err_nomor_induk'] = '<span>Silahkan mengisi username</span>';
+                        } else {
+                            $data['err_nomor_induk'] = '<span>Username sudah terdaftar</span>';
+                            $err = true;
+                            $data['status'] = 'nok';
+                        }
                     }
                 }
-
                 $check = $this->db->get_where('mst_user', array('email' => $email), 1);
                 if ($check->num_rows() > 0) {
                     //$this->set_message('unique_kode_kategori', 'Kode telah terdaftar');

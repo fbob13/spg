@@ -60,6 +60,22 @@
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
+            e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
 
             e.preventDefault();
             var role_view = $('input[name="role_view[]"]:checked').map(function() {
@@ -84,20 +100,18 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        //$('#modal-detail').html(response);
 
-                        $('#modal-update').modal('hide');
-
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);        
-                        $('#modal-success').modal('show');
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('hide')
+                        createNotification(3,  response.info)
 
                     }
                 });
             } else {
                 alert('Silahkan Memilih Data');
             }
-        });
+        })
+        
 
 
 
@@ -117,18 +131,6 @@
             $("#er-" + id).val('')
         }
 
-        $('#modal-new').on('show.bs.modal', function() {
-            clear_form('username')
-            clear_form('nama')
-            clear_form('spc')
-            clear_form('alamat')
-            clear_form('jabatan')
-            clear_form('jenkel')
-            clear_form('telepon')
-            clear_form('email')
-            clear_form('nip')
-
-        })
 
 
         $("#check_view").change(function() {

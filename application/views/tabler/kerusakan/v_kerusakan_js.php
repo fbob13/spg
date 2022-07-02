@@ -27,6 +27,20 @@
 
     $('#form-new').submit(function(e) {
       e.preventDefault()
+      $('#modal-konfirmasi').modal('show')
+      
+    })
+
+
+
+    $('#btn-batal').on('click', function(e) {
+      e.preventDefault();
+      $('#modal-konfirmasi').modal('hide')
+
+    })
+
+    $('#btn-yes').on('click', function(e) {
+      e.preventDefault();
 
       $.ajax({
         url: '<?= base_url() ?>kerusakan/save',
@@ -44,6 +58,7 @@
         success: function(response) {
           if (response.status == "ok") {
             $('#modal-new').modal('hide')
+            $('#modal-konfirmasi').modal('hide')
             $('#modal-success-info').empty();
             $('#modal-success-info').html(response.info);
             $('#modal-success').modal('show')
@@ -54,6 +69,7 @@
             clear_form('id-item')
             clear_form('prioritas')
             clear_form('keluhan')
+            getNonRutin()
           } else {
             cek_error(response.err_id_gedung, 'id-gedung');
             cek_error(response.err_id_ruangan, 'id-ruangan');
@@ -61,10 +77,13 @@
             cek_error(response.err_id_pkrutin, 'id-pkrutin');
             cek_error(response.err_keluhan, 'keluhan');
             cek_error(response.err_prioritas, 'prioritas');
+            $('#modal-konfirmasi').modal('hide')
           }
 
         }
       });
+
+
     })
 
     //Fungsi mengupdate list item setiap list gedung berubah

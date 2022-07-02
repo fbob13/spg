@@ -53,8 +53,7 @@ class C_kerusakan extends CI_Controller
 
 
             //JS untuk menampilkan tabel (datatables)
-            //$data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
                                 <script src="' . base_url() . 'dist/libs/litepicker/dist/litepicker.js"></script>';
 
             $query = $this->db->query("select id_user val ,nama deskripsi from mst_user where spc = 0");
@@ -219,7 +218,7 @@ class C_kerusakan extends CI_Controller
             $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
             $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (0)');
             $data['teknisi'] = $query->result();
@@ -269,16 +268,76 @@ class C_kerusakan extends CI_Controller
         }
         //Jika User = 99(IT) atau 1(admin)
         elseif ($this->Login_model->cekLogin('NRUTIN_DATA', 'view')) {
-            $query = $this->db->query("select * from view_nonrutin");
-            $data["data"] = $query->result();
+
+            $this->load->library('SSP');
+            $table = 'view_nonrutin';
+            $primaryKey = 'id_nonrutin';
+
+            $columns = array(
+                array( 'db' => 'id_nonrutin', 'dt' => 'id_nonrutin' ),
+                array( 'db' => 'id_teknisi',  'dt' => 'id_teknisi' ),
+                array( 'db' => 'nama_teknisi',   'dt' => 'nama_teknisi' ),
+                array( 'db' => 'tanggal_laporan',   'dt' => 'tanggal_laporan' ),
+                array( 'db' => 'tanggal_perbaikan',   'dt' => 'tanggal_perbaikan' ),
+                array( 'db' => 'nama_gedung',   'dt' => 'nama_gedung' ),
+                array( 'db' => 'nama_ruangan',   'dt' => 'nama_ruangan' ),
+                array( 'db' => 'nama_item',   'dt' => 'nama_item' ),
+                array( 'db' => 'prioritas',   'dt' => 'prioritas' ),
+                array( 'db' => 'prioritas_text',   'dt' => 'prioritas_text' ),
+                array( 'db' => 'status_pekerjaan_text',   'dt' => 'status_pekerjaan_text' ),
+                array( 'db' => 'status_pekerjaan',   'dt' => 'status_pekerjaan' ),
+                array( 'db' => 'keterangan',   'dt' => 'keterangan' ),
+                array( 'db' => 'keluhan',   'dt' => 'keluhan' )
+            );
+
+            $sql_details = array(
+                'user' => 'root',
+                'pass' => '',
+                'db'   => 'aslam',
+                'host' => 'localhost'
+            );
+
+            (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
+            (isset($_POST['bulan']))         ? $bulan =       $_POST['bulan']         : $bulan = date('m');
+            (isset($_POST['tahun']))         ? $tahun =       $_POST['tahun']         : $tahun = date('Y');
+            (isset($_POST['prioritas']))         ? $prioritas =       $_POST['prioritas']         : $prioritas = "";
+
+
+            //$where  = "id_user='2' and status_pekerjaan = 3";
+            $where="";
+
+            if($bulan == 99){
+                $where = "DATE_FORMAT(tanggal_laporan,'%Y') = '$tahun'";
+            }else{
+                $where = "DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan'";
+            }
+            
+            if($status_pekerjaan <> "" && $status_pekerjaan <>99){
+                $where = $where . " and status_pekerjaan = $status_pekerjaan";
+            }
+
+            if($prioritas <> ""){
+                $where = $where . " and prioritas = $prioritas";
+            }
+            
+            echo json_encode(
+                //SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns );
+                //$this->ssp->simple($_GET, $sql_details, $table, $primaryKey, $columns );
+                $this->ssp->complex($_REQUEST, $sql_details, $table, $primaryKey, $columns,'',$where )
+            );
+
+
+            //$query = $this->db->query("select * from view_nonrutin");
+            //$data["data"] = $query->result();
         }
         //Jika bukan kembali ke base_url (home)
         else {
             $data['status'] = 'nok';
             $data['info'] = 'Anda Tidak Berhak';
+            echo json_encode($data);
         }
 
-        echo json_encode($data);
+        
 
 
         //END FUNCTION
@@ -322,7 +381,7 @@ class C_kerusakan extends CI_Controller
 
                 //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
                 $this->form_validation->set_rules('status_pekerjaan', 'status_pekerjaan', 'trim|required', $pesanError);
-                $this->form_validation->set_rules('keterangan', 'keterangan', 'trim', $pesanError);
+                $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {

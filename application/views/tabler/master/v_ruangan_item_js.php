@@ -96,6 +96,22 @@
         //Simpan data baru (form insert) 
         $('#form-new').submit(function(e) {
             e.preventDefault();
+            $('#modal-new').modal('hide')
+            $('#modal-konfirmasi-new').modal('show')
+
+        });
+
+        $('#btn-batal-new').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-new').modal('hide')
+            $('#modal-new').modal('show')
+
+
+        })
+
+        $('#btn-yes-new').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>master/ruangan-item/new",
                 type: 'post',
@@ -112,13 +128,13 @@
                         cek_error(response.err_id_item, 'item');
                         cek_error(response.err_id_ruangan, 'ruangan');
                         cek_error(response.err_tahun_pengadaan, 'tahun-pengadaan');
+                        $('#modal-konfirmasi-new').modal('hide')
+                        $('#modal-new').modal('show')
 
                     } else {
+                        $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
+                        createNotification(3, response.info)
 
                         clear_form('gedung')
                         clear_form('ruangan')
@@ -132,11 +148,28 @@
 
                 }
             });
-        });
+        })
+
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
             e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>master/ruangan-item/upd",
                 type: 'post',
@@ -155,12 +188,12 @@
                         cek_error(response.err_id_ruangan, 'upd-ruangan');
                         cek_error(response.err_id_item, 'upd-item');
                         cek_error(response.err_tahun_pengadaan, 'upd-tahun-pengadaan');
-
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
                     } else {
+                        $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
+                        createNotification(3, response.info)
 
                         clear_form('upd-gedung')
                         clear_form('upd-ruangan')
@@ -173,7 +206,8 @@
 
                 }
             });
-        });
+        })
+
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -187,16 +221,12 @@
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-del').modal('hide')
-                        $('#modal-danger-info').empty();
-                        $('#modal-danger-info').html(response.info);
-                        $('#modal-danger').modal('show')
-                    } else {
-                        $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
+                        $('#modal-delete').modal('hide')
 
+                        createNotification(1, response.info)
+                    } else {
+                        $('#modal-delete').modal('hide')
+                        createNotification(3, response.info)
                         update_datatables()
                     }
 
@@ -224,8 +254,8 @@
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',
@@ -303,7 +333,7 @@
             $("#er-" + id).val('')
         }
 
-        $('#modal-new').on('show.bs.modal', function() {
+        $('#btn-new').on('click', function() {
             clear_form('gedung')
             clear_form('ruangan')
             clear_form('item')

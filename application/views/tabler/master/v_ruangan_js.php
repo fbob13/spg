@@ -87,6 +87,21 @@
         //Simpan data baru (form insert) 
         $('#form-new').submit(function(e) {
             e.preventDefault();
+            $('#modal-new').modal('hide')
+            $('#modal-konfirmasi-new').modal('show')
+
+        });
+
+        $('#btn-batal-new').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-new').modal('hide')
+            $('#modal-new').modal('show')
+
+
+        })
+
+        $('#btn-yes-new').on('click', function(e) {
+            e.preventDefault();
             $.ajax({
                 url: "<?php echo base_url(); ?>master/ruangan/new",
                 type: 'post',
@@ -103,13 +118,13 @@
                         cek_error(response.err_kode_ruangan, 'kode-ruangan');
                         cek_error(response.err_uraian_ruangan, 'uraian-ruangan');
                         cek_error(response.err_keterangan, 'keterangan');
+                        $('#modal-konfirmasi-new').modal('hide')
+                        $('#modal-new').modal('show')
 
                     } else {
+                        $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
+                        createNotification(3,  response.info)
 
                         update_datatables()
 
@@ -117,18 +132,32 @@
                         clear_form('kode-ruangan')
                         clear_form('uraian-ruangan')
                         clear_form('keterangan')
-
-
-
                     }
 
                 }
             });
-        });
+        })
+
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
             e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>master/ruangan/upd",
                 type: 'post',
@@ -148,11 +177,13 @@
                         cek_error(response.err_uraian_ruangan, 'upd-uraian-ruangan');
                         cek_error(response.err_keterangan, 'upd-keterangan');
 
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
+
                     } else {
+                        $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
+                        createNotification(3,  response.info)
 
                         update_datatables()
 
@@ -160,7 +191,35 @@
 
                 }
             });
-        });
+
+            $.ajax({
+                url: "<?php echo base_url(); ?>master/gedung/upd",
+                type: 'post',
+                dataType: 'json',
+                data: {
+
+                    'id_gedung': $('#upd-id-gedung').val(),
+                    'nama_gedung': $('#upd-nama-gedung').val(),
+                    'keterangan': $('#upd-keterangan').val(),
+                },
+                success: function(response) {
+                    if (response.status == 'nok') {
+                        // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
+                        cek_error(response.err_nama_gedung, 'upd-nama-gedung');
+                        cek_error(response.err_keterangan, 'upd-keterangan');
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
+                    } else {
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('hide')
+                        createNotification(3,  response.info)
+                        update_datatables()
+
+                    }
+
+                }
+            });
+        })
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -174,16 +233,11 @@
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-del').modal('hide')
-                        $('#modal-danger-info').empty();
-                        $('#modal-danger-info').html(response.info);
-                        $('#modal-danger').modal('show')
+                        $('#modal-delete').modal('hide')
+                        createNotification(1,  response.info)
                     } else {
-                        $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-
+                        $('#modal-delete').modal('hide')
+                        createNotification(3,  response.info)
                         update_datatables()
                     }
 
@@ -209,7 +263,7 @@
 
         };
 
-        $('#modal-new').on('show.bs.modal', function() {
+        $('#btn-new').on('click', function() {
             clear_form('id-gedung')
             clear_form('kode-ruangan')
             clear_form('uraian-ruangan')

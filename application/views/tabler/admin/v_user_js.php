@@ -115,6 +115,22 @@
         //Simpan data baru (form insert) 
         $('#form-new').submit(function(e) {
             e.preventDefault();
+            $('#modal-new').modal('hide')
+            $('#modal-konfirmasi-new').modal('show')
+
+        });
+
+        $('#btn-batal-new').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-new').modal('hide')
+            $('#modal-new').modal('show')
+
+
+        })
+
+        $('#btn-yes-new').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>admin/user/new",
                 type: 'post',
@@ -143,12 +159,13 @@
                         cek_error(response.err_telepon, 'telepon');
                         cek_error(response.err_email, 'email');
 
+                        $('#modal-konfirmasi-new').modal('hide')
+                        $('#modal-new').modal('show')
+
                     } else {
+                        $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
-                        $('#modal-success').modal('hide')
+                        createNotification(3, response.info)
 
                         update_datatables()
 
@@ -168,11 +185,27 @@
 
                 }
             });
-        });
+        })
 
         //Simpan hasil update (form update)
         $('#form-update').submit(function(e) {
             e.preventDefault();
+            $('#modal-update').modal('hide')
+            $('#modal-konfirmasi').modal('show')
+
+        });
+
+        $('#btn-batal').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi').modal('hide')
+            $('#modal-update').modal('show')
+
+
+        })
+
+        $('#btn-yes').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>admin/user/upd",
                 type: 'post',
@@ -203,11 +236,13 @@
                         cek_error(response.err_telepon, 'upd-telepon');
                         cek_error(response.err_email, 'upd-email');
 
+                        $('#modal-konfirmasi').modal('hide')
+                        $('#modal-update').modal('show')
+
                     } else {
+                        $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
+                        createNotification(3, response.info)
 
                         update_datatables()
 
@@ -225,7 +260,8 @@
 
                 }
             });
-        });
+        })
+
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -240,14 +276,10 @@
                 success: function(response) {
                     if (response.status == 'nok') {
                         $('#modal-del').modal('hide')
-                        $('#modal-danger-info').empty();
-                        $('#modal-danger-info').html(response.info);
-                        $('#modal-danger').modal('show')
+                        createNotification(1, response.info)
                     } else {
                         $('#modal-update').modal('hide')
-                        $('#modal-success-info').empty();
-                        $('#modal-success-info').html(response.info);
-                        $('#modal-success').modal('show')
+                        createNotification(3, response.info)
 
                         update_datatables()
                     }
@@ -273,7 +305,7 @@
             $("#er-" + id).val('')
         }
 
-        $('#modal-new').on('show.bs.modal', function() {
+        $('#btn-new').on('click', function() {
             clear_form('username')
             clear_form('nama')
             clear_form('spc')
@@ -295,8 +327,8 @@
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',

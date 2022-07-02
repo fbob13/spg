@@ -27,18 +27,156 @@ class C_index extends CI_Controller
 			return $this->load->view('auth/v_login');
 		}
 
-		$data['link'] = 'dashboard';	
+		$data['link'] = 'dashboard';
 		$data['sublink'] = '';
 		$data['subsublink'] = '';
 
 		$data['title'] = 'Dashboard - ' . $this->config->item('app_name');;
-		$data['cust_css'] = '';	
-		$data['cust_js'] = '';
+		$data['cust_css'] = '';
+		$data['cust_js'] = '<script src="' . base_url() . 'dist/libs/apexcharts/dist/apexcharts.min.js"></script>';
+
+		$tanggal = date('Y-m');
+
+		$query = $this->db->query("select count(*) as total from as_rutin where DATE_FORMAT(tanggal_jadwal,'%Y-%m') = '$tanggal'");
+		$result = $query->first_row();
+		$data['rutin'] = $result->total;
+
+		$query = $this->db->query("select count(*) as total from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tanggal'");
+		$result = $query->first_row();
+		$data['nonrutin'] = $result->total;
+
+		$data['belum'] = $data['progres'] = $data['pending'] = $data['selesai'] = $data['tidak'] = $data['approve'] = 0;
+		$query = $this->db->query("SELECT status_pekerjaan, COUNT(id_nonrutin) jumlah from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tanggal' GROUP BY status_pekerjaan");
+		$result = $query->result();
+		foreach ($result as $res) {
+			if ($res->status_pekerjaan == 0) $data['belum'] = $res->jumlah;
+			else if ($res->status_pekerjaan == 1) $data['pending'] = $res->jumlah;
+			else if ($res->status_pekerjaan == 2) $data['selesai'] = $res->jumlah;
+			else if ($res->status_pekerjaan == 3) $data['tidak'] = $res->jumlah;
+			else if ($res->status_pekerjaan == 4) $data['approve'] = $res->jumlah;
+		}
+
+		$data['rendah'] = $data['menengah'] = $data['tinggi'] = $data['urgent'] = 0;
+		$query = $this->db->query("SELECT prioritas, COUNT(id_nonrutin) jumlah from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tanggal' GROUP BY prioritas");
+		$result = $query->result();
+		$result = $query->result();
+		foreach ($result as $res) {
+			if ($res->prioritas == 1) $data['rendah'] = $res->jumlah;
+			else if ($res->prioritas == 2) $data['menengah'] = $res->jumlah;
+			else if ($res->prioritas == 3) $data['tinggi'] = $res->jumlah;
+			else if ($res->prioritas == 4) $data['urgent'] = $res->jumlah;
+		}
+
+		//echo json_encode($data);
+		//return;
 		$this->load->view('tabler/a_header', $data);
 		$this->load->view('tabler/v_home', $data);
 		$this->load->view('tabler/a_footer', $data);
 		$this->load->view('tabler/v_home_js', $data);
 		$this->load->view('tabler/a_end_page', $data);
+	}
+
+	public function data()
+	{
+		//Cek jika user Login / variabel "asm_st" ada di session
+		//Kalau sudah login, variabel "asm_st" = "yes"
+		$cek = $this->session->userdata('asm_st');
+		$spc = $this->session->userdata('spc');
+		if (empty($cek) || $cek <> "yes") {
+			$data['status'] = 'nok';
+			$data['info'] = 'Anda Tidak Berhak';
+		}
+		//Jika User = 99(IT) atau 1(admin)
+		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99) {
+
+			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
+			$bulan = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'bulan';
+			$tahun = date('Y');
+			if ($tipe == 1) {	// rutin nonrutin
+				$query = $this->db->query("select count(*) as total from as_rutin where DATE_FORMAT(tanggal_jadwal,'%Y-%m') = '$tahun-$bulan'");
+				$result = $query->first_row();
+				$data['rutin'] = $result->total;
+
+				$query = $this->db->query("select count(*) as total from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan'");
+				$result = $query->first_row();
+				$data['nonrutin'] = $result->total;
+			} else if ($tipe == 2) { // nonrutin by status
+				$data['belum'] = $data['progres'] = $data['pending'] = $data['selesai'] = $data['tidak'] = $data['approve'] = 0;
+				$query = $this->db->query("SELECT status_pekerjaan, COUNT(id_nonrutin) jumlah from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan' GROUP BY status_pekerjaan");
+				$result = $query->result();
+				foreach ($result as $res) {
+					if ($res->status_pekerjaan == 0) $data['belum'] = $res->jumlah;
+					else if ($res->status_pekerjaan == 1) $data['pending'] = $res->jumlah;
+					else if ($res->status_pekerjaan == 2) $data['selesai'] = $res->jumlah;
+					else if ($res->status_pekerjaan == 3) $data['tidak'] = $res->jumlah;
+					else if ($res->status_pekerjaan == 4) $data['approve'] = $res->jumlah;
+				}
+			} else if ($tipe == 3) { // nonrutin by prioritas
+				$data['rendah'] = $data['menengah'] = $data['tinggi'] = $data['urgent'] = 0;
+				$query = $this->db->query("SELECT prioritas, COUNT(id_nonrutin) jumlah from as_nonrutin where DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan' GROUP BY prioritas");
+				$result = $query->result();
+				$result = $query->result();
+				foreach ($result as $res) {
+					if ($res->prioritas == 1) $data['rendah'] = $res->jumlah;
+					else if ($res->prioritas == 2) $data['menengah'] = $res->jumlah;
+					else if ($res->prioritas == 3) $data['tinggi'] = $res->jumlah;
+					else if ($res->prioritas == 4) $data['urgent'] = $res->jumlah;
+				}
+			}
+
+
+			$data['status'] = 'ok';
+		}
+		//Jika bukan kembali ke base_url (home)
+		else {
+			$data['status'] = 'nok';
+			$data['info'] = 'Anda Tidak Berhak';
+		}
+
+		echo json_encode($data);
+
+
+		//END FUNCTION
+	}
+
+	public function info()
+	{
+		//Cek jika user Login / variabel "asm_st" ada di session
+		//Kalau sudah login, variabel "asm_st" = "yes"
+		$cek = $this->session->userdata('asm_st');
+		$spc = $this->session->userdata('spc');
+		if (empty($cek) || $cek <> "yes") {
+			$data['status'] = 'nok';
+			$data['info'] = 'Anda Tidak Berhak';
+		}
+		//Jika User = 99(IT) atau 1(admin)
+		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99) {
+
+			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
+			$tanggal = date('Y-m-d');
+			if ($tipe == 'rutin') {
+				$query = $this->db->query("select * from view_rutin where status_pekerjaan not in (3,5) and tanggal_jadwal='$tanggal' order by tanggal_jadwal,status_pekerjaan");
+				$result = $query->result();
+				$data['data'] = $result;
+			} else if ($tipe == 'nonrutin') {
+				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$result = $query->result();
+				$data['data'] = $result;
+			}
+
+			$data['status'] = 'ok';
+		}
+
+		//Jika bukan kembali ke base_url (home)
+		else {
+			$data['status'] = 'nok';
+			$data['info'] = 'Anda Tidak Berhak';
+		}
+
+		echo json_encode($data);
+
+
+		//END FUNCTION
 	}
 
 	public function login()
@@ -202,5 +340,4 @@ class C_index extends CI_Controller
 		}
 		return implode('', $pieces);
 	}
-
 }
