@@ -597,7 +597,8 @@ class C_master extends CI_Controller
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
-            $query = $this->db->query('select id_item val,CONCAT_WS(\' - \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
+            // $query = $this->db->query('select id_item val,CONCAT_WS(\' - \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
+            $query = $this->db->query('select id_item val,nama_item AS deskripsi from mst_item where status_item = 1');
             $data['item'] = $query->result();
 
             $query = $this->db->query('select id_gedung val,nama_gedung AS deskripsi from mst_gedung');
