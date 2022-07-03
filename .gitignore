@@ -6,7 +6,6 @@ dist/*
 send/*
 *.zip
 
-!dist/libs/select2/
 
 application/cache/*
 !application/cache/index.html

@@ -32,3 +32,6 @@ Todo
 
 11. combo_box - fungsi cari (search)
    done[ ] no[x] progres[ ]
+   notes : 
+           extract here select2.7z di "dist/libs/"
+           jadi nanti hasilnya "dist/libs/select2/*"
