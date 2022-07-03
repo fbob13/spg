@@ -78,7 +78,7 @@
                                 'label' => 'Pilih Ruangan',
                                 'placeholder' => 'Pilih Ruangan',
                                 'value' => array(),
-                                'attr' => ''
+                                'attr' => 'style="width:100%"',
                             ));
 
                             echo create_form(array(

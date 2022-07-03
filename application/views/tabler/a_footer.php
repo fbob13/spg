@@ -106,10 +106,12 @@
 <!-- Libs JS -->
 
 <script src="<?php echo base_url(); ?>dist/libs/jquery/jquery-3.6.0.min.js"></script>
-<?php echo $cust_js; ?>
+
 <!-- Tabler Core -->
 <script src="<?php echo base_url(); ?>dist/js/tabler.min.js"></script>
 <script src="<?php echo base_url(); ?>dist/js/demo.min.js"></script>
+
+<?php echo $cust_js; ?>
 <script>
     function createNonRutin(gedung, ruangan, keluhan, tanggal, prioritas = "") {
 

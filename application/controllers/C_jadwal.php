@@ -49,13 +49,16 @@ class C_jadwal extends CI_Controller
             $data['title'] = 'Buat Jadwal Rutin - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
-            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
+            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>
+                                 <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2.min.css"/>
+                                 <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2-bootstrap-5-theme.css"/>';
 
 
             //JS untuk menampilkan tabel (datatables)
             //$data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
             $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
-                                <script src="' . base_url() . 'dist/libs/litepicker/dist/litepicker.js"></script>';
+                                <script src="' . base_url() . 'dist/libs/litepicker/dist/litepicker.js"></script>
+                                <script src="' . base_url() . 'dist/libs/select2/js/select2.full.min.js"></script>';
 
             $query = $this->db->query("select id_user val ,nama deskripsi from mst_user where spc = 0");
             $data['teknisi'] = $query->result();
@@ -267,10 +270,15 @@ class C_jadwal extends CI_Controller
             $data['title'] = 'Pekerjaan Rutin - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
-            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
+            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>
+                                 <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2.min.css"/>
+                                 <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2-bootstrap-5-theme.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            //$data['cust_js'] = '<script type="text/javascript" src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
+                                <script src="' . base_url() . 'dist/libs/select2/js/select2.full.min.js"></script>';
+
 
             $option = array(
                 array("val" => 0, "deskripsi" => "Belum Dikerjakan"),
@@ -333,10 +341,10 @@ class C_jadwal extends CI_Controller
             );
 
             $sql_details = array(
-                'user' => 'bpk',
-                'pass' => 'bpk123',
-                'db'   => 'spgedung',
-                'host' => 'localhost'
+                'user' => $this->db->username,
+                'pass' => $this->db->password,
+                'db'   => $this->db->database,
+                'host' => $this->db->hostname
             );
 
             (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";

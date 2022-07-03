@@ -341,5 +341,20 @@
         })
 
 
+        $('#ruangan').select2({
+            //dropdownParent: $('#ruan'),
+            theme: "bootstrap-5",
+            dropdownParent: $("#ruangan").parent(),  
+        });
+
+        $('#upd-ruangan').select2({
+            //dropdownParent: $('#ruan'),
+            theme: "bootstrap-5",
+            dropdownParent: $("#upd-ruangan").parent(),  
+        });
+
+
+
+
     });
 </script>

@@ -28,7 +28,7 @@
     $('#form-new').submit(function(e) {
       e.preventDefault()
       $('#modal-konfirmasi').modal('show')
-      
+
     })
 
 
@@ -388,6 +388,18 @@
       var yyyy = today.getFullYear();
       return yyyy + '-' + mm + '-' + dd
     }
+
+    $('#id-ruangan').select2({
+      //dropdownParent: $('#ruan'),
+      theme: "bootstrap-5",
+      dropdownParent: $("#id-ruangan").parent(),
+    });
+
+    $('#id-item').select2({
+      //dropdownParent: $('#ruan'),
+      theme: "bootstrap-5",
+      dropdownParent: $("#id-item").parent(),
+    });
 
 
   });

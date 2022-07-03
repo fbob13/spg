@@ -592,10 +592,13 @@ class C_master extends CI_Controller
             $data['title'] = 'Master Item - ' . $this->config->item('app_name');
 
             //CSS untuk menampilkan tabel (datatables)
-            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
+            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>
+                                <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2.min.css"/>
+                                 <link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/select2/css/select2-bootstrap-5-theme.css"/>';
 
             //JS untuk menampilkan tabel (datatables)
-            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+            $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>
+                                <script src="' . base_url() . 'dist/libs/select2/js/select2.full.min.js"></script>';
 
             $query = $this->db->query('select id_item val,CONCAT_WS(\' / \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
             // $query = $this->db->query('select id_item val,nama_item AS deskripsi from mst_item where status_item = 1');

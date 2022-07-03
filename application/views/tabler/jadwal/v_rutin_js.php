@@ -102,7 +102,7 @@
           dataType: 'json',
           success: function(response) {
             create_draft()
-            createNotification(3,  "Jadwal berhasil di hapus")
+            createNotification(3, "Jadwal berhasil di hapus")
             getRutin()
           }
         });
@@ -262,7 +262,7 @@
         success: function(response) {
           if (response.status == "ok") {
             create_draft()
-            createNotification(3,  "Jadwal berhasil di tambahkah")
+            createNotification(3, "Jadwal berhasil di tambahkah")
             getRutin()
           } else {
             cek_error(response.err_id_gedung, 'id-gedung');
@@ -274,6 +274,26 @@
         }
       });
     })
+
+    $('#id-ruangan').select2({
+      //dropdownParent: $('#ruan'),
+      theme: "bootstrap-5",
+      dropdownParent: $("#id-ruangan").parent(),
+    });
+
+    $('#id-item').select2({
+      //dropdownParent: $('#ruan'),
+      theme: "bootstrap-5",
+      dropdownParent: $("#id-item").parent(),
+    });
+
+    $('#id-pkrutin').select2({
+      //dropdownParent: $('#ruan'),
+      theme: "bootstrap-5",
+      dropdownParent: $("#id-pkrutin").parent(),
+    });
+
+
 
   });
 

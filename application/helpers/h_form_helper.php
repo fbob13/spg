@@ -4,12 +4,18 @@ function create_form($arr)
 {
 
     $output = '';
+    $class="";
+    if (array_key_exists('class', $arr))
+        {
+            $class=$arr['class'];
+        }
+        
     if ($arr['type'] == 'text') {
 
         $output = $output . '<div class="form-group mb-3 row">';
         $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
         $output = $output . '<div class="col">';
-        $output = $output . '<input type="text" class="form-control" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
+        $output = $output . '<input type="text" class="form-control '. $class .'" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div>';
         $output = $output . '</div>';
         $output = $output . '</div>';
@@ -18,7 +24,7 @@ function create_form($arr)
         $output = $output . '<div class="form-group mb-3 row">';
         $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
         $output = $output . '<div class="col">';
-        $output = $output . '<input type="email" class="form-control" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
+        $output = $output . '<input type="email" class="form-control '. $class .'" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div>';
         $output = $output . '</div>';
         $output = $output . '</div>';
@@ -27,7 +33,7 @@ function create_form($arr)
         $output = $output . '<div class="form-group mb-3 row">';
         $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
         $output = $output . '<div class="col">';
-        $output = $output . '<input type="password" class="form-control" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
+        $output = $output . '<input type="password" class="form-control '. $class .'" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div>';
         $output = $output . '</div>';
         $output = $output . '</div>';
@@ -36,7 +42,7 @@ function create_form($arr)
         $output = $output . '<div class="form-group mb-3 row">';
         $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
         $output = $output . '<div class="col">';
-        $output = $output . '<select class="form-select" id="' . $arr['id'] . '" name="' . $arr['id'] . '" ' . $arr['attr'] . '>';
+        $output = $output . '<select class="form-select '. $class .'" id="' . $arr['id'] . '" name="' . $arr['id'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<option value=""></option>';
 
         foreach ($arr['value'] as $opt) {
@@ -56,7 +62,7 @@ function create_form($arr)
         $output = $output . '<div class="form-group mb-3 row">';
         $output = $output . '<label class="form-label col-3 col-form-label">' . $arr['label'] . '</label>';
         $output = $output . '<div class="col">';
-        $output = $output . '<textarea class="form-control" name="' . $arr['id'] . '" id="' . $arr['id'] . '" rows="6" placeholder="' . $arr['placeholder'] . '">' . $arr['value'] . '</textarea>';
+        $output = $output . '<textarea class="form-control '. $class .'" name="' . $arr['id'] . '" id="' . $arr['id'] . '" rows="6" placeholder="' . $arr['placeholder'] . '">' . $arr['value'] . '</textarea>';
         //$output = $output . '<input type="password" class="form-control" id="' . $arr['id'] . '" name="' . $arr['id'] . '" placeholder="' . $arr['placeholder'] . '" value="' . $arr['value'] . '" ' . $arr['attr'] . '>';
         $output = $output . '<div class="invalid-feedback mb-0" id="er-' . $arr['id'] . '"></div>';
         $output = $output . '</div>';
