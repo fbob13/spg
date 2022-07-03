@@ -181,6 +181,7 @@
                         
                         createNotification(3,  response.info)
                         update_datatables()
+                        getRutin()
 
                     }
 
@@ -208,6 +209,7 @@
                       
                         createNotification(3,  response.info)
                         update_datatables()
+                        getRutin()
                     }
 
                 }

@@ -87,7 +87,7 @@ class C_index extends CI_Controller
 			$data['info'] = 'Anda Tidak Berhak';
 		}
 		//Jika User = 99(IT) atau 1(admin)
-		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99) {
+		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99 or $this->session->userdata('spc') == 0 or $this->session->userdata('spc') == 2 ) {
 
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$bulan = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'bulan';
@@ -155,9 +155,42 @@ class C_index extends CI_Controller
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$tanggal = date('Y-m-d');
 			if ($tipe == 'rutin') {
-				$query = $this->db->query("select * from view_rutin where status_pekerjaan not in (3,5) and tanggal_jadwal='$tanggal' order by tanggal_jadwal,status_pekerjaan");
+				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' order by tanggal_jadwal,status_pekerjaan");
 				$result = $query->result();
 				$data['data'] = $result;
+			} else if ($tipe == 'nonrutin') {
+				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$result = $query->result();
+				$data['data'] = $result;
+			}
+
+			$data['status'] = 'ok';
+		}
+		elseif ($this->session->userdata('spc') == 0) {	//teknisi
+
+			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
+			$tanggal = date('Y-m-d');
+			$uid = $this->session->userdata('id_user');
+			if ($tipe == 'rutin') {
+				
+				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' and id_user = '$uid' order by tanggal_jadwal,status_pekerjaan");
+				$result = $query->result();
+				$data['data'] = $result;
+			} else if ($tipe == 'nonrutin') {
+				
+				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$result = $query->result();
+				$data['data'] = $result;
+			}
+
+			$data['status'] = 'ok';
+		}
+		elseif ($this->session->userdata('spc') == 2) {	//user biasa
+
+			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
+			$tanggal = date('Y-m-d');
+			if ($tipe == 'rutin') {
+				$data['data'] = "";
 			} else if ($tipe == 'nonrutin') {
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
 				$result = $query->result();

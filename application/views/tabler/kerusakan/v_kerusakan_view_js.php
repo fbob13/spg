@@ -219,6 +219,7 @@
                         //$('#modal-success').modal('show')
                         createNotification(3,  response.info)
                         update_datatables()
+                        getNonRutin()
 
                     }
 
@@ -248,6 +249,7 @@
                         createNotification(3,  response.info)
 
                         update_datatables()
+                        getNonRutin()
                     }
 
                 }
