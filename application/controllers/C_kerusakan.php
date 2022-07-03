@@ -66,7 +66,7 @@ class C_kerusakan extends CI_Controller
             $data['pkrutin'] = $query->result();
 
 
-            $query = $this->db->query("select id_item val,CONCAT_WS(' - ', nama_item, merek_item) deskripsi from view_item");
+            $query = $this->db->query("select id_item val,CONCAT_WS(' / ', nama_item, merek_item) deskripsi from view_item");
             $data['item'] = $query->result();
 
 
@@ -291,9 +291,9 @@ class C_kerusakan extends CI_Controller
             );
 
             $sql_details = array(
-                'user' => 'root',
-                'pass' => '',
-                'db'   => 'aslam',
+                'user' => 'bpk',
+                'pass' => 'bpk123',
+                'db'   => 'spgedung',
                 'host' => 'localhost'
             );
 

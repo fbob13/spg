@@ -597,8 +597,8 @@ class C_master extends CI_Controller
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
-            // $query = $this->db->query('select id_item val,CONCAT_WS(\' - \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
-            $query = $this->db->query('select id_item val,nama_item AS deskripsi from mst_item where status_item = 1');
+            $query = $this->db->query('select id_item val,CONCAT_WS(\' / \', nama_item,merek_item,tipe_item) AS deskripsi from mst_item where status_item = 1');
+            // $query = $this->db->query('select id_item val,nama_item AS deskripsi from mst_item where status_item = 1');
             $data['item'] = $query->result();
 
             $query = $this->db->query('select id_gedung val,nama_gedung AS deskripsi from mst_gedung');
@@ -877,7 +877,7 @@ class C_master extends CI_Controller
 
             if ($tabel == "ruangan") {
                 (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
-                $query = $this->db->query("select id_ruangan val,CONCAT_WS(' - ', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1 and id_gedung='$id_gedung'");
+                $query = $this->db->query("select id_ruangan val,CONCAT_WS(' / ', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1 and id_gedung='$id_gedung'");
                 $data["data"] = $query->result();
             } 
         }
@@ -1212,7 +1212,7 @@ class C_master extends CI_Controller
             //JS untuk menampilkan tabel (datatables)
             $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
 
-            $query = $this->db->query('select id_ruangan val,CONCAT_WS(\' - \', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1');
+            $query = $this->db->query('select id_ruangan val,CONCAT_WS(\' / \', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1');
             $data['ruangan'] = $query->result();
 
             $query = $this->db->query("select id_kategori val, uraian_kategori deskripsi from mst_kategori");

@@ -96,12 +96,12 @@ class C_jadwal extends CI_Controller
             if ($tipe <> "") {
                 if ($tipe == "ruangan") {
                     (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
-                    $query = $this->db->query("select id_ruangan val,CONCAT_WS(' - ', kode_ruangan, uraian_ruangan) AS deskripsi 
+                    $query = $this->db->query("select id_ruangan val,CONCAT_WS(' / ', kode_ruangan, uraian_ruangan) AS deskripsi 
                                 from mst_ruangan where status_ruangan = 1 and id_gedung=$id_gedung");
                 } else if ($tipe == "item") {
                     (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
                     (isset($_POST['id_ruangan']))         ? $id_ruangan =       $_POST['id_ruangan']         : $id_ruangan = "";
-                    $query = $this->db->query("select id_item val,CONCAT_WS(' - ', nama_item,merek_item, tipe_item) AS deskripsi 
+                    $query = $this->db->query("select id_item val,CONCAT_WS(' / ', nama_item,merek_item, tipe_item) AS deskripsi 
                                 from view_ruangan_item where id_gedung=$id_gedung and id_ruangan = $id_ruangan");
                 } else if ($tipe == "pkrutin") {
                     (isset($_POST['id_item']))         ? $id_item =       $_POST['id_item']         : $id_item = "";
@@ -110,7 +110,7 @@ class C_jadwal extends CI_Controller
                     $qitem = $query->first_row();
                     $kategori = $qitem->id_kategori;
                     //Ambil data pkrutin berdasarkan id_kategori
-                    $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' - ' , jenis_pekerjaan, uraian_pekerjaan) as deskripsi 
+                    $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' / ' , jenis_pekerjaan, uraian_pekerjaan) as deskripsi 
                                 from mst_pkrutin where id_kategori =$kategori");
                 } else if ($tipe == "draft") {
 
@@ -333,9 +333,9 @@ class C_jadwal extends CI_Controller
             );
 
             $sql_details = array(
-                'user' => 'root',
-                'pass' => '',
-                'db'   => 'aslam',
+                'user' => 'bpk',
+                'pass' => 'bpk123',
+                'db'   => 'spgedung',
                 'host' => 'localhost'
             );
 

@@ -29,3 +29,6 @@ Todo
 
 10. dashboard - login pekerja dashbord yg tampil hanya nama dia
    done[ ] no[x] progres[ ]
+
+11. combo_box - fungsi cari (search)
+   done[ ] no[x] progres[ ]
