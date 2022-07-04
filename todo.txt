@@ -30,8 +30,20 @@ Todo
 10. dashboard - login pekerja dashbord yg tampil hanya nama dia
    done[ ] no[x] progres[ ]
 
-11. combo_box - fungsi cari (search)
+-11. combo_box - fungsi cari (search)
    done[x] no[ ] progres[ ]
    notes : 
            extract here select2.7z di "dist/libs/"
            jadi nanti hasilnya "dist/libs/select2/*"
+
+12. import excel
+   done[ ] no[x] progres[ ]
+
+13. pane menu bisa minimize (pelengkap)
+   done[ ] no[x] progres[ ]
+
+14. input hasil pemeliharaan teknisi (pelengkap)
+   done[ ] no[x] progres[ ]
+
+15. approve by admin
+   done[ ] no[x] progres[ ]
