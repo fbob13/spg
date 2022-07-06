@@ -4,7 +4,7 @@
         <div class="d-flex flex-wrap align-items-center">
             <div class="col">
                 <h2 class="page-title">
-                    Master Item
+                    Master Item Ruangan
                 </h2>
             </div>
             <div class="ms-auto">
@@ -54,7 +54,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Buat Master Item Baru</h5>
+                    <h5 class="modal-title">Buat Master Item Ruangan Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-new">
@@ -131,7 +131,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Master Item</h5>
+                    <h5 class="modal-title">Update Master Item Ruangan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-update">
@@ -207,11 +207,11 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Item</h5>
+                    <h5 class="modal-title">Hapus Data Item Ruangan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-detail-hapus">
-                    Yakin akan menghapus data item <span class="text-danger" id="desc_delete"> </span>?
+                    Yakin akan menghapus data item Ruangan?<span class="text-danger" id="desc_delete"> </span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
