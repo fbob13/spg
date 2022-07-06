@@ -65,8 +65,10 @@
 
             $('#tanggal-laporan').val(hari_ini())
             clear_form('id-gedung')
-            clear_form('id-ruangan')
-            clear_form('id-item')
+            // clear_form('id-ruangan')
+            $('#id-ruangan').val('').trigger('change')
+            // clear_form('id-item')
+            $('#id-ruangan').val('').trigger('change')
             clear_form('prioritas')
             clear_form('keluhan')
             getNonRutin()
@@ -375,8 +377,8 @@
 
     function clear_form(id) {
       $("#" + id).removeClass("is-invalid");
-      $("#" + id).val("");
-      $("#er-" + id).val('')
+      $("#" + id).val('');
+      $("#er-" + id).val('');
 
     };
 

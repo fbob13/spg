@@ -209,6 +209,7 @@
                         // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
                         cek_error(response.err_status_pekerjaan, 'upd-status-pekerjaan');
                         cek_error(response.err_keterangan, 'upd-keterangan');
+                        cek_error(response.err_id_teknisi, 'upd-id-teknisi');
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('show')
                     } else {

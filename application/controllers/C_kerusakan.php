@@ -144,7 +144,7 @@ class C_kerusakan extends CI_Controller
                     $data['err_id_ruangan'] = form_error('id_ruangan', '<span>', '</span>');
                     $data['err_id_item'] = form_error('id_item', '<span>', '</span>');
                     $data['err_keluhan'] = form_error('keluhan', '<span>', '</span>');
-                    $data['err_keluhan'] = form_error('prioritas', '<span>', '</span>');
+                    $data['err_prioritas'] = form_error('prioritas', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -385,12 +385,14 @@ class C_kerusakan extends CI_Controller
                 //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
                 $this->form_validation->set_rules('status_pekerjaan', 'status_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('id_teknisi', 'id_teknisi', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
 
                     $data['err_status_pekerjaan'] = form_error('status_pekerjaan', '<span>', '</span>');
                     $data['err_keterangan'] = form_error('keterangan', '<span>', '</span>');
+                    $data['err_id_teknisi'] = form_error('id_teknisi', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
