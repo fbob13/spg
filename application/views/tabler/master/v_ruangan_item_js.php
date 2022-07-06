@@ -353,6 +353,18 @@
             dropdownParent: $("#upd-ruangan").parent(),  
         });
 
+        $('#upd-item').select2({
+            //dropdownParent: $('#ruan'),
+            theme: "bootstrap-5",
+            dropdownParent: $("#upd-item").parent(),  
+        });
+
+        $('#item').select2({
+            //dropdownParent: $('#ruan'),
+            theme: "bootstrap-5",
+            dropdownParent: $("#item").parent(),  
+        });
+
 
 
 

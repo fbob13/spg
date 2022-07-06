@@ -60,7 +60,7 @@ function cek_role($array, $kode_halaman)
         <div><img src="<?php echo base_url(); ?>static/g20-1.png" class="navbar-brand-image" style="display: block; margin-left: auto;margin-right: auto;width: 70px; height:auto;"></div>
         <!-- <h1 class="navbar-brand navbar-brand-autodark"> -->
 
-        <a href="<?php echo base_url(); ?>" style="text-align:center; color:floralwhite ">
+        <a href="<?php echo base_url(); ?>" style="text-align:center; color:floralwhite; text-decoration:none ">
           SISFO PEMELIHARAAN GEDUNG
         </a>
         <!-- </h1> -->
@@ -130,7 +130,7 @@ function cek_role($array, $kode_halaman)
                       if (cek_role($user_role, 'MST_RUA_ITE') == 1) {
                       ?>
                         <a class="dropdown-item <?php echo $sublink == 'ruangan_item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan-item">
-                          Ruangan Item
+                          Item Ruangan
                         </a>
                       <?php }
                       if (cek_role($user_role, 'MST_PEK') == 1) {

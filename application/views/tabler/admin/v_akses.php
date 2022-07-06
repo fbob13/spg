@@ -4,7 +4,7 @@
         <div class="d-flex flex-wrap align-items-center">
             <div class="col">
                 <h2 class="page-title">
-                    Pengguna Aplikasi
+                    Hak Akses
                 </h2>
             </div>
         </div>
