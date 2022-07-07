@@ -41,6 +41,7 @@
                             <option value="2">Pending</option>
                             <option value="3">Selesai</option>
                             <option value="4">Tidak Dikerjakan</option>
+                            <option value="5">Approved</option>
                         </select>
                     </div>
                     <div class="pe-2">
@@ -295,3 +296,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" value="" id="id-approve">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Pekerjaan akan di approve</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-approve">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes-approve">Ya, approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

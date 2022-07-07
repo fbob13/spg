@@ -41,9 +41,7 @@
                             <option value="2">Pending</option>
                             <option value="3">Selesai</option>
                             <option value="4">Tidak Dikerjakan</option>
-                            <?php if($this->session->userdata('spc')==1 || $this->session->userdata('spc')==99){
-                                echo '<option value="5">Approved</option>';
-                            } ?>
+                            <option value="5">Approved</option>
                         </select>
                     </div>
                     <div>
@@ -279,8 +277,8 @@
         </div>
     </div>
 
-        <!-- Modal Konfirmasi -->
-        <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
                 <input type="hidden" value="" id="id-approve">

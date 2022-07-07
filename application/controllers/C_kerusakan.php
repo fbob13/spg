@@ -446,6 +446,62 @@ class C_kerusakan extends CI_Controller
         //END FUNCTION
     }
 
+    public function kerusakan_view_approve()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('NRUTIN_DATA', 'edit')) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_nonrutin']))         ? $id_nonrutin =       $_POST['id_nonrutin']         : $id_nonrutin = "";
+                
+
+                $this->db->trans_begin();
+
+                //Update data
+                $data_insert = array(
+                    'status_pekerjaan' => 5,
+                );
+                $this->db->where('id_nonrutin', $id_nonrutin);
+                $this->db->update('as_nonrutin', $data_insert);
+
+
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    $data['info'] = 'Data Gagal Diupdate';
+                    $data['status'] = 'nok';
+                } else {
+                    $this->db->trans_commit();
+                    $data['info'] = 'Data Berhasil Di Approve';
+                    $data['status'] = 'ok';
+                }
+
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
     public function kerusakan_view_del()
     {
         //Cek jika user Login / variabel "asm_st" ada di session

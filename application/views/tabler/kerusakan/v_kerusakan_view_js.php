@@ -6,9 +6,22 @@
         $('#s-month').val(bulan)
         $('#s-year').val(d.getFullYear())
 
+        const spc = <?php echo $this->session->userdata('spc'); ?>;
+
         var string_btn_tbl = '<a href="#" class="btn btn-icon text-primary btn-light me-2 " c-aksi="update"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" /><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" /><line x1="16" y1="5" x2="19" y2="8" /></svg></a>'
         string_btn_tbl += '<a href="#" class="btn btn-icon text-danger btn-light " c-aksi="delete"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>'
 
+        var string_btn_approve = '<a href="#" class="btn btn-success me-2 " c-aksi="approve"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><rect x="9" y="3" width="6" height="4" rx="2" /><path d="M9 14l2 2l4 -4" /></svg>Approve</a>'
+
+        const star = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>'
+        const starfill = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>'
+        var rating = {
+            1 : starfill + star + star + star + star,
+            2 : starfill + starfill + starfill + star + star,
+            3 : starfill + starfill + starfill + starfill + star,
+            4 : starfill + starfill + starfill + starfill + starfill        
+        }
+        
 
         const col = [{
             data: 'xx',
@@ -54,6 +67,7 @@
             data: 'prioritas',
             className: 'text-center',
             render: function(data, type, row) {
+                /*
                 if (row.prioritas == 0) {
                     return '<span class="text-blue">' + row.prioritas_text + '</span>'
                 } else if (row.prioritas == 1) {
@@ -65,6 +79,8 @@
                 } else if (row.prioritas == 4) {
                     return '<span class="text-red">' + row.prioritas_text + '</span>'
                 }
+                */
+               return '<button class="btn text-yellow text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="' + row.prioritas_text + '">' + rating[row.prioritas] + '</button>'
 
             }
         }, {
@@ -81,6 +97,8 @@
                     return '<span class="text-success">' + row.status_pekerjaan_text + '</span>'
                 } else if (row.status_pekerjaan == 4) {
                     return '<span class="text-danger">' + row.status_pekerjaan_text + '</span>'
+                }else if (row.status_pekerjaan == 5) {
+                    return '<span class="text-teal">' + row.status_pekerjaan_text + '</span>'
                 }
 
             }
@@ -94,8 +112,14 @@
             "orderable": false,
             render: function(data, type, row) {
                 if (row.status_pekerjaan == '3') {
+                    if (spc == 1 || spc == 99) {
+                        return string_btn_approve
+                    } else {
+                        return ''
+                    }
+                } else if (row.status_pekerjaan == '5') {
                     return ''
-                } else {
+                }else {
                     return string_btn_tbl
                 }
             },
@@ -128,7 +152,7 @@
                 } else if (data['status_pekerjaan'] == 4) {
                     $(row).addClass('bg-purple-lt');
                 } else if (data['status_pekerjaan'] == 5) {
-                    $(row).addClass('bg-success-lt');
+                    $(row).addClass('bg-teal-lt');
                 }
             }
         });
@@ -167,6 +191,9 @@
             } else if (aksi == 'delete') {
                 $('#del-id-nonrutin').val(data['id_nonrutin']);
                 $('#modal-delete').modal('show');
+            } else if (aksi == 'approve') {
+                $('#id-approve').val(data['id_nonrutin']);
+                $('#modal-konfirmasi-approve').modal('show');
             }
         });
 
@@ -229,6 +256,40 @@
 
 
         })
+
+        $('#btn-batal-approve').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-approve').modal('hide')
+        })
+
+        $('#btn-yes-approve').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?php echo base_url(); ?>kerusakan/view/approve",
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'id_nonrutin': $('#id-approve').val(),
+                },
+                success: function(response) {
+                    if (response.status == 'nok') {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        $('#id-approve').val('');
+
+                    } else {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        //$('#modal-update').modal('hide')
+                        $('#id-approve').val('');
+                        createNotification(3, response.info)
+                        update_datatables()
+                        getRutin()
+
+                    }
+
+                }
+            });
+        })
+
 
 
         //Hapus Data
