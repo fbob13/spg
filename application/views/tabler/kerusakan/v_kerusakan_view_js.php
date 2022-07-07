@@ -8,8 +8,20 @@
 
         const spc = <?php echo $this->session->userdata('spc'); ?>;
 
-        var string_btn_tbl = '<a href="#" class="btn btn-icon text-primary btn-light me-2 " c-aksi="update"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" /><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" /><line x1="16" y1="5" x2="19" y2="8" /></svg></a>'
-        string_btn_tbl += '<a href="#" class="btn btn-icon text-danger btn-light " c-aksi="delete"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>'
+        const akses_edit = '<?php echo $edit; ?>';
+        const akses_delete = '<?php echo $delete; ?>';
+
+        const stat = '<?php echo $stat; ?>';
+        var string_btn_tbl = ""
+        if (akses_edit == 'ok'){
+            string_btn_tbl += '<a href="#" class="btn btn-icon text-primary btn-light me-2 " c-aksi="update"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" /><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" /><line x1="16" y1="5" x2="19" y2="8" /></svg></a>'
+        }
+
+        if (akses_delete == 'ok'){
+            string_btn_tbl += '<a href="#" class="btn btn-icon text-danger btn-light " c-aksi="delete"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>'            
+        }
+        
+        
 
         var string_btn_approve = '<a href="#" class="btn btn-success me-2 " c-aksi="approve"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><rect x="9" y="3" width="6" height="4" rx="2" /><path d="M9 14l2 2l4 -4" /></svg>Approve</a>'
 
@@ -88,26 +100,27 @@
             className: 'text-center',
             render: function(data, type, row) {
                 if (row.status_pekerjaan == 0) {
-                    return '<span class="text-danger">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 } else if (row.status_pekerjaan == 1) {
-                    return '<span class="text-warning">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 } else if (row.status_pekerjaan == 2) {
-                    return '<span class="text-warning">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 } else if (row.status_pekerjaan == 3) {
-                    return '<span class="text-success">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 } else if (row.status_pekerjaan == 4) {
-                    return '<span class="text-danger">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 }else if (row.status_pekerjaan == 5) {
-                    return '<span class="text-teal">' + row.status_pekerjaan_text + '</span>'
+                    return '<div class="btn w-full px-2">' + row.status_pekerjaan_text + '</div>'
                 }
 
             }
         }, {
             data: 'keterangan',
-            className: 'text-center'
+            className: 'text-center',
+            visible: false,
         }, {
             data: null,
-            className: 'text-center',
+            className: 'text-center text-nowrap',
             "searchable": false,
             "orderable": false,
             render: function(data, type, row) {
@@ -126,7 +139,14 @@
         }]
         //Inisialisasi Datatable
         var tb = $('#postsList').DataTable({
-            ajax: '<?php echo base_url(); ?>kerusakan/view/data',
+            //ajax: '<?php echo base_url(); ?>kerusakan/view/data',
+            ajax: {
+                    url: '<?php echo base_url(); ?>kerusakan/view/data',
+                    type: 'POST',
+                    data: {
+                        'stat': stat,
+                    }
+                },
             pageLength: 10,
             type: 'json',
             columns: col,
@@ -194,6 +214,14 @@
             } else if (aksi == 'approve') {
                 $('#id-approve').val(data['id_nonrutin']);
                 $('#modal-konfirmasi-approve').modal('show');
+
+                $('#approve-nama').text(data['nama_teknisi']);
+                $('#approve-jadwal').text(data['tanggal_jadwal']);
+                $('#approve-gedung').text(data['nama_gedung']);
+                $('#approve-ruangan').text(data['nama_ruangan']);
+                $('#approve-item').text(data['nama_item']);
+                $('#approve-keluhan').text(data['keluhan']);
+                $('#approve-keterangan').text(data['keterangan']);
             }
         });
 
@@ -269,6 +297,36 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
+                    'status' : 'ok',
+                    'id_nonrutin': $('#id-approve').val(),
+                },
+                success: function(response) {
+                    if (response.status == 'nok') {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        $('#id-approve').val('');
+
+                    } else {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        //$('#modal-update').modal('hide')
+                        $('#id-approve').val('');
+                        createNotification(3, response.info)
+                        update_datatables()
+                        getRutin()
+
+                    }
+
+                }
+            });
+        })
+
+        $('#btn-no-approve').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?php echo base_url(); ?>kerusakan/view/approve",
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'status' : 'nok',
                     'id_nonrutin': $('#id-approve').val(),
                 },
                 success: function(response) {

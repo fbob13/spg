@@ -66,6 +66,27 @@ class C_index extends CI_Controller
 			else if ($res->prioritas == 3) $data['tinggi'] = $res->jumlah;
 			else if ($res->prioritas == 4) $data['urgent'] = $res->jumlah;
 		}
+		$tgl = date('Y-m-d');
+		$uid = $this->session->userdata('id_user');
+		if ($this->session->userdata('spc') == 0) {
+			$query = $this->db->query("select * from as_rutin where status_pekerjaan in (0,1,2,4) and tanggal_jadwal='$tgl' and id_user=$uid");
+			$data['rutin_nok'] = $query->num_rows();
+
+			$query = $this->db->query("select * from as_rutin where status_pekerjaan in (3,5) and tanggal_jadwal='$tgl' and id_user=$uid");
+			$data['rutin_ok'] = $query->num_rows();
+		} else if ($this->session->userdata('spc') == 2) {
+			//
+			$data['rutin_nok'] = 0;
+			$data['rutin_ok'] = 0;
+		} else {
+
+			$query = $this->db->query("select * from as_rutin where status_pekerjaan in (0,1,2,4) and tanggal_jadwal='$tgl'");
+			$data['rutin_nok'] = $query->num_rows();
+
+			$query = $this->db->query("select * from as_rutin where status_pekerjaan in (3,5) and tanggal_jadwal='$tgl'");
+			$data['rutin_ok'] = $query->num_rows();
+		}
+
 
 		//echo json_encode($data);
 		//return;
@@ -87,7 +108,7 @@ class C_index extends CI_Controller
 			$data['info'] = 'Anda Tidak Berhak';
 		}
 		//Jika User = 99(IT) atau 1(admin)
-		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99 or $this->session->userdata('spc') == 0 or $this->session->userdata('spc') == 2 ) {
+		elseif ($this->session->userdata('spc') == 1 or $this->session->userdata('spc') == 99 or $this->session->userdata('spc') == 0 or $this->session->userdata('spc') == 2) {
 
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$bulan = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'bulan';
@@ -159,7 +180,6 @@ class C_index extends CI_Controller
 				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
-				
 			} else if ($tipe == 'nonrutin') {
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
 				$data['jumlah'] = $query->num_rows();
@@ -168,20 +188,19 @@ class C_index extends CI_Controller
 			}
 
 			$data['status'] = 'ok';
-		}
-		elseif ($this->session->userdata('spc') == 0) {	//teknisi
+		} elseif ($this->session->userdata('spc') == 0) {	//teknisi
 
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$tanggal = date('Y-m-d');
 			$uid = $this->session->userdata('id_user');
 			if ($tipe == 'rutin') {
-				
+
 				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' and id_user = '$uid' order by tanggal_jadwal,status_pekerjaan");
 				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
 			} else if ($tipe == 'nonrutin') {
-				
+
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
 				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
@@ -189,8 +208,7 @@ class C_index extends CI_Controller
 			}
 
 			$data['status'] = 'ok';
-		}
-		elseif ($this->session->userdata('spc') == 2) {	//user biasa
+		} elseif ($this->session->userdata('spc') == 2) {	//user biasa
 
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$tanggal = date('Y-m-d');

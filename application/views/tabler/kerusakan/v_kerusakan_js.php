@@ -97,7 +97,7 @@
         return
       }
       $.ajax({
-        url: '<?= base_url() ?>jadwal/rutin/query',
+        url: '<?= base_url() ?>kerusakan/query',
         type: 'post',
         data: {
           'tipe': 'ruangan',

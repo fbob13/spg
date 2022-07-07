@@ -497,6 +497,7 @@ class C_jadwal extends CI_Controller
 
     public function rutin_view()
     {
+
         //Cek jika user Login / variabel "asm_st" ada di session
         //Kalau sudah login, variabel "asm_st" = "yes"
         $cek = $this->session->userdata('asm_st');
@@ -538,6 +539,13 @@ class C_jadwal extends CI_Controller
             $query = $this->db->query('select id_user val,nama deskripsi from mst_user where spc in (0)');
             $data['teknisi'] = $query->result();
 
+            $data['edit'] = $this->Login_model->cekLogin('RUTIN_DATA', 'edit') ? 'ok' : 'nok';
+            $data['delete'] = $this->Login_model->cekLogin('RUTIN_DATA', 'delete') ? 'ok' : 'nok';
+
+
+            $tipe = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
+            if($tipe =='today') $data['today'] = 'ok';
+            else $data['today'] = 'nok';
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/jadwal/v_rutin_view', $data);
@@ -595,20 +603,26 @@ class C_jadwal extends CI_Controller
             (isset($_POST['status_pekerjaan']))         ? $status_pekerjaan =       $_POST['status_pekerjaan']         : $status_pekerjaan = "";
             (isset($_POST['bulan']))         ? $bulan =       $_POST['bulan']         : $bulan = date('m');
             (isset($_POST['tahun']))         ? $tahun =       $_POST['tahun']         : $tahun = date('Y');
+            (isset($_POST['today']))         ? $today =       $_POST['today']         : $today = 'nok';
 
 
             //$where  = "id_user='2' and status_pekerjaan = 3";
             $where = "";
-
-            if ($bulan == 99) {
-                $where = "DATE_FORMAT(tanggal_jadwal,'%Y') = '$tahun'";
-            } else {
-                $where = "DATE_FORMAT(tanggal_jadwal,'%Y-%m') = '$tahun-$bulan'";
+            $tgl = date('Y-m-d');
+            if($today =='ok'){
+                $where = "tanggal_jadwal ='$tgl' ";
+            }else{
+                if ($bulan == 99) {
+                    $where = "DATE_FORMAT(tanggal_jadwal,'%Y') = '$tahun'";
+                } else {
+                    $where = "DATE_FORMAT(tanggal_jadwal,'%Y-%m') = '$tahun-$bulan'";
+                }
+    
+                if ($status_pekerjaan <> "" && $status_pekerjaan <> 99) {
+                    $where = $where . " and status_pekerjaan = $status_pekerjaan";
+                }
             }
-
-            if ($status_pekerjaan <> "" && $status_pekerjaan <> 99) {
-                $where = $where . " and status_pekerjaan = $status_pekerjaan";
-            }
+            
 
             echo json_encode(
                 //SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns );
@@ -805,6 +819,7 @@ class C_jadwal extends CI_Controller
 
                 //Ambil data POST
                 (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
+                (isset($_POST['status']))         ? $status =       $_POST['status']         : $status = "";
 
 
                 $this->db->trans_begin();
@@ -812,40 +827,53 @@ class C_jadwal extends CI_Controller
                 //$tanggal_realisasi = null;
                 //$tanggal_realisasi =  date("Y-m-d");
 
+                if ($status == 'ok') {
+                    //Jika pekerjaan selesai buat jadwal sesuai periodenya
+                    //ambil data pekerjaan yang di update
+                    $query = $this->db->query("select * from as_rutin where id_rutin ='$id_rutin' ");
+                    $data_jadwal = $query->first_row();
 
-                //Jika pekerjaan selesai buat jadwal sesuai periodenya
-                //ambil data pekerjaan yang di update
-                $query = $this->db->query("select * from as_rutin where id_rutin ='$id_rutin' ");
-                $data_jadwal = $query->first_row();
+                    //cek jika sudah 3 berarti sudah pernah di update sebelumnya
+                    if ($data_jadwal->status_pekerjaan <> 5) {
+                        $query = $this->db->query("select * from mst_pkrutin where id_pkrutin ='$data_jadwal->id_pkrutin' ");
+                        $data_pkrutin = $query->first_row();
+                        //$tgl =  date("Y-m-d");
+                        $tgl =  $data_jadwal->tanggal_realisasi;
 
-                //cek jika sudah 3 berarti sudah pernah di update sebelumnya
-                if ($data_jadwal->status_pekerjaan <> 5) {
-                    $query = $this->db->query("select * from mst_pkrutin where id_pkrutin ='$data_jadwal->id_pkrutin' ");
-                    $data_pkrutin = $query->first_row();
-                    //$tgl =  date("Y-m-d");
-                    $tgl =  $data_jadwal->tanggal_realisasi;
+                        $data_insert = array(
+                            'id_user'           => $data_jadwal->id_user,
+                            'id_pembuat'        => 999999,
+                            'id_gedung'         => $data_jadwal->id_gedung,
+                            'id_ruangan'        => $data_jadwal->id_ruangan,
+                            'id_item'           => $data_jadwal->id_item,
+                            'id_pkrutin'        => $data_jadwal->id_pkrutin,
+                            'tanggal_jadwal'    => date('Y-m-d', strtotime($tgl . "+ " . ($data_pkrutin->interval_hari * $data_pkrutin->pengali) . " days")),
+                            'created_at'        => date("Y-m-d H:i:s")
+                        );
 
+                        $this->db->insert('as_rutin', $data_insert);
+                    }
+
+
+                    //Update data
                     $data_insert = array(
-                        'id_user'           => $data_jadwal->id_user,
-                        'id_pembuat'        => 999999,
-                        'id_gedung'         => $data_jadwal->id_gedung,
-                        'id_ruangan'        => $data_jadwal->id_ruangan,
-                        'id_item'           => $data_jadwal->id_item,
-                        'id_pkrutin'        => $data_jadwal->id_pkrutin,
-                        'tanggal_jadwal'    => date('Y-m-d', strtotime($tgl . "+ " . ($data_pkrutin->interval_hari * $data_pkrutin->pengali) . " days")),
-                        'created_at'        => date("Y-m-d H:i:s")
+                        'status_pekerjaan' => 5
                     );
+                    $this->db->where('id_rutin', $id_rutin);
+                    $this->db->update('as_rutin', $data_insert);
+                    $data['info'] = 'Data Berhasil Di Approve';
+                } else if ($status == 'nok') {
 
-                    $this->db->insert('as_rutin', $data_insert);
+                    //Update data
+                    $data_insert = array(
+                        'status_pekerjaan' => 1
+                    );
+                    $this->db->where('id_rutin', $id_rutin);
+                    $this->db->update('as_rutin', $data_insert);
+                    $data['info'] = 'Data Berhasil Ditolak';
                 }
 
 
-                //Update data
-                $data_insert = array(
-                    'status_pekerjaan' => 5
-                );
-                $this->db->where('id_rutin', $id_rutin);
-                $this->db->update('as_rutin', $data_insert);
 
                 if ($this->db->trans_status() === FALSE) {
                     $this->db->trans_rollback();
@@ -853,7 +881,7 @@ class C_jadwal extends CI_Controller
                     $data['status'] = 'nok';
                 } else {
                     $this->db->trans_commit();
-                    $data['info'] = 'Data Berhasil Diupdate';
+                    
                     $data['status'] = 'ok';
                 }
             }

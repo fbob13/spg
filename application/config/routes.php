@@ -133,6 +133,9 @@ $route['jadwal/rutin/del/draft'] = 'C_jadwal/rutin_del_draft';
 
 $route['empty'] = 'C_jadwal/empty';
 $route['jadwal/rutin/view'] = 'C_jadwal/rutin_view';
+
+$route['jadwal/rutin/view/today'] = 'C_jadwal/rutin_view';
+
 $route['jadwal/rutin/view/data'] = 'C_jadwal/rutin_view_data';
 $route['jadwal/rutin/view/upd'] = 'C_jadwal/rutin_view_upd';
 $route['jadwal/rutin/view/del'] = 'C_jadwal/rutin_view_del';
@@ -153,10 +156,13 @@ $route['jadwal/rutin/view/approve'] = 'C_jadwal/rutin_view_approve';
 $route['kerusakan/new'] = 'C_kerusakan/kerusakan_new';
 $route['kerusakan/save'] = 'C_kerusakan/kerusakan_save';
 
+$route['kerusakan/query'] = 'C_kerusakan/nonrutin_query';
+
 
 //Update Status Perbaikan | Menu : update status perbaikan
 
 $route['kerusakan/view'] = 'C_kerusakan/kerusakan_view';
+$route['kerusakan/view/nok'] = 'C_kerusakan/kerusakan_view';
 $route['kerusakan/view/data'] = 'C_kerusakan/kerusakan_view_data';
 $route['kerusakan/view/upd'] = 'C_kerusakan/kerusakan_view_upd';
 $route['kerusakan/view/del'] = 'C_kerusakan/kerusakan_view_del';

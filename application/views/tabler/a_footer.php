@@ -124,7 +124,7 @@
         else if (prioritas == 4) rating = starfill + starfill + starfill + starfill + starfill
 
         var t_info = ""
-        t_info += '<div>'
+        t_info += '<div><a href="<?php echo base_url();?>kerusakan/view/nok">'
         t_info += '    <div class="row">'
         t_info += '        <div class="col">'
         t_info += '            <div class="d-flex justify-content-between">'
@@ -139,7 +139,7 @@
         t_info += '            </div>'
         t_info += '        </div>'
         t_info += '    </div>'
-        t_info += '</div>'
+        t_info += '</a></div>'
 
         return t_info;
     }
@@ -154,7 +154,7 @@
         else if (status_pekerjaan == 5) border = "border-success"
 
         var t_info = ""
-        t_info += '<div>'
+        t_info += '<div><a href="<?php echo base_url();?>jadwal/rutin/view/today">'
         t_info += '    <div class="row">'
         t_info += '        <div class="col border-start border-5 ' + border + '">'
         t_info += '            <div class="d-flex justify-content-between">'
@@ -171,14 +171,13 @@
         t_info += '            </div>'
         t_info += '        </div>'
         t_info += '    </div>'
-        t_info += '</div>'
+        t_info += '</a></div>'
 
         return t_info;
     }
 
 
     function getNonRutin() {
-        $('#container-rutin').html('Loading...')
         $.ajax({
             url: "<?php echo base_url(); ?>dashboard/info/nonrutin",
             type: 'get',
@@ -208,7 +207,6 @@
     }
 
     function getRutin() {
-        $('#container-rutin').html('Loading...')
         $('#badge-rutin').removeClass('badge bg-red')
         var selesai = true;
         $.ajax({
@@ -328,7 +326,37 @@
         //getNonRutin()
         //getRutin()
 
+        /*
+        $('#open').on('click', function(e) {
+            if ($('#sidebar').attr('sb-stat') == "open") {
+                $('#sidebar').removeClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
+                $('#sidebar').addClass('d-none')
+                $('#sidebar').attr('sb-stat','close')
+            }else{
+                $('#sidebar').attr('sb-stat','open')
+                $('#sidebar').addClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
+                $('#sidebar').removeClass('d-none')
+            }
 
+        })
+        */
+
+        $('#sidebar2').on('click', function(e) {
+            if ($('#sidebar2').attr('sb-stat') == "open") {
+                $('#sidebar2').removeClass('navbar navbar-vertical navbar-expand-lg navbar-dark sb-side')
+                $('#sidebar').removeClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
+                $('#sidebar').addClass('d-none')
+                $('#sidebar2').addClass('sb-side2')
+                $('#sidebar2').attr('sb-stat','close')
+            }else{
+                $('#sidebar2').attr('sb-stat','open')
+                $('#sidebar2').addClass('navbar navbar-vertical navbar-expand-lg navbar-dark sb-side')
+                $('#sidebar').addClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
+                $('#sidebar').removeClass('d-none')
+                $('#sidebar2').removeClass('sb-side2')
+            }
+
+        })
 
     });
 </script>

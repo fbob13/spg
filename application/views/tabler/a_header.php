@@ -39,8 +39,44 @@ function cek_role($array, $kode_halaman)
   <!-- Custom CSS Files -->
   <?php echo $cust_css; ?>
 
-  //favicon
+  <!-- favicon -->
   <link rel="shortcut icon" href="<?php echo base_url(); ?>favicon.ico" />
+
+  <style>
+    .sb-side {
+      width: 12px !important;
+      background-color: #254a5b;
+      color : white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1030;
+      align-items: flex-start;
+      justify-content: flex-start;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke-width='3' stroke='%23d9dbde' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><polyline points='15 6 9 12 15 18' /></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .sb-side2 {
+      width: 12px !important;
+      background-color: #254a5b;
+      position: fixed;
+      color : white;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1030;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke-width='3' stroke='%23d9dbde' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><polyline points='9 6 15 12 9 18' /></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+
 </head>
 
 <body class="">
@@ -55,7 +91,7 @@ function cek_role($array, $kode_halaman)
   </div>
   <div class="wrapper">
 
-    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" id="sidebar" sb-stat="open">
       <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
           <span class="navbar-toggler-icon"></span>
@@ -305,8 +341,26 @@ function cek_role($array, $kode_halaman)
         </div>
       </div>
     </aside>
+    <a href="#" class="navbar navbar-vertical navbar-expand-lg navbar-dark sb-side d-md-block d-none" id="sidebar2" sb-stat="open">
+    </a>
     <header class="navbar navbar-expand-md navbar-light   d-lg-flex d-print-none">
       <div class="container-fluid">
+        <!--
+        <div class="nav-item d-md-block d-none"><a id="open" class="nav-link px-0 mx-0" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <circle cx="5" cy="5" r="1" />
+              <circle cx="12" cy="5" r="1" />
+              <circle cx="19" cy="5" r="1" />
+              <circle cx="5" cy="12" r="1" />
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="19" cy="12" r="1" />
+              <circle cx="5" cy="19" r="1" />
+              <circle cx="12" cy="19" r="1" />
+              <circle cx="19" cy="19" r="1" />
+            </svg>
+          </a></div>
+            -->
         <div class="navbar-nav flex-row order-last">
 
           <?php /*
@@ -337,6 +391,7 @@ function cek_role($array, $kode_halaman)
           <span class="badge badge-pill bg-mute" id="badge-ready">0</span>
           */
           ?>
+
           <div class="nav-item dropdown d-md-flex">
             <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications" aria-expanded="false">
 
@@ -412,7 +467,7 @@ function cek_role($array, $kode_halaman)
                           </div>
                         </div>
                       </div>
-                    <?php } */?>
+                    <?php } */ ?>
                   </div>
 
                 </div>

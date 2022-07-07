@@ -39,11 +39,12 @@ Todo
 12. import excel
    done[ ] no[x] progres[ ]
 
-13. pane menu bisa minimize (pelengkap)
-   done[ ] no[x] progres[ ]
+-13. pane menu bisa minimize (pelengkap)
+   done[x] no[] progres[ ]
 
 14. input hasil pemeliharaan teknisi (pelengkap)
    done[ ] no[x] progres[ ]
 
-15. approve by admin
-   done[ ] no[x] progres[ ]
+-15. approve by admin
+   done[x] no[ ] progres[ ]
+

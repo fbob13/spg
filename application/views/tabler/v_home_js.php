@@ -223,6 +223,65 @@
         var chart = new ApexCharts(document.querySelector("#chart-demo-pie"), options_pie);
         chart.render();
 
+        var options_pie_rutin = {
+            chart: {
+                type: "donut",
+                fontFamily: 'inherit',
+                height: 300,
+                sparkline: {
+                    enabled: true
+                },
+                animations: {
+                    enabled: true
+                },
+                toolbar: {
+                    show: true,
+                },
+            },
+            fill: {
+                opacity: 1,
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function(value, {
+                    seriesIndex,
+                    dataPointIndex,
+                    w
+                }) {
+                    return w.config.series[seriesIndex]
+                }
+            },
+            series: [<?php echo $rutin_ok ?>, <?php echo $rutin_nok ?>],
+            labels: ["Selesai","Belum Selesai"],
+            grid: {
+                strokeDashArray: 4,
+            },
+            colors: ["#74b816", "#d63939"],
+            legend: {
+                show: true,
+                position: 'bottom',
+                offsetY: 12,
+                markers: {
+                    width: 10,
+                    height: 10,
+                    radius: 100,
+                },
+                itemMargin: {
+                    horizontal: 8,
+                    vertical: 8
+                },
+            },
+            tooltip: {
+                fillSeriesColor: false
+            },
+            updated: function(chart) {
+
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart-rutin-pie"), options_pie_rutin);
+        chart.render();
+
 
         var options_chart_sta = {
             series: [{
@@ -317,6 +376,9 @@
 
         var chart_prio = new ApexCharts(document.querySelector("#chart-prio"), options_chart_prio);
         chart_prio.render();
+
+
+
     })
 
 

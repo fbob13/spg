@@ -67,7 +67,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive p-3">
-                    <table class="table table-vcenter text-nowrap table-bordered" id='postsList' width="100%" cellspacing="0">
+                    <table class="table table-vcenter text-wrap table-bordered" id='postsList' width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th class="w-1">No.</th>
@@ -299,16 +299,35 @@
 
     <!-- Modal Konfirmasi -->
     <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content">
                 <input type="hidden" value="" id="id-approve">
                 <div class="modal-body">
-                    <div class="modal-title">Anda Yakin</div>
-                    <div>Pekerjaan akan di approve</div>
+                <div class="modal-title">Approve data</div>
+                    <div class="mb-3">
+                        <div class="d-flex flex-column">
+
+                            <div class="d-flex flex-nowrap justify-content-between">
+                                <div class="pt-1" id="approve-nama">Nama Teknisi</div>
+
+                                <div class="pt-1" id="approve-tanggal-jadwal">2022-07-07</div>
+                            </div>
+                            <div class="pt-2" id="approve-gedung">Kantor</div>
+                            <div class="pt-1" id="approve-ruangan">Ruangan</div>
+                            <div class="pt-1" id="approve-item">AC DAIKIN</div>
+                            <div class="pt-2">Keluhan : </div>
+                            <div class="card mt-1 p-2" id="approve-keluhan">Cek Freon AC</div>
+                            <div class="pt-2">Keterangan : </div>
+                            <div class="card mt-1 p-2" id="approve-keterangan">AC sudah di cek dan tidak ada masalah</div>
+
+
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-approve">Batal</button>
-                    <button type="button" class="btn btn-danger" id="btn-yes-approve">Ya, approve</button>
+                    <button type="button" class="btn btn-danger" id="btn-no-approve">Tolak</button>
+                    <button type="button" class="btn btn-success" id="btn-yes-approve">Ya, approve</button>
                 </div>
             </div>
         </div>
