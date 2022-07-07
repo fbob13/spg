@@ -408,8 +408,10 @@
       $('#id-user').val('')
 
       clear_form('id-gedung')
-      clear_form('id-ruangan')
-      clear_form('id-item')
+      // clear_form('id-ruangan')
+      $('#id-ruangan').val('').trigger('change')
+      // clear_form('id-item')
+      $('#id-item').val('').trigger('change')
       clear_form('id-pkrutin')
 
       $('#cont-det').addClass('d-none')

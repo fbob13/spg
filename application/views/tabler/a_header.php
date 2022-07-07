@@ -38,6 +38,9 @@ function cek_role($array, $kode_halaman)
   <link href="<?php echo base_url(); ?>dist/css/demo.min.css" rel="stylesheet" />
   <!-- Custom CSS Files -->
   <?php echo $cust_css; ?>
+
+  //favicon
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>favicon.ico" />
 </head>
 
 <body class="">

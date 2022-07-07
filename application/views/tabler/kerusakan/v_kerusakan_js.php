@@ -68,7 +68,7 @@
             // clear_form('id-ruangan')
             $('#id-ruangan').val('').trigger('change')
             // clear_form('id-item')
-            $('#id-ruangan').val('').trigger('change')
+            $('#id-item').val('').trigger('change')
             clear_form('prioritas')
             clear_form('keluhan')
             getNonRutin()

@@ -28,7 +28,7 @@
 
                   <div class="card-body">
                     <div class="d-flex">
-                      <h3 class="card-title">Grafik jumlah Pekerjaan insidentil dan rutin</h3>
+                      <h3 class="card-title">Grafik jumlah pekerjaan insidentil dan rutin</h3>
                       <div class="ms-auto">
                         <div class="dropdown">
                           <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="pie-bulan">Last 7 days</a>

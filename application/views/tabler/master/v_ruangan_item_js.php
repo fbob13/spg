@@ -137,8 +137,10 @@
                         createNotification(3, response.info)
 
                         clear_form('gedung')
-                        clear_form('ruangan')
+                        // clear_form('ruangan')
+                        $('#ruangan').val('').trigger('change')
                         clear_form('item')
+                        $('#item').val('').trigger('change')
                         clear_form('tahun-pengadaan')
 
                         update_datatables()
@@ -196,8 +198,10 @@
                         createNotification(3, response.info)
 
                         clear_form('upd-gedung')
-                        clear_form('upd-ruangan')
-                        clear_form('upd-item')
+                        // clear_form('upd-ruangan')
+                        $('#upd-ruangan').val('').trigger('change')
+                        // clear_form('upd-item')
+                        $('#upd-item').val('').trigger('change')
                         clear_form('upd-tahun-pengadaan')
 
                         update_datatables()
