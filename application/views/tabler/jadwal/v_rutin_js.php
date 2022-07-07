@@ -21,7 +21,7 @@
       "orderable": false,
       defaultContent: ''
     }, {
-      data: 'id_rutin',
+      data: 'id_rutin_draft',
       visible: false,
       searchable: false,
     }, {
@@ -97,7 +97,7 @@
           type: 'post',
           data: {
             'tipe': 'delete_list',
-            'id_rutin': datax['id_rutin'],
+            'id_rutin': datax['id_rutin_draft'],
           },
           dataType: 'json',
           success: function(response) {
@@ -122,6 +122,28 @@
             'id_user': $('#id-user').val(),
             'tanggal_jadwal': $('#tanggal-jadwal').val()
           }
+        },
+        pageLength: 10,
+        type: 'json',
+        columns: col,
+        dom: 'frtip',
+        buttons: [
+          'pdfHtml5',
+          'excel',
+          'print'
+        ],
+      });
+    }
+
+    function create_draft_empty() {
+      tb = $('#postsList').DataTable({
+        destroy: true,
+        ajax: {
+          url: '<?php echo base_url(); ?>empty',
+          type: 'POST',
+          data: {
+            'tipe': 'draft'
+          },
         },
         pageLength: 10,
         type: 'json',
@@ -262,8 +284,8 @@
         success: function(response) {
           if (response.status == "ok") {
             create_draft()
-            createNotification(3, "Jadwal berhasil di tambahkah")
-            getRutin()
+            createNotification(3, "List Draft berhasil di tambahkah")
+            //getRutin()
           } else {
             cek_error(response.err_id_gedung, 'id-gedung');
             cek_error(response.err_id_ruangan, 'id-ruangan');
@@ -293,6 +315,123 @@
       dropdownParent: $("#id-pkrutin").parent(),
     });
 
+
+    $('#btn-save').on('click', function(e) {
+      e.preventDefault()
+      $('#modal-konfirmasi').modal('show')
+    })
+
+
+
+    $('#btn-batal').on('click', function(e) {
+      e.preventDefault();
+      $('#modal-konfirmasi').modal('hide')
+
+
+    })
+
+    $('#btn-yes').on('click', function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: '<?= base_url() ?>jadwal/rutin/save/jadwal',
+        type: 'post',
+        data: {
+          'id_user': $('#id-user').val(),
+          'tanggal_jadwal': $('#tanggal-jadwal').val()
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == "ok") {
+            create_draft_empty()
+            createNotification(3, response.info)
+            getRutin()
+            reset_form()
+            $('#modal-konfirmasi').modal('hide')
+          } else {
+            $('#modal-konfirmasi').modal('hide')
+            createNotification(1, response.info)
+
+          }
+
+        }
+      });
+
+    })
+
+
+    $('#btn-delete').on('click', function(e) {
+      e.preventDefault()
+      $('#modal-konfirmasi-del').modal('show')
+    })
+
+
+    $('#btn-batal-del').on('click', function(e) {
+      e.preventDefault();
+      $('#modal-konfirmasi-del').modal('hide')
+    })
+
+    $('#btn-yes-del').on('click', function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: '<?= base_url() ?>jadwal/rutin/del/draft',
+        type: 'post',
+        data: {
+          'id_user': $('#id-user').val(),
+          'tanggal_jadwal': $('#tanggal-jadwal').val()
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == "ok") {
+            create_draft_empty()
+            createNotification(3, response.info)
+            getRutin()
+            reset_form()
+            $('#modal-konfirmasi-del').modal('hide')
+          } else {
+            $('#modal-konfirmasi-del').modal('hide')
+            createNotification(1, response.info)
+
+          }
+
+        }
+      });
+
+    })
+
+
+
+    function reset_form() {
+
+      $('#tanggal-jadwal').val('<?php echo date("Y-m-d"); ?>')
+      $('#id-user').val('')
+
+      clear_form('id-gedung')
+      clear_form('id-ruangan')
+      clear_form('id-item')
+      clear_form('id-pkrutin')
+
+      $('#cont-det').addClass('d-none')
+      $('#id-user').removeClass("is-invalid").prop('disabled', false)
+      $('#tanggal-jadwal').prop('disabled', false)
+      $('#er-id-user').html("")
+      $('#draft-ok').removeClass('d-none')
+
+
+    }
+
+    function clear_form(id) {
+      $("#" + id).removeClass("is-invalid");
+      $("#" + id).val("");
+      $("#er-" + id).val('')
+
+    };
+
+    $('#btn-new').on('click', function() {
+      clear_form('nama-gedung')
+      clear_form('keterangan')
+    })
 
 
   });

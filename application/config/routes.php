@@ -125,7 +125,8 @@ $route['jadwal/rutin/new'] = 'C_jadwal/rutin_new';
 $route['jadwal/rutin/query'] = 'C_jadwal/rutin_query';
 
 $route['jadwal/rutin/save/list'] = 'C_jadwal/rutin_save_list';
-$route['jadwal/rutin/save/jadwal'] = 'C_jadwal/rutin_save_jadwal';
+$route['jadwal/rutin/save/jadwal'] = 'C_jadwal/rutin_save';
+$route['jadwal/rutin/del/draft'] = 'C_jadwal/rutin_del_draft';
 
 
 //Update Jadwal Rutin | Menu : Lihat jadwal rutin
@@ -135,6 +136,7 @@ $route['jadwal/rutin/view'] = 'C_jadwal/rutin_view';
 $route['jadwal/rutin/view/data'] = 'C_jadwal/rutin_view_data';
 $route['jadwal/rutin/view/upd'] = 'C_jadwal/rutin_view_upd';
 $route['jadwal/rutin/view/del'] = 'C_jadwal/rutin_view_del';
+$route['jadwal/rutin/view/approve'] = 'C_jadwal/rutin_view_approve';
 
 //--------------------------------------------------------
 //-----------------End Jadwal Rutin-----------------------
@@ -158,6 +160,8 @@ $route['kerusakan/view'] = 'C_kerusakan/kerusakan_view';
 $route['kerusakan/view/data'] = 'C_kerusakan/kerusakan_view_data';
 $route['kerusakan/view/upd'] = 'C_kerusakan/kerusakan_view_upd';
 $route['kerusakan/view/del'] = 'C_kerusakan/kerusakan_view_del';
+
+$route['kerusakan/view/approve'] = 'C_kerusakan/kerusakan_view_approve';
 
 //--------------------------------------------------------
 //---------------End Laporan Kerusakan--------------------
@@ -200,4 +204,16 @@ $route['report/data'] = 'C_report/report_data';
 
 //--------------------------------------------------------
 //--------------------END REPORT--------------------------
+//--------------------------------------------------------
+
+
+//--------------------------------------------------------
+//--------------------User Manual-------------------------
+//--------------------------------------------------------
+
+$route['um'] = 'C_um/um';
+$route['um/edit'] = 'C_um/edit';
+
+//--------------------------------------------------------
+//--------------------User Manual-------------------------
 //--------------------------------------------------------

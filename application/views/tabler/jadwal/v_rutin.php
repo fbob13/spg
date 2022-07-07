@@ -95,7 +95,8 @@
 
                         <div class="form-footer">
                           <div class="d-flex flex-nowrap w-full">
-                            <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Jadwal</button></div>
+                            <div class="w-100 pe-1"><button type="submit" class="btn btn-success w-full">Tambah Draft</button></div>
+                            
 
 
                           </div>
@@ -124,6 +125,12 @@
                           </tbody>
                         </table>
                       </div>
+
+                      <div class="d-flex flex-nowrap w-full">
+                        <div class="pe-1"><button type="submit" class="btn btn-primary" id="btn-save">Simpan Jadwal</button></div>
+                        <div class="pe-1"><button type="submit" class="btn btn-danger" id="btn-delete">Hapus Draft</button></div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -147,7 +154,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal">Batal</button>
-                <button type="button" class="btn btn-danger" id="btn-yes">Ya, update data</button>
+                <button type="button" class="btn btn-danger" id="btn-yes">Ya, simpan jadwal</button>
               </div>
             </div>
           </div>
@@ -163,7 +170,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-del">Batal</button>
-                <button type="button" class="btn btn-danger" id="btn-yes-del">Ya, update data</button>
+                <button type="button" class="btn btn-danger" id="btn-yes-del">Ya, hapus data</button>
               </div>
             </div>
           </div>

@@ -1,7 +1,8 @@
 <script>
     $(document).ready(function() {
         const d = new Date();
-        const bulan = ('0' + (d.getMonth() + 1)).slice(-2)
+        const bulan = ('0' + (d.getMonth() + 1)).slice(-2);
+        const spc = <?php echo $this->session->userdata('spc'); ?>;
         $('#s-month').val(bulan)
         $('#s-year').val(d.getFullYear())
         //2console.log(('0' + (d.getMonth() + 1)).slice(-2))
@@ -9,6 +10,7 @@
         var string_btn_tbl = '<a href="#" class="btn btn-icon text-primary btn-light me-2 " c-aksi="update"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" /><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" /><line x1="16" y1="5" x2="19" y2="8" /></svg></a>'
         string_btn_tbl += '<a href="#" class="btn btn-icon text-danger btn-light " c-aksi="delete"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>'
 
+        var string_btn_approve = '<a href="#" class="btn btn-success me-2 " c-aksi="approve"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><rect x="9" y="3" width="6" height="4" rx="2" /><path d="M9 14l2 2l4 -4" /></svg>Approve</a>'
 
         const col = [{
             data: 'xx',
@@ -59,8 +61,15 @@
             "orderable": false,
             render: function(data, type, row) {
                 if (row.status_pekerjaan == '3') {
+                    if (spc == 1 || spc == 99) {
+                        return string_btn_approve
+                    } else {
+                        return ''
+                    }
+
+                } else if(row.status_pekerjaan == '5') {
                     return ''
-                } else {
+                }else {
                     return string_btn_tbl
                 }
             },
@@ -85,16 +94,22 @@
             "createdRow": function(row, data, dataIndex) {
                 if (data['status_pekerjaan'] == 0) {
                     $(row).addClass('bg-danger-lt');
+                    //$(row).attr('style','color:white !important;');
                 } else if (data['status_pekerjaan'] == 1) {
                     $(row).addClass('bg-azure-lt');
+                    //$(row).attr('style','color:white !important;');
                 } else if (data['status_pekerjaan'] == 2) {
                     $(row).addClass('bg-warning-lt');
+                    //$(row).attr('style','color:white !important;');
                 } else if (data['status_pekerjaan'] == 3) {
                     $(row).addClass('bg-success-lt');
+                    //$(row).attr('style','color:white !important;');
                 } else if (data['status_pekerjaan'] == 4) {
                     $(row).addClass('bg-purple-lt');
+                    //$(row).attr('style','color:white !important;');
                 } else if (data['status_pekerjaan'] == 5) {
-                    $(row).addClass('bg-success-lt');
+                    $(row).addClass('bg-teal-lt');
+                    //$(row).attr('style','color:white !important;');
                 }
             }
         });
@@ -133,6 +148,9 @@
             } else if (aksi == 'delete') {
                 $('#del-id-rutin').val(data['id_rutin']);
                 $('#modal-delete').modal('show');
+            } else if (aksi == 'approve') {
+                $('#id-approve').val(data['id_rutin']);
+                $('#modal-konfirmasi-approve').modal('show');
             }
         });
 
@@ -145,11 +163,11 @@
 
         });
 
-        $('#btn-batal').on('click',function(e){
+        $('#btn-batal').on('click', function(e) {
             e.preventDefault();
             $('#modal-konfirmasi').modal('hide')
             $('#modal-update').modal('show')
-            
+
 
         })
 
@@ -169,7 +187,7 @@
                     if (response.status == 'nok') {
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('show')
-                       
+
                         // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
                         cek_error(response.err_jenis_pekerjaan, 'upd-jenis-pekerjaan');
                         cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
@@ -178,8 +196,42 @@
                     } else {
                         $('#modal-konfirmasi').modal('hide')
                         //$('#modal-update').modal('hide')
-                        
-                        createNotification(3,  response.info)
+
+                        createNotification(3, response.info)
+                        update_datatables()
+                        getRutin()
+
+                    }
+
+                }
+            });
+        })
+
+
+        $('#btn-batal-approve').on('click', function(e) {
+            e.preventDefault();
+            $('#modal-konfirmasi-approve').modal('hide')
+        })
+
+        $('#btn-yes-approve').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "<?php echo base_url(); ?>jadwal/rutin/view/approve",
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'id_rutin': $('#id-approve').val(),
+                },
+                success: function(response) {
+                    if (response.status == 'nok') {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        $('#id-approve').val('');
+
+                    } else {
+                        $('#modal-konfirmasi-approve').modal('hide')
+                        //$('#modal-update').modal('hide')
+                        $('#id-approve').val('');
+                        createNotification(3, response.info)
                         update_datatables()
                         getRutin()
 
@@ -202,12 +254,12 @@
                 success: function(response) {
                     if (response.status == 'nok') {
                         $('#modal-del').modal('hide')
-                        
-                        createNotification(1,  response.info)
+
+                        createNotification(1, response.info)
                     } else {
                         $('#modal-update').modal('hide')
-                      
-                        createNotification(3,  response.info)
+
+                        createNotification(3, response.info)
                         update_datatables()
                         getRutin()
                     }
@@ -260,16 +312,22 @@
                 "createdRow": function(row, data, dataIndex) {
                     if (data['status_pekerjaan'] == 0) {
                         $(row).addClass('bg-danger-lt');
+                        //$(row).attr('style','color:white !important;');
                     } else if (data['status_pekerjaan'] == 1) {
                         $(row).addClass('bg-azure-lt');
+                        //$(row).attr('style','color:white !important;');
                     } else if (data['status_pekerjaan'] == 2) {
                         $(row).addClass('bg-warning-lt');
+                        //$(row).attr('style','color:white !important;');
                     } else if (data['status_pekerjaan'] == 3) {
                         $(row).addClass('bg-success-lt');
+                        //$(row).attr('style','color:white !important;');
                     } else if (data['status_pekerjaan'] == 4) {
                         $(row).addClass('bg-purple-lt');
+                        //$(row).attr('style','color:white !important;');
                     } else if (data['status_pekerjaan'] == 5) {
-                        $(row).addClass('bg-success-lt');
+                        $(row).addClass('bg-teal-lt');
+                        //$(row).attr('style','color:white !important;');
                     }
                 }
             });
@@ -281,9 +339,10 @@
         }
 
         var counter = 0
-        function createNotification(icon,pesan) {
+
+        function createNotification(icon, pesan) {
             counter = counter + 1
-            $('#t-cont').prepend(createToast(icon,  pesan, counter))
+            $('#t-cont').prepend(createToast(icon, pesan, counter))
             var id_show = 'toast-' + counter
             var myToastEl = document.getElementById(id_show)
             var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
@@ -301,7 +360,7 @@
             wr += '<div class="toast ' + tstyle[icon] + ' text-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-toggle="toast" id="toast-' + count + '">'
             wr += '  <div class="d-flex">'
             wr += '     <div class="toast-body">'
-            wr +=         pesan
+            wr += pesan
             wr += '     </div>'
             wr += '     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>'
             wr += '  </div>'

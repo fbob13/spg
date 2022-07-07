@@ -24,6 +24,7 @@ when a.status_pekerjaan = 1 then 'Progres'
 when a.status_pekerjaan = 2 then 'Pending'
 when a.status_pekerjaan = 3 then 'Selesai'
 when a.status_pekerjaan = 4 then 'Tidak Dikerjakan'
+when a.status_pekerjaan = 5 then 'Approved'
 end status_pekerjaan_text,
 a.keterangan
 from as_nonrutin a
@@ -51,6 +52,7 @@ when a.status_pekerjaan = 1 then 'Progres'
 when a.status_pekerjaan = 2 then 'Pending'
 when a.status_pekerjaan = 3 then 'Selesai'
 when a.status_pekerjaan = 4 then 'Tidak Dikerjakan'
+when a.status_pekerjaan = 5 then 'Approved'
 end status_pekerjaan_text,
 a.keterangan,
 a.tanggal_realisasi
