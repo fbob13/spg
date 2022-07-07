@@ -178,6 +178,7 @@
 
 
     function getNonRutin() {
+        $('#container-rutin').html('Loading...')
         $.ajax({
             url: "<?php echo base_url(); ?>dashboard/info/nonrutin",
             type: 'get',
@@ -187,19 +188,19 @@
                     //
                 } else {
                     var hasil = response.data
-                    $('#container-nonrutin').html('')
+                    //$('#container-nonrutin').html('')
 
-                    if (hasil.length == 0) {
-                        $('#container-rutin').html('No Data')
+                    if (response.jumlah == 0) {
+                        $('#container-nonrutin').html('No Data')
                         $('#badge-nonrutin').removeClass('badge bg-red')
                     } else {
                         $('#badge-nonrutin').addClass('badge bg-red')
-                        $('#container-rutin').html('')
+                        $('#container-nonrutin').html('')
                         hasil.forEach(function(item, index, arr) {
-                        //console.log(arr[index].nama_gedung)
+                            //console.log(arr[index].nama_gedung)
 
-                        $('#container-nonrutin').append(createNonRutin(arr[index].nama_gedung, arr[index].nama_ruangan, arr[index].keluhan, arr[index].tanggal_laporan, arr[index].prioritas))
-                    })
+                            $('#container-nonrutin').append(createNonRutin(arr[index].nama_gedung, arr[index].nama_ruangan, arr[index].keluhan, arr[index].tanggal_laporan, arr[index].prioritas))
+                        })
                     }
                 }
             }
@@ -207,6 +208,9 @@
     }
 
     function getRutin() {
+        $('#container-rutin').html('Loading...')
+        $('#badge-rutin').removeClass('badge bg-red')
+        var selesai = true;
         $.ajax({
             url: "<?php echo base_url(); ?>dashboard/info/rutin",
             type: 'get',
@@ -217,18 +221,25 @@
                 } else {
                     var hasil = response.data
 
-                    if (hasil.length == 0) {
+                    if (response.jumlah == 0) {
                         $('#container-rutin').html('No Data')
-                        $('#badge-rutin').removeClass('badge bg-red')
+                        //$('#badge-rutin').removeClass('badge bg-red')
                     } else {
-                        $('#badge-rutin').addClass('badge bg-red')
-                        $('#container-rutin').html('')
                         hasil.forEach(function(item, index, arr) {
                             //console.log(arr[index].nama_gedung)
 
                             $('#container-rutin').append(createRutin(arr[index].nama_gedung, arr[index].nama_ruangan, arr[index].nama_item, arr[index].tanggal_jadwal, arr[index].status_pekerjaan, arr[index].jenis_pekerjaan, arr[index].uraian_pekerjaan, arr[index].status_pekerjaan_text))
                             //function createRutin(gedung, ruangan, item, tanggal, status_pekerjaan)
+
+                            if (arr[index].status_pekerjaan != 3 && arr[index].status_pekerjaan != 5) {
+                                console.log(arr[index].status_pekerjaan)
+                                selesai = false
+                            }
                         })
+
+                        if (selesai == false) {
+                            $('#badge-rutin').addClass('badge bg-red')
+                        }
                     }
 
 
@@ -312,9 +323,10 @@
 
 
 
-
-        getNonRutin()
-        getRutin()
+        setTimeout(getNonRutin, 1000)
+        setTimeout(getRutin, 1000)
+        //getNonRutin()
+        //getRutin()
 
 
 

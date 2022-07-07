@@ -156,10 +156,13 @@ class C_index extends CI_Controller
 			$tanggal = date('Y-m-d');
 			if ($tipe == 'rutin') {
 				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' order by tanggal_jadwal,status_pekerjaan");
+				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
+				
 			} else if ($tipe == 'nonrutin') {
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
 			}
@@ -174,11 +177,13 @@ class C_index extends CI_Controller
 			if ($tipe == 'rutin') {
 				
 				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' and id_user = '$uid' order by tanggal_jadwal,status_pekerjaan");
+				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
 			} else if ($tipe == 'nonrutin') {
 				
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
 			}
@@ -190,9 +195,11 @@ class C_index extends CI_Controller
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$tanggal = date('Y-m-d');
 			if ($tipe == 'rutin') {
+				$data['jumlah'] = 0;
 				$data['data'] = "";
 			} else if ($tipe == 'nonrutin') {
 				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;
 			}
