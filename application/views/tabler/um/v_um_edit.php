@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-xl">
     <!-- Page title -->
     <div class="page-header d-print-none">
         <div class="row align-items-center">
@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="page-body">
-    <div class="container-fluid">
+    <div class="container-xl">
 
         <!-- Content here -->
         <div class="row row-cards">
@@ -22,7 +22,7 @@
                     <textarea name="content" id="editor">
                     <?php echo $content;?>
                     </textarea>
-                    <p><input type="submit" value="Submit"></p>
+                    <p ><input class="btn btn-primary mt-2" type="submit" value="Save"></p>
                 </form>
 
             </div>

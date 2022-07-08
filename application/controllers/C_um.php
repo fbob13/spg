@@ -33,7 +33,7 @@ class C_um extends CI_Controller
 
 		$data['title'] = 'Edit User Manual - ' . $this->config->item('app_name');;
 		$data['cust_css'] = '';
-		$data['cust_js'] = '<script src="' . base_url() . 'dist/libs/ckeditor5/ckeditor.js"></script>';
+		$data['cust_js'] = '<script src="' . base_url() . 'dist/libs/tinymce/tinymce.min.js"></script>';
 
 
 		(isset($_POST['content']))                 ? $content = $_POST['content']     : $content = 'xcvx';

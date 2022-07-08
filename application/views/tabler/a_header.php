@@ -486,6 +486,11 @@ function cek_role($array, $kode_halaman)
               <a href="<?php echo base_url(); ?>profile" class="dropdown-item">Edit Profile</a>
               <a href="<?php echo base_url(); ?>gpass" class="dropdown-item">Ganti Password</a>
               <div class="dropdown-divider"></div>
+              <a href="<?php echo base_url(); ?>um" class="dropdown-item">User Manual</a>
+              <?php if($this->session->userdata('spc')==99){ ?>
+              <a href="<?php echo base_url(); ?>um/edit" class="dropdown-item">Edit User Manual</a>
+              <?php } ?>
+              <div class="dropdown-divider"></div>
               <a href="<?php echo base_url(); ?>logout" class="dropdown-item">Logout</a>
             </div>
           </div>
