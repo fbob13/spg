@@ -108,7 +108,7 @@
                             echo create_form(array(
                                 'type' => 'text',
                                 'id' => 'uraian-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
+                                'label' => 'Status Pekerjaan',
                                 'placeholder' => 'Uraian Pekerjaan',
                                 'value' => '',
                                 'attr' => ''
@@ -198,7 +198,7 @@
                             echo create_form(array(
                                 'type' => 'select',
                                 'id' => 'upd-status-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
+                                'label' => 'Status Pekerjaan',
                                 'placeholder' => 'Uraian Pekerjaan',
                                 'value' => $statuspekerjaan,
                                 'attr' => ''
@@ -277,7 +277,7 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi -->
+    <!-- Modal Approve -->
     <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

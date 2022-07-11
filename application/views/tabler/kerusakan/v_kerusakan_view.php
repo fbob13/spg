@@ -218,7 +218,7 @@
                             echo create_form(array(
                                 'type' => 'select',
                                 'id' => 'upd-status-pekerjaan',
-                                'label' => 'Uraian Pekerjaan',
+                                'label' => 'Status Pekerjaan',
                                 'placeholder' => '',
                                 'value' => $statuspekerjaan,
                                 'attr' => ''

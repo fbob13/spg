@@ -63,7 +63,7 @@
                             echo create_form(array(
                                 'type' => 'select',
                                 'id' => 'id-gedung',
-                                'label' => 'Gedung',
+                                'label' => 'Nama Gedung',
                                 'placeholder' => 'Pilih Gedung',
                                 'value' => $gedung,
                                 'attr' => ''
