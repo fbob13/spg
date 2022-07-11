@@ -36,8 +36,8 @@ Todo
            extract here select2.7z di "dist/libs/"
            jadi nanti hasilnya "dist/libs/select2/*"
 
-12. import excel
-   done[ ] no[x] progres[ ]
+-12. import excel
+   done[x] no[ ] progres[ ]
 
 -13. pane menu bisa minimize (pelengkap)
    done[x] no[] progres[ ]

@@ -456,6 +456,7 @@
             $('#modal-konfirmasi-upload').modal('hide')
             createNotification(3, response.info)
             clear_form('upload-file')
+            getRutin()
 
           }
 

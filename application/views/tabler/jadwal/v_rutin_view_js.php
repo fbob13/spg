@@ -63,7 +63,7 @@
             data: 'status_pekerjaan',
             className: 'text-center',
             render: function(data,type,row){
-                return '<div class="btn w-full px-2">' +  row.status_pekerjaan_text + '</div>'
+                return '<div class="card w-full p-1 fs-5">' +  row.status_pekerjaan_text + '</div>'
             }
         }, {
             data: 'keterangan',

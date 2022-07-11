@@ -187,7 +187,7 @@
                     //
                 } else {
                     var hasil = response.data
-                    //$('#container-nonrutin').html('')
+                    $('#container-nonrutin').html('')
 
                     if (response.jumlah == 0) {
                         $('#container-nonrutin').html('No Data')
@@ -217,12 +217,14 @@
                 if (response.status == 'nok') {
                     //
                 } else {
+                   
                     var hasil = response.data
 
                     if (response.jumlah == 0) {
                         $('#container-rutin').html('No Data')
                         //$('#badge-rutin').removeClass('badge bg-red')
                     } else {
+                        $('#container-rutin').html('')
                         hasil.forEach(function(item, index, arr) {
                             //console.log(arr[index].nama_gedung)
 
