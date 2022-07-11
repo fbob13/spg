@@ -34,9 +34,11 @@
                                 <th>nn</th>
                                 <th>nn</th>
                                 <th>nn</th>
+                                <th>nn</th>
                                 <th>Jenis Pekerjaan</th>
                                 <th>Uraian Pekerjaan</th>
                                 <th>Kategori</th>
+                                <th>Subkategori</th>
                                 <th>Interval</th>
                                 <th></th>
                             </tr>
@@ -85,6 +87,15 @@
                                 'label' => 'Kategori',
                                 'placeholder' => '',
                                 'value' => $kategori,
+                                'attr' => ''
+                            ));
+
+                            echo create_form(array(
+                                'type' => 'select',
+                                'id' => 'id-subkategori',
+                                'label' => 'Subkategori',
+                                'placeholder' => '',
+                                'value' => array(),
                                 'attr' => ''
                             ));
 
@@ -162,6 +173,15 @@
                                 'label' => 'Kategori',
                                 'placeholder' => 'Pilih Kategori',
                                 'value' => $kategori,
+                                'attr' => ''
+                            ));
+
+                            echo create_form(array(
+                                'type' => 'select',
+                                'id' => 'upd-id-subkategori',
+                                'label' => 'Subkategori',
+                                'placeholder' => '',
+                                'value' => array(),
                                 'attr' => ''
                             ));
 

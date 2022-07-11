@@ -26,6 +26,10 @@
             visible: false,
             searchable: false,
         }, {
+            data: 'id_subkategori',
+            visible: false,
+            searchable: false,
+        }, {
             data: 'nama_item',
             className: 'text-center'
         }, {
@@ -37,8 +41,14 @@
         }, {
             data: '',
             className: 'text-center',
-            render : function (data, value, row){
+            render: function(data, value, row) {
                 return row.uraian_kategori //+ ' (' + row.kode_kategori + ')'
+            }
+        }, {
+            data: '',
+            className: 'text-center',
+            render: function(data, value, row) {
+                return row.uraian_subkategori //+ ' (' + row.kode_kategori + ')'
             }
         }, {
             data: null,
@@ -84,12 +94,25 @@
             aksi = $(this).attr('c-aksi');
 
             if (aksi == 'update') {
+
+                clear_form('upd-nama-item')
+                clear_form('upd-merek-item')
+                clear_form('upd-tipe-item')
+                clear_form('upd-kategori')
+                clear_form('upd-subkategori')
+
                 $('#upd-id-item').val(data['id_item']);
                 $('#upd-nama-item').val(data['nama_item']);
                 $('#upd-merek-item').val(data['merek_item']);
                 $('#upd-tipe-item').val(data['tipe_item']);
                 $('#upd-kategori').val(data['id_kategori']);
                 $('#modal-update').modal('show')
+
+
+
+                ambil_subkategori_upd()
+                $('#upd-subkategori').val(data['id_subkategori']);
+
             } else if (aksi == 'delete') {
                 $('#del-id-item').val(data['id_item']);
                 $('#modal-delete').modal('show');
@@ -123,6 +146,7 @@
                     'merek_item': $('#merek-item').val(),
                     'tipe_item': $('#tipe-item').val(),
                     'id_kategori': $('#kategori').val(),
+                    'id_subkategori': $('#subkategori').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -130,12 +154,14 @@
                         cek_error(response.err_merek_item, 'merek-item');
                         cek_error(response.err_tipe_item, 'tipe-item');
                         cek_error(response.err_kategori, 'kategori');
+                        cek_error(response.err_subkategori, 'subkategori');
+
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('show')
                     } else {
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        createNotification(3,  response.info)
+                        createNotification(3, response.info)
                         update_datatables()
 
                         clear_form('nama-item')
@@ -149,7 +175,7 @@
                 }
             });
 
-      
+
 
 
         })
@@ -184,6 +210,7 @@
                     'merek_item': $('#upd-merek-item').val(),
                     'tipe_item': $('#upd-tipe-item').val(),
                     'id_kategori': $('#upd-kategori').val(),
+                    'id_subkategori': $('#upd-subkategori').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -191,13 +218,15 @@
                         cek_error(response.err_nama_item, 'upd-nama-item');
                         cek_error(response.err_merek_item, 'upd-merek-item');
                         cek_error(response.err_tipe_item, 'upd-tipe-item');
-                        cek_error(response.err_id_kategori, 'upd-kategori');
+                        cek_error(response.err_kategori, 'upd-kategori');
+                        cek_error(response.err_subkategori, 'upd-subkategori');
+
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('show')
                     } else {
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        createNotification(3,  response.info)
+                        createNotification(3, response.info)
                         update_datatables()
 
                     }
@@ -221,12 +250,12 @@
                 success: function(response) {
                     if (response.status == 'nok') {
                         $('#modal-del').modal('hide')
- 
-                        createNotification(1,  response.info)
+
+                        createNotification(1, response.info)
                     } else {
                         $('#modal-update').modal('hide')
- 
-                        createNotification(3,  response.info)
+
+                        createNotification(3, response.info)
                         update_datatables()
                     }
 
@@ -234,6 +263,64 @@
             });
         });
 
+
+        $('#kategori').change(function(e) {
+            ambil_subkategori()
+        });
+
+        $('#upd-kategori').change(function(e) {
+            ambil_subkategori_upd()
+        });
+
+
+        function ambil_subkategori() {
+            //$("#cari_kelurahan").empty();
+            kategori = $('#kategori').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>master/item/query',
+                type: 'post',
+                data: {
+                    'tabel': 'subkategori',
+                    'id_kategori': kategori,
+                },
+                dataType: 'json',
+                success: function(response) {
+
+                    $('#subkategori').html(create_option(response.data));
+                }
+            });
+        }
+
+        function ambil_subkategori_upd() {
+            //$("#cari_kelurahan").empty();
+            kategori = $('#upd-kategori').val();
+
+            $.ajax({
+                url: '<?= base_url() ?>master/item/query',
+                type: 'post',
+                data: {
+                    'tabel': 'subkategori',
+                    'id_kategori': kategori,
+                },
+                dataType: 'json',
+                success: function(response) {
+
+                    $('#upd-subkategori').html(create_option(response.data));
+                }
+            });
+        }
+
+        function create_option(datalist) {
+
+            hasil = '<option value=""></option>'
+            for (index in datalist) {
+                qid_item = datalist[index].val;
+                qdeskripsi = datalist[index].deskripsi;
+                hasil += '<option value="' + qid_item + '">' + qdeskripsi + '</option>'
+            }
+            return hasil
+        }
 
         function cek_error(err_result, id) {
             if (err_result !== "") {
@@ -257,7 +344,10 @@
             clear_form('merek-item')
             clear_form('tipe-item')
             clear_form('kategori')
+            clear_form('subkategori')
         })
+
+
 
         function update_datatables() {
 
@@ -268,8 +358,8 @@
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',

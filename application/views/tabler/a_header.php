@@ -148,6 +148,11 @@ function cek_role($array, $kode_halaman)
                           Kategori
                         </a>
                       <?php }
+                      if (cek_role($user_role, 'MST_SUBKAT') == 1) { ?>
+                        <a class="dropdown-item <?php echo $sublink == 'subkategori' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/subkategori">
+                          Subkategori
+                        </a>
+                      <?php }
                       if (cek_role($user_role, 'MST_GED') == 1) {
                       ?>
                         <a class="dropdown-item <?php echo $sublink == 'gedung' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/gedung">

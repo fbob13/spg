@@ -111,10 +111,10 @@ class C_jadwal extends CI_Controller
                     //Ambil data kategori dari id_item
                     $query = $this->db->query("select * from mst_item where id_item = $id_item");
                     $qitem = $query->first_row();
-                    $kategori = $qitem->id_kategori;
+                    $subkategori = $qitem->id_subkategori;
                     //Ambil data pkrutin berdasarkan id_kategori
                     $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' / ' , jenis_pekerjaan, uraian_pekerjaan) as deskripsi 
-                                from mst_pkrutin where id_kategori =$kategori");
+                                from mst_pkrutin where id_subkategori =$subkategori");
                 } else if ($tipe == "draft") {
 
                     (isset($_POST['tanggal_jadwal']))   ? $tanggal_jadwal = $_POST['tanggal_jadwal']    : $tanggal_jadwal = "";

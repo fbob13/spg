@@ -76,6 +76,7 @@ $route['master/item/data'] = 'C_master/item_data';
 $route['master/item/new'] = 'C_master/item_new';
 $route['master/item/upd'] = 'C_master/item_upd';
 $route['master/item/del'] = 'C_master/item_del';
+$route['master/item/query'] = 'C_master/item_query';
 
 //Master gedung
 $route['master/gedung'] = 'C_master/gedung';
@@ -108,6 +109,12 @@ $route['master/kategori/new'] = 'C_master/kategori_new';
 $route['master/kategori/upd'] = 'C_master/kategori_upd';
 $route['master/kategori/del'] = 'C_master/kategori_del';
 
+//Master subKategori
+$route['master/subkategori'] = 'C_master/subkategori';
+$route['master/subkategori/data'] = 'C_master/subkategori_data';
+$route['master/subkategori/new'] = 'C_master/subkategori_new';
+$route['master/subkategori/upd'] = 'C_master/subkategori_upd';
+$route['master/subkategori/del'] = 'C_master/subkategori_del';
 
 //Master Pekerjaan Rutin
 $route['master/prutin'] = 'C_master/prutin';
@@ -115,6 +122,7 @@ $route['master/prutin/data'] = 'C_master/prutin_data';
 $route['master/prutin/new'] = 'C_master/prutin_new';
 $route['master/prutin/upd'] = 'C_master/prutin_upd';
 $route['master/prutin/del'] = 'C_master/prutin_del';
+$route['master/prutin/query'] = 'C_master/prutin_query';
 
 //--------------------------------------------------------
 //-------------------Jadwal Rutin-------------------------

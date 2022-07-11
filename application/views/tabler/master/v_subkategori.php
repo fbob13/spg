@@ -4,7 +4,7 @@
         <div class="d-flex flex-wrap align-items-center">
             <div class="col">
                 <h2 class="page-title">
-                    Master Item
+                    Master Subkategori
                 </h2>
             </div>
             <div class="ms-auto">
@@ -32,12 +32,9 @@
                                 <th class="w-1">No.</th>
                                 <th>nn</th>
                                 <th>nn</th>
-                                <th>nn</th>
-                                <th>Nama Item</th>
-                                <th>Merek</th>
-                                <th>tipe</th>
-                                <th>Kategori</th>
-                                <th>Subkategori</th>
+                                <th>Kode Kategori</th>
+                                <th>Kode Subkategori</th>
+                                <th>Uraian Subkategori</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -53,44 +50,18 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Buat Master Item Baru</h5>
+                    <h5 class="modal-title">Buat Subkategori Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-new">
                     <div class="modal-body">
                         <div class="">
                             <?php
-                            //Buat form, fungsi ada di file helper/h_form_helper.php
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'nama-item',
-                                'label' => 'Nama Item',
-                                'placeholder' => 'Nama Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
-
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'merek-item',
-                                'label' => 'Merek Item',
-                                'placeholder' => 'Merek Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
-
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'tipe-item',
-                                'label' => 'Tipe Item',
-                                'placeholder' => 'Tipe Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
+                            //Buat form input fungsi ada di file helper/h_form_helper.php
 
                             echo create_form(array(
                                 'type' => 'select',
-                                'id' => 'kategori',
+                                'id' => 'id-kategori',
                                 'label' => 'Kategori',
                                 'placeholder' => 'Kategori',
                                 'value' => $kategori,
@@ -98,14 +69,22 @@
                             ));
 
                             echo create_form(array(
-                                'type' => 'select',
-                                'id' => 'subkategori',
-                                'label' => 'Subkategori',
-                                'placeholder' => 'Subkategori',
-                                'value' => array(),
+                                'type' => 'text',
+                                'id' => 'kode-subkategori',
+                                'label' => 'Kode Subkategori',
+                                'placeholder' => 'Kode Subkategori',
+                                'value' => '',
                                 'attr' => ''
                             ));
 
+                            echo create_form(array(
+                                'type' => 'text',
+                                'id' => 'uraian-subkategori',
+                                'label' => 'Uraian Subkategori',
+                                'placeholder' => 'Uraian Subkategori',
+                                'value' => '',
+                                'attr' => ''
+                            ));
 
                             ?>
                         </div>
@@ -139,45 +118,19 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Master Item</h5>
+                    <h5 class="modal-title">Update Subkategori</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-update">
                     <div class="modal-body">
                         <div class="">
-                            <input type="hidden" id="upd-id-item" value="">
+                            <input type="hidden" id="upd-id-subkategori" value="">
                             <?php
-                            //Buat form, fungsi ada di file helper/h_form_helper.php
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'upd-nama-item',
-                                'label' => 'Nama Item',
-                                'placeholder' => 'Nama Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
-
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'upd-merek-item',
-                                'label' => 'Merek Item',
-                                'placeholder' => 'Merek Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
-
-                            echo create_form(array(
-                                'type' => 'text',
-                                'id' => 'upd-tipe-item',
-                                'label' => 'Tipe Item',
-                                'placeholder' => 'Tipe Item',
-                                'value' => '',
-                                'attr' => ''
-                            ));
+                            //Buat form input fungsi ada di file helper/h_form_helper.php
 
                             echo create_form(array(
                                 'type' => 'select',
-                                'id' => 'upd-kategori',
+                                'id' => 'upd-id-kategori',
                                 'label' => 'Kategori',
                                 'placeholder' => 'Kategori',
                                 'value' => $kategori,
@@ -185,11 +138,20 @@
                             ));
 
                             echo create_form(array(
-                                'type' => 'select',
-                                'id' => 'upd-subkategori',
-                                'label' => 'Subkategori',
-                                'placeholder' => 'Subkategori',
-                                'value' => array(),
+                                'type' => 'text',
+                                'id' => 'upd-kode-subkategori',
+                                'label' => 'Kode Subkategori',
+                                'placeholder' => 'Kode Subkategori',
+                                'value' => '',
+                                'attr' => ''
+                            ));
+
+                            echo create_form(array(
+                                'type' => 'text',
+                                'id' => 'upd-uraian-subkategori',
+                                'label' => 'Uraian Subkategori',
+                                'placeholder' => 'Uraian Subkategori',
+                                'value' => '',
                                 'attr' => ''
                             ));
 
@@ -210,7 +172,7 @@
                                 <path d="M9 17h.01" />
                                 <path d="M12 16l1 1l3 -3" />
                             </svg>
-                            Simpan Data
+                            Update Data
                         </button>
                     </div>
                 </form>
@@ -224,16 +186,16 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Item</h5>
+                    <h5 class="modal-title">Hapus Data Subkategori</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-detail-hapus">
-                    Yakin akan menghapus data item <span class="text-danger" id="desc_delete"> </span>?
+                    Yakin akan menghapus data data <span class="text-danger" id="desc_delete"> </span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
                     <form id="form-delete">
-                        <input type="hidden" val="" id="del-id-item">
+                        <input type="hidden" val="" id="del-id-subkategori">
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hapus Data</button>
                     </form>
                 </div>
@@ -263,7 +225,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="modal-title">Anda Yakin</div>
-                    <div>Anda akan menyimpan item baru</div>
+                    <div>Anda akan menyimpan Subkategori baru</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-new">Batal</button>
