@@ -114,11 +114,13 @@ class C_master extends CI_Controller
                 (isset($_POST['merek_item']))         ? $merek_item =      $_POST['merek_item']         : $merek_item = "";
                 (isset($_POST['tipe_item']))         ? $tipe_item =      $_POST['tipe_item']         : $tipe_item = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =      $_POST['id_subkategori']         : $id_subkategori = "";
 
                 $data['err_nama_item'] = "";
                 $data['err_merek_item'] = "";
                 $data['err_tipe_item'] = "";
                 $data['err_kategori'] = "";
+                $data['err_subkategori'] = "";
 
                 $pesanError = array(
                     'required' => "Harus di isi",
@@ -129,6 +131,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('merek_item', 'merek_item', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('tipe_item', 'id_ruangan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('id_subkategori', 'id_subkategori', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -137,6 +140,7 @@ class C_master extends CI_Controller
                     $data['err_merek_item'] = form_error('merek_item', '<span>', '</span>');
                     $data['err_tipe_item'] = form_error('tipe_item', '<span>', '</span>');
                     $data['err_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_subkategori'] = form_error('id_subkategori', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -155,6 +159,7 @@ class C_master extends CI_Controller
                         'merek_item' => $merek_item,
                         'tipe_item' => $tipe_item,
                         'id_kategori' => $id_kategori,
+                        'id_subkategori' => $id_subkategori,
                         'created_at' => date("Y-m-d H:i:s")
                     );
 
@@ -204,11 +209,13 @@ class C_master extends CI_Controller
                 (isset($_POST['merek_item']))         ? $merek_item =      $_POST['merek_item']         : $merek_item = "";
                 (isset($_POST['tipe_item']))         ? $tipe_item =      $_POST['tipe_item']         : $tipe_item = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =      $_POST['id_subkategori']         : $id_subkategori = "";
 
                 $data['err_nama_item'] = "";
                 $data['err_merek_item'] = "";
                 $data['err_tipe_item'] = "";
                 $data['err_kategori'] = "";
+                $data['err_subkategori'] = "";
 
                 $pesanError = array(
                     'required' => "Harus di isi",
@@ -219,6 +226,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('merek_item', 'merek_item', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('tipe_item', 'tipe_item', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('id_subkategori', 'id_subkategori', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
                 if ($this->form_validation->run() == FALSE) {
@@ -227,6 +235,7 @@ class C_master extends CI_Controller
                     $data['err_merek_item'] = form_error('merek_item', '<span>', '</span>');
                     $data['err_tipe_item'] = form_error('id_ruangan', '<span>', '</span>');
                     $data['err_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_subkategori'] = form_error('id_subkategori', '<span>', '</span>');
 
                     $err = true;
                     $data['status'] = 'nok';
@@ -252,7 +261,8 @@ class C_master extends CI_Controller
                         'nama_item' => $nama_item,
                         'merek_item' => $merek_item,
                         'tipe_item' => $tipe_item,
-                        'id_kategori' => $id_kategori
+                        'id_kategori' => $id_kategori,
+                        'id_subkategori' => $id_subkategori,
                     );
                     $this->db->where('id_item', $id_item);
                     $this->db->update('mst_item', $data_insert);
@@ -315,6 +325,39 @@ class C_master extends CI_Controller
         }
 
         echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+
+    public function item_query()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_ITE', 'view')) {
+            (isset($_POST['tabel']))         ? $tabel =       $_POST['tabel']         : $tabel = "";
+
+            if ($tabel == "subkategori") {
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+                $query = $this->db->query("select id_subkategori val,CONCAT_WS(' / ', kode_subkategori, uraian_subkategori) AS deskripsi from mst_subkategori where id_kategori = $id_kategori");
+                $data["data"] = $query->result();
+            } 
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
 
         //END FUNCTION
     }
@@ -1330,6 +1373,7 @@ class C_master extends CI_Controller
                 (isset($_POST['jenis_pekerjaan']))         ? $jenis_pekerjaan =       $_POST['jenis_pekerjaan']         : $jenis_pekerjaan = "";
                 (isset($_POST['uraian_pekerjaan']))         ? $uraian_pekerjaan =      $_POST['uraian_pekerjaan']         : $uraian_pekerjaan = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =      $_POST['id_subkategori']         : $id_subkategori = "";
                 (isset($_POST['interval_hari']))         ? $interval_hari =      $_POST['interval_hari']         : $interval_hari = "";
                 (isset($_POST['pengali']))         ? $pengali =      $_POST['pengali']         : $pengali = "";
 
@@ -1337,6 +1381,7 @@ class C_master extends CI_Controller
                 $data['err_jenis_pekerjaan'] = "";
                 $data['err_uraian_pekerjaan'] = "";
                 $data['err_id_kategori'] = "";
+                $data['err_id_subkategori'] = "";
                 $data['err_interval'] = "";
 
 
@@ -1348,6 +1393,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('jenis_pekerjaan', 'jenis_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('uraian_pekerjaan', 'uraian_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('id_subkategori', 'id_subkategori', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('interval_hari', 'interval_hari', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
@@ -1356,6 +1402,7 @@ class C_master extends CI_Controller
                     $data['err_jenis_pekerjaan'] = form_error('jenis_pekerjaan', '<span>', '</span>');
                     $data['err_uraian_pekerjaan'] = form_error('uraian_pekerjaan', '<span>', '</span>');
                     $data['err_id_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_id_subkategori'] = form_error('id_subkategori', '<span>', '</span>');
                     $data['err_interval'] = form_error('interval_hari', '<span>', '</span>');
 
                     $err = true;
@@ -1374,6 +1421,7 @@ class C_master extends CI_Controller
                         'jenis_pekerjaan' => $jenis_pekerjaan,
                         'uraian_pekerjaan' => $uraian_pekerjaan,
                         'id_kategori' => $id_kategori,
+                        'id_subkategori' => $id_subkategori,
                         'interval_hari' => $interval_hari,
                         'pengali' => $pengali,
                         'created_at' => date("Y-m-d H:i:s")
@@ -1425,12 +1473,14 @@ class C_master extends CI_Controller
                 (isset($_POST['jenis_pekerjaan']))         ? $jenis_pekerjaan =       $_POST['jenis_pekerjaan']         : $jenis_pekerjaan = "";
                 (isset($_POST['uraian_pekerjaan']))         ? $uraian_pekerjaan =      $_POST['uraian_pekerjaan']         : $uraian_pekerjaan = "";
                 (isset($_POST['id_kategori']))         ? $id_kategori =      $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =      $_POST['id_subkategori']         : $id_subkategori = "";
                 (isset($_POST['interval_hari']))         ? $interval_hari =      $_POST['interval_hari']         : $interval_hari = "";
                 (isset($_POST['pengali']))         ? $pengali =      $_POST['pengali']         : $pengali = "";
 
                 $data['err_jenis_pekerjaan'] = "";
                 $data['err_uraian_pekerjaan'] = "";
                 $data['err_id_kategori'] = "";
+                $data['err_id_subkategori'] = "";
                 $data['err_interval'] = "";
 
                 $pesanError = array(
@@ -1441,6 +1491,7 @@ class C_master extends CI_Controller
                 $this->form_validation->set_rules('jenis_pekerjaan', 'jenis_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('uraian_pekerjaan', 'uraian_pekerjaan', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('id_subkategori', 'id_subkategori', 'trim|required', $pesanError);
                 $this->form_validation->set_rules('interval_hari', 'interval_hari', 'trim|required', $pesanError);
 
                 //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
@@ -1449,6 +1500,7 @@ class C_master extends CI_Controller
                     $data['err_jenis_pekerjaan'] = form_error('jenis_pekerjaan', '<span>', '</span>');
                     $data['err_uraian_pekerjaan'] = form_error('uraian_pekerjaan', '<span>', '</span>');
                     $data['err_id_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_id_subkategori'] = form_error('id_subkategori', '<span>', '</span>');
                     $data['err_interval'] = form_error('interval_hari', '<span>', '</span>');
 
                     $err = true;
@@ -1467,6 +1519,7 @@ class C_master extends CI_Controller
                         'jenis_pekerjaan' => $jenis_pekerjaan,
                         'uraian_pekerjaan' => $uraian_pekerjaan,
                         'id_kategori' => $id_kategori,
+                        'id_subkategori' => $id_subkategori,
                         'interval_hari' => $interval_hari,
                         'pengali' => $pengali,
                     );
@@ -1532,6 +1585,38 @@ class C_master extends CI_Controller
         }
 
         echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function prutin_query()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_PEK', 'view')) {
+            (isset($_POST['tabel']))         ? $tabel =       $_POST['tabel']         : $tabel = "";
+
+            if ($tabel == "subkategori") {
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+                $query = $this->db->query("select id_subkategori val,CONCAT_WS(' / ', kode_subkategori, uraian_subkategori) AS deskripsi from mst_subkategori where id_kategori = $id_kategori");
+                $data["data"] = $query->result();
+            } 
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
 
         //END FUNCTION
     }
@@ -1665,6 +1750,10 @@ class C_master extends CI_Controller
                     );
 
                     $this->db->insert('mst_kategori', $data_insert);
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
 
                     $data['info'] = 'Data Kategori Berhasil Disimpan';
                     $data['status'] = 'ok';
@@ -1803,4 +1892,288 @@ class C_master extends CI_Controller
 
         //END FUNCTION
     }
+
+
+    public function subkategori()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            return $this->load->view('auth/v_login');
+        }
+
+
+
+        //Jika User = 99(IT) atau 1(admin)
+        if ($this->Login_model->cekLogin('MST_KAT', 'view')) {
+            $data['link'] = 'master';
+            $data['sublink'] = 'subkategori';
+            $data['subsublink'] = '';
+
+            $data['title'] = 'Subkategori - ' . $this->config->item('app_name');
+
+            //CSS untuk menampilkan tabel (datatables)
+            $data['cust_css'] = '<link rel="stylesheet" type="text/css" href="' . base_url() . 'dist/libs/DataTables/datatables.min.css"/>';
+
+            //JS untuk menampilkan tabel (datatables)
+            $data['cust_js'] = '<script  src="' . base_url() . 'dist/libs/DataTables/datatables.min.js"></script>';
+
+            $query = $this->db->query("select id_kategori val, uraian_kategori deskripsi from mst_kategori");
+            $data['kategori'] = $query->result();
+
+            $this->load->view('tabler/a_header', $data);
+            $this->load->view('tabler/master/v_subkategori', $data);
+            $this->load->view('tabler/a_footer');
+            $this->load->view('tabler/master/v_subkategori_js', $data);
+            $this->load->view('tabler/a_end_page');
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            redirect(base_url());
+        }
+        //END FUNCTION
+    }
+
+    public function subkategori_data()
+    {
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_SUBKAT', 'view')) {
+            $query = $this->db->query("select * from view_subkategori");
+            $data["data"] = $query->result();
+        }
+        //Jika bukan kembali ke base_url (home)
+        else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+
+        //END FUNCTION
+    }
+
+    public function subkategori_new()
+    {
+
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_SUBKAT', 'edit')) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['kode_subkategori']))         ? $kode_subkategori =       $_POST['kode_subkategori']         : $kode_subkategori = "";
+                (isset($_POST['uraian_subkategori']))         ? $uraian_subkategori =      $_POST['uraian_subkategori']         : $uraian_subkategori = "";
+
+
+                $data['err_kode_subkategori'] = "";
+                $data['err_uraian_subkategori'] = "";
+
+
+                $pesanError = array(
+                    'required' => "Harus di isi",
+                );
+
+                //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
+                $this->form_validation->set_rules('id_kategori', 'id_kategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('kode_subkategori', 'kode_subkategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('uraian_subkategori', 'uraian_subkategori', 'trim', $pesanError);
+
+                //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
+                if ($this->form_validation->run() == FALSE) {
+                    $data['err_id_kategori'] = form_error('id_kategori', '<span>', '</span>');
+                    $data['err_kode_subkategori'] = form_error('kode_subkategori', '<span>', '</span>');
+                    $data['err_uraian_subkategori'] = form_error('uraian_subkategori', '<span>', '</span>');
+
+                    $err = true;
+                    $data['status'] = 'nok';
+                }
+
+                //Jika ada error 
+                if ($err) {
+                    //
+                }
+                //Jika tidak ada error
+                else {
+
+                    //Insert data
+                    $data_insert = array(
+                        'id_kategori' => $id_kategori,
+                        'kode_subkategori' => $kode_subkategori,
+                        'uraian_subkategori' => $uraian_subkategori,
+                    );
+
+                    $this->db->insert('mst_subkategori', $data_insert);
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+
+                    $data['info'] = 'Data Subkategori Berhasil Disimpan';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function subkategori_upd()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_SUBKAT', 'edit')) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =       $_POST['id_subkategori']         : $id_subkategori = "";
+                (isset($_POST['kode_subkategori']))         ? $kode_subkategori =       $_POST['kode_subkategori']         : $kode_subkategori = "";
+                (isset($_POST['uraian_subkategori']))         ? $uraian_subkategori =      $_POST['uraian_subkategori']         : $uraian_subkategori = "";
+
+                $data['err_kode_subkategori'] = "";
+                $data['err_uraian_subkategori'] = "";
+
+                $pesanError = array(
+                    'required' => "Harus di isi",
+                );
+
+                //Rules untuk inputan form (referensi "Libraries/Form Validation" codeigniter 3)
+                $this->form_validation->set_rules('kode_subkategori', 'kode_subkategori', 'trim|required', $pesanError);
+                $this->form_validation->set_rules('uraian_subkategori', 'uraian_subkategori', 'trim', $pesanError);
+
+                //cek Jika ada isian form yang tidak sesuai maka akan muncul pesan error
+                if ($this->form_validation->run() == FALSE) {
+
+                    $data['err_kode_subkategori'] = form_error('kode_subkategori', '<span>', '</span>');
+                    $data['err_uraian_subkategori'] = form_error('uraian_subkategori', '<span>', '</span>');
+
+                    $err = true;
+                    $data['status'] = 'nok';
+                }
+
+                //Jika ada error 
+                if ($err) {
+                    //
+                }
+                //Jika tidak ada error
+                else {
+
+                    //Update data
+                    $data_insert = array(
+                        'id_kategori' => $id_kategori,
+                        'kode_subkategori' => $kode_subkategori,
+                        'uraian_subkategori' => $uraian_subkategori,
+                    );
+                    $this->db->where('id_subkategori', $id_subkategori);
+                    $this->db->update('mst_subkategori', $data_insert);
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+                    $data['info'] = 'Data Subkategori Berhasil Diupdate';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+    public function subkategori_del()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('MST_SUBKAT', 'delete')) {
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+                (isset($_POST['id_subkategori']))         ? $id_subkategori =       $_POST['id_subkategori']         : $id_subkategori = "";
+
+                if ($id_subkategori == "") {
+                    $data['status'] = 'nok';
+                    $data['info'] = 'Tidak ada data yang dihapus';
+                } else {
+                    $this->db->where('id_subkategori', $id_subkategori);
+                    $this->db->delete('mst_subkategori');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+                    $data['info'] = 'Data Subkategori Berhasil Dihapus';
+                    $data['status'] = 'ok';
+                }
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+
+
 }

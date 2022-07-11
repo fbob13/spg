@@ -10,56 +10,22 @@
             "orderable": false,
             defaultContent: ''
         }, {
-            data: 'id_pkrutin',
-            visible: false,
-            searchable: false,
-        }, {
             data: 'id_kategori',
             visible: false,
             searchable: false,
-        }, {
+        },{
             data: 'id_subkategori',
             visible: false,
             searchable: false,
         }, {
-            data: 'pengali',
-            visible: false,
-            searchable: false,
-        }, {
-            data: 'interval_hari',
-            visible: false,
-            searchable: false,
-        }, {
-            data: 'jenis_pekerjaan',
+            data: 'kode_kategori',
             className: 'text-center'
         }, {
-            data: 'uraian_pekerjaan',
+            data: 'kode_subkategori',
             className: 'text-center'
         }, {
-            data: '',
-            className: 'text-center',
-            render: function(data, value, row) {
-                return row.uraian_kategori //+ ' (' + row.kode_kategori + ')'
-            }
-        }, {
-            data: '',
-            className: 'text-center',
-            render: function(data, value, row) {
-                return row.uraian_subkategori //+ ' (' + row.kode_kategori + ')'
-            }
-        }, {
-            data: 'xx',
-            className: 'text-center',
-            render: function(data, value, row) {
-                str_pengali = ''
-                if (row.pengali == 1) str_pengali = 'Hari'
-                else if (row.pengali == 7) str_pengali = 'Minggu'
-                else if (row.pengali == 30) str_pengali = 'Bulan'
-                else if (row.pengali == 365) str_pengali = 'Tahun'
-
-                return row.interval_hari + " " + str_pengali;
-            }
-
+            data: 'uraian_subkategori',
+            className: 'text-center'
         }, {
             data: null,
             className: 'text-center',
@@ -69,7 +35,7 @@
         }]
         //Inisialisasi Datatable
         var tb = $('#postsList').DataTable({
-            ajax: '<?php echo base_url(); ?>master/prutin/data',
+            ajax: '<?php echo base_url(); ?>master/subkategori/data',
             pageLength: 10,
             type: 'json',
             columns: col,
@@ -91,7 +57,6 @@
             }).nodes().each(function(cell, i) {
                 cell.innerHTML = i + 1;
                 tb.cell(cell).invalidate('dom');
-
             });
         }).draw();
 
@@ -103,31 +68,14 @@
             aksi = $(this).attr('c-aksi');
 
             if (aksi == 'update') {
-
-                clear_form('upd-jenis-pekerjaan')
-                clear_form('upd-uraian-pekerjaan')
-                clear_form('upd-id-kategori')
-                clear_form('upd-id-subkategori')
-                clear_form('upd-interval')
-
-
-                $('#upd-id-pkrutin').val(data['id_pkrutin']);
-                $('#upd-jenis-pekerjaan').val(data['jenis_pekerjaan']);
-                $('#upd-uraian-pekerjaan').val(data['uraian_pekerjaan']);
                 $('#upd-id-kategori').val(data['id_kategori']);
-
-                ambil_subkategori_upd('#upd-id-subkategori',data['id_subkategori'])
-                
-                //$('#upd-id-subkategori').val(data['id_subkategori']);
-
-                $('#upd-interval').val(data['interval_hari']);
-                $('#upd-interval-sel').val(data['pengali']);
-
-
+                $('#upd-id-subkategori').val(data['id_subkategori']);
+                $('#upd-kode-subkategori').val(data['kode_subkategori']);
+                $('#upd-uraian-subkategori').val(data['uraian_subkategori']);
 
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
-                $('#del-id-pkrutin').val(data['id_pkrutin']);
+                $('#del-id-subkategori').val(data['id_subkategori']);
                 $('#modal-delete').modal('show');
             }
         });
@@ -150,37 +98,31 @@
         $('#btn-yes-new').on('click', function(e) {
             e.preventDefault();
             $.ajax({
-                url: "<?php echo base_url(); ?>master/prutin/new",
+                url: "<?php echo base_url(); ?>master/subkategori/new",
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'jenis_pekerjaan': $('#jenis-pekerjaan').val(),
-                    'uraian_pekerjaan': $('#uraian-pekerjaan').val(),
                     'id_kategori': $('#id-kategori').val(),
-                    'id_subkategori': $('#id-subkategori').val(),
-                    'interval_hari': $('#interval').val(),
-                    'pengali': $('#interval-sel').val(),
+                    'kode_subkategori': $('#kode-subkategori').val(),
+                    'uraian_subkategori': $('#uraian-subkategori').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        cek_error(response.err_jenis_pekerjaan, 'jenis-pekerjaan');
-                        cek_error(response.err_uraian_pekerjaan, 'uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'id-kategori');
-                        cek_error(response.err_id_subkategori, 'id-subkategori');
-                        cek_error(response.err_interval, 'interval');
-
+                        cek_error(response.err_kode_subkategori, 'kode-subkategori');
+                        cek_error(response.err_uraian_subkategori, 'uraian-subkategori');
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('show')
                     } else {
+                        
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-
-                        createNotification(3, response.info)
+                        createNotification(3,  response.info)
                         update_datatables()
 
-                        clear_form('jenis-pekerjaan')
-                        clear_form('uraian-pekerjaan')
                         clear_form('id-kategori')
+                        clear_form('kode-subkategori')
+                        clear_form('uraian-subkategori')
 
 
                     }
@@ -188,6 +130,8 @@
                 }
             });
         })
+
+
 
 
         //Simpan hasil update (form update)
@@ -210,32 +154,27 @@
             e.preventDefault();
 
             $.ajax({
-                url: "<?php echo base_url(); ?>master/prutin/upd",
+                url: "<?php echo base_url(); ?>master/subkategori/upd",
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_pkrutin': $('#upd-id-pkrutin').val(),
-                    'jenis_pekerjaan': $('#upd-jenis-pekerjaan').val(),
-                    'uraian_pekerjaan': $('#upd-uraian-pekerjaan').val(),
                     'id_kategori': $('#upd-id-kategori').val(),
                     'id_subkategori': $('#upd-id-subkategori').val(),
-                    'interval_hari': $('#upd-interval').val(),
-                    'pengali': $('#upd-interval-sel').val(),
+                    'kode_subkategori': $('#upd-kode-subkategori').val(),
+                    'uraian_subkategori': $('#upd-uraian-subkategori').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
                         // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
-                        cek_error(response.err_jenis_pekerjaan, 'upd-jenis-pekerjaan');
-                        cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
                         cek_error(response.err_id_kategori, 'upd-id-kategori');
-                        cek_error(response.err_id_subkategori, 'upd-id-subkategori');
-                        cek_error(response.err_interval, 'upd-interval');
+                        cek_error(response.err_kode_subkategori, 'upd-kode-subkategori');
+                        cek_error(response.err_uraian_subkategori, 'upd-uraian-subkategori');
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('show')
                     } else {
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        createNotification(3, response.info)
+                        createNotification(3,  response.info)
                         update_datatables()
 
                     }
@@ -250,19 +189,19 @@
         $('#form-delete').submit(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "<?php echo base_url(); ?>master/prutin/del",
+                url: "<?php echo base_url(); ?>master/subkategori/del",
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'id_pkrutin': $('#del-id-pkrutin').val()
+                    'id_subkategori': $('#del-id-subkategori').val()
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-delete').modal('hide')
-                        createNotification(1, response.info)
+                        $('#modal-del').modal('hide')
+                        createNotification(1,  response.info)
                     } else {
-                        $('#modal-delete').modal('hide')
-                        createNotification(3, response.info)
+                        $('#modal-update').modal('hide')
+                        createNotification(3,  response.info)
                         update_datatables()
                     }
 
@@ -270,66 +209,6 @@
             });
         });
 
-        $('#id-kategori').change(function(e) {
-            ambil_subkategori()
-        });
-
-        $('#upd-id-kategori').change(function(e) {
-            ambil_subkategori_upd()
-        });
-
-
-        function ambil_subkategori() {
-            //$("#cari_kelurahan").empty();
-            kategori = $('#id-kategori').val();
-
-            $.ajax({
-                url: '<?= base_url() ?>master/prutin/query',
-                type: 'post',
-                data: {
-                    'tabel': 'subkategori',
-                    'id_kategori': kategori,
-                },
-                dataType: 'json',
-                success: function(response) {
-
-                    $('#id-subkategori').html(create_option(response.data));
-                }
-            });
-        }
-
-        function ambil_subkategori_upd(id_select = '',data_select = '') {
-            //$("#cari_kelurahan").empty();
-            kategori = $('#upd-id-kategori').val();
-
-            $.ajax({
-                url: '<?= base_url() ?>master/prutin/query',
-                type: 'post',
-                data: {
-                    'tabel': 'subkategori',
-                    'id_kategori': kategori,
-                },
-                dataType: 'json',
-                success: function(response) {
-
-                    $('#upd-id-subkategori').html(create_option(response.data));
-                    if(id_select != ''){
-                        $(id_select).val(data_select);
-                    }
-                }
-            });
-        }
-
-        function create_option(datalist) {
-
-            hasil = '<option value=""></option>'
-            for (index in datalist) {
-                qid_item = datalist[index].val;
-                qdeskripsi = datalist[index].deskripsi;
-                hasil += '<option value="' + qid_item + '">' + qdeskripsi + '</option>'
-            }
-            return hasil
-        }
 
         function cek_error(err_result, id) {
             if (err_result !== "") {
@@ -344,29 +223,27 @@
         function clear_form(id) {
             $("#" + id).removeClass("is-invalid");
             $("#" + id).val("");
-            $("#er-" + id).val('');
-        }
+            $("#er-" + id).val('')
+
+        };
 
         $('#btn-new').on('click', function() {
-            clear_form('jenis-pekerjaan')
-            clear_form('uraian-pekerjaan')
-            clear_form('id-kategori')
-            clear_form('id-subkategori')
-            clear_form('interval')
-
+            clear_form('kode-kategori')
+            clear_form('uraian-kategori')
         })
+
 
         function update_datatables() {
 
             tb = $('#postsList').DataTable({
                 destroy: true,
-                ajax: '<?php echo base_url(); ?>master/prutin/data',
+                ajax: '<?php echo base_url(); ?>master/subkategori/data',
                 pageLength: 10,
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',
