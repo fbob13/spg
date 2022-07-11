@@ -128,6 +128,8 @@ $route['jadwal/rutin/save/list'] = 'C_jadwal/rutin_save_list';
 $route['jadwal/rutin/save/jadwal'] = 'C_jadwal/rutin_save';
 $route['jadwal/rutin/del/draft'] = 'C_jadwal/rutin_del_draft';
 
+$route['jadwal/rutin/upload'] = 'C_jadwal/upload';
+
 
 //Update Jadwal Rutin | Menu : Lihat jadwal rutin
 
@@ -223,3 +225,7 @@ $route['um/edit'] = 'C_um/edit';
 //--------------------------------------------------------
 //--------------------User Manual-------------------------
 //--------------------------------------------------------
+
+
+$route['test/excel/read'] = 'C_test/excel_read';
+$route['test/excel/write'] = 'C_test/excel_write';

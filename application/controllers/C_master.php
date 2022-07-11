@@ -159,6 +159,9 @@ class C_master extends CI_Controller
                     );
 
                     $this->db->insert('mst_item', $data_insert);
+                    
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
 
                     $data['info'] = 'Data Item Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
@@ -253,6 +256,9 @@ class C_master extends CI_Controller
                     );
                     $this->db->where('id_item', $id_item);
                     $this->db->update('mst_item', $data_insert);
+                    
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
 
                     $data['info'] = 'Data Item Berhasil Diupdate';
                     $data['status'] = 'ok';
@@ -295,6 +301,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_item', $id_item);
                     $this->db->delete('mst_item');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Item Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -440,6 +450,9 @@ class C_master extends CI_Controller
 
                     $this->db->insert('mst_gedung', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Gedung Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
@@ -516,6 +529,9 @@ class C_master extends CI_Controller
                     $this->db->where('id_gedung', $id_gedung);
                     $this->db->update('mst_gedung', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Gedung Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
@@ -557,6 +573,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_gedung', $id_gedung);
                     $this->db->delete('mst_gedung');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Gedung Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -722,6 +742,10 @@ class C_master extends CI_Controller
 
                     $this->db->insert('mst_ruangan_item', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+
                     $data['info'] = 'Data Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
@@ -809,6 +833,10 @@ class C_master extends CI_Controller
                     $this->db->where('id_ruangan_item', $id_ruangan_item);
                     $this->db->update('mst_ruangan_item', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+
                     $data['info'] = 'Data Item Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
@@ -850,6 +878,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_ruangan_item', $id_ruangan_item);
                     $this->db->delete('mst_ruangan_item');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Item Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -1043,6 +1075,9 @@ class C_master extends CI_Controller
 
                     $this->db->insert('mst_ruangan', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Ruangan Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
@@ -1137,6 +1172,9 @@ class C_master extends CI_Controller
                     $this->db->where('id_ruangan', $id_ruangan);
                     $this->db->update('mst_ruangan', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Ruangan Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
@@ -1178,6 +1216,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_ruangan', $id_ruangan);
                     $this->db->delete('mst_ruangan');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Ruangan Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -1339,6 +1381,10 @@ class C_master extends CI_Controller
 
                     $this->db->insert('mst_pkrutin', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+
                     $data['info'] = 'Data Pekerjaan Rutin Baru Berhasil Disimpan';
                     $data['status'] = 'ok';
                 }
@@ -1427,6 +1473,10 @@ class C_master extends CI_Controller
                     $this->db->where('id_pkrutin', $id_pkrutin);
                     $this->db->update('mst_pkrutin', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
+
                     $data['info'] = 'Data Item Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
@@ -1468,6 +1518,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_pkrutin', $id_pkrutin);
                     $this->db->delete('mst_pkrutin');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Pekerjaan Rutin Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }
@@ -1688,6 +1742,9 @@ class C_master extends CI_Controller
                     $this->db->where('id_kategori', $id_kategori);
                     $this->db->update('mst_kategori', $data_insert);
 
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Kategori Berhasil Diupdate';
                     $data['status'] = 'ok';
                 }
@@ -1729,6 +1786,10 @@ class C_master extends CI_Controller
                 } else {
                     $this->db->where('id_kategori', $id_kategori);
                     $this->db->delete('mst_kategori');
+
+                    //Update Template Upload
+                    $this->Excel_model->create_template();
+
                     $data['info'] = 'Data Kategori Berhasil Dihapus';
                     $data['status'] = 'ok';
                 }

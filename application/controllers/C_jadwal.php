@@ -495,6 +495,123 @@ class C_jadwal extends CI_Controller
         //END FUNCTION
     }
 
+
+    public function upload()
+    {
+
+        //Cek jika user Login / variabel "asm_st" ada di session
+        //Kalau sudah login, variabel "asm_st" = "yes"
+        $cek = $this->session->userdata('asm_st');
+        $spc = $this->session->userdata('spc');
+        if (empty($cek) || $cek <> "yes") {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+        //Jika User = 99(IT) atau 1(admin)
+        elseif ($this->Login_model->cekLogin('RUTIN_INPUT', 'edit')) {
+
+            $data['info'] = "";
+            $err = false;
+
+            if (!empty($_POST)) {
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+                //Ambil data POST
+
+                (isset($_POST['id_user']))         ? $id_user =      $_POST['id_user']         : $id_user = "";
+                (isset($_POST['tanggal_jadwal']))         ? $tanggal_jadwal =      $_POST['tanggal_jadwal']         : $tanggal_jadwal = "";
+
+                $tgl_full = date("Y-m-d H:i:s");
+                $ip = $this->session->userdata('id_user');
+                //START TRANSACTION
+                $this->db->trans_begin();
+
+
+
+
+
+                //END TRANSACTION
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    //$data['info'] = 'Draft Kosong, tidak ada data yang tersimpan';
+                    //$data['status'] = 'nok';
+                } else {
+                    $this->db->trans_commit();
+                    //$data['info'] = 'Draft Kosong, tidak ada data yang tersimpan';
+                    //$data['status'] = 'ok';
+                }
+            }
+
+            if (isset($_FILES['dokumen'])) {
+
+                $this->load->helper(array('form', 'url'));
+                $this->load->library('form_validation');
+
+
+                (isset($_POST['id_user']))         ? $id_user =      $_POST['id_user']         : $id_user = "";
+                (isset($_POST['tanggal_jadwal']))         ? $tanggal_jadwal =      $_POST['tanggal_jadwal']         : $tanggal_jadwal = "";
+
+                $tgl_full = date("Y-m-d H:i:s");
+
+
+                $target_dir = "upload/";
+                $target_file = $target_dir . basename($_FILES["dokumen"]["name"]);
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $simpan_dokumen = $target_dir . $id_user . '.' . $imageFileType;
+                $data['nama_dokumen'] = $id_user . '.' . $imageFileType;
+
+                if (file_exists($simpan_dokumen)) {
+                    unlink($simpan_dokumen);
+                }
+                //cek ukuran file
+                if ($_FILES["dokumen"]["size"] > 50000000) {
+                    $err = true;
+                    $data['status'] = 'nok';
+                    $data['err_file'] = '<span>Ukuran file melebihi 50MB</span>';
+                } else if ($imageFileType != "xlsx") {
+                    $err = true;
+                    $data['status'] = 'nok';
+                    $data['err_file'] = '<span>Format dokumen tidak sesuai</span>';
+                } else {
+                    move_uploaded_file($_FILES['dokumen']['tmp_name'], $simpan_dokumen);
+                    $err = false;
+
+                    if($this->Excel_model->upload($simpan_dokumen,$id_user,$tanggal_jadwal)){
+                        $data['info'] = 'Data Berhasil di upload';
+                    }else{
+                        $err = true;
+                    }
+                    //return;
+                }
+            } else {
+                $err = true;
+                $data['status'] = 'nok';
+                $data['err_file'] = '<span>Silahkan memilih file yang akan di upload</span>';
+            }
+
+            if ($err) {
+                $data['status'] = 'nok';
+                $data['info'] = 'Silahkan koreksi data yang di input';
+                
+            } else {
+
+                
+                $data['status'] = 'ok';
+
+                
+            }
+        } else {
+            $data['status'] = 'nok';
+            $data['info'] = 'Anda Tidak Berhak';
+        }
+
+        echo json_encode($data);
+
+        //END FUNCTION
+    }
+
+
     public function rutin_view()
     {
 
@@ -544,7 +661,7 @@ class C_jadwal extends CI_Controller
 
 
             $tipe = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
-            if($tipe =='today') $data['today'] = 'ok';
+            if ($tipe == 'today') $data['today'] = 'ok';
             else $data['today'] = 'nok';
 
             $this->load->view('tabler/a_header', $data);
@@ -609,20 +726,20 @@ class C_jadwal extends CI_Controller
             //$where  = "id_user='2' and status_pekerjaan = 3";
             $where = "";
             $tgl = date('Y-m-d');
-            if($today =='ok'){
+            if ($today == 'ok') {
                 $where = "tanggal_jadwal ='$tgl' ";
-            }else{
+            } else {
                 if ($bulan == 99) {
                     $where = "DATE_FORMAT(tanggal_jadwal,'%Y') = '$tahun'";
                 } else {
                     $where = "DATE_FORMAT(tanggal_jadwal,'%Y-%m') = '$tahun-$bulan'";
                 }
-    
+
                 if ($status_pekerjaan <> "" && $status_pekerjaan <> 99) {
                     $where = $where . " and status_pekerjaan = $status_pekerjaan";
                 }
             }
-            
+
 
             echo json_encode(
                 //SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns );
@@ -881,7 +998,7 @@ class C_jadwal extends CI_Controller
                     $data['status'] = 'nok';
                 } else {
                     $this->db->trans_commit();
-                    
+
                     $data['status'] = 'ok';
                 }
             }

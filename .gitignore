@@ -39,6 +39,9 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 
+upload/*.*
+!upload/template.xlsx
+
 
 ZZ-SEND/*
 

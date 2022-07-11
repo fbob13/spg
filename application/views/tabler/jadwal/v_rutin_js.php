@@ -283,8 +283,14 @@
         dataType: 'json',
         success: function(response) {
           if (response.status == "ok") {
+            clear_form('id-gedung')
+            clear_form_h('id-ruangan')
+            clear_form_h('id-item')
+            //$('#id-item').val('').trigger('change')
+            clear_form_h('id-pkrutin')
             create_draft()
             createNotification(3, "List Draft berhasil di tambahkah")
+
             //getRutin()
           } else {
             cek_error(response.err_id_gedung, 'id-gedung');
@@ -402,17 +408,77 @@
 
 
 
+    //Upload Dokumen
+    $('#form-upload-dokumen').submit(function(e) {
+      e.preventDefault();
+      $('#modal-konfirmasi-upload').modal('show')
+
+    });
+
+    $('#btn-batal-upload').on('click', function(e) {
+      e.preventDefault();
+      $('#modal-konfirmasi-upload').modal('hide')
+    })
+
+    $('#btn-yes-upload').on('click', function(e) {
+      e.preventDefault();
+
+      const files = $('#upload-file').prop('files')[0];
+      const formData = new FormData()
+      formData.append('dokumen', files)
+      formData.append('id_user', $('#id-user').val())
+      formData.append('tanggal_jadwal', $('#tanggal-jadwal').val())
+
+      $.ajax({
+        url: "<?php echo base_url(); ?>jadwal/rutin/upload",
+        type: 'post',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: formData,
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == 'nok') {
+            //if(response.err_nomor_induk !== "") {$("#new-nomor-induk").addClass("is-invalid"); $("#iv-nomor-induk").html(response.err_nomor_induk)}else{$("#new-nomor-induk").removeClass("is-invalid");$("#iv-nomor-induk").html("")};
+            if (response.err_file !== "") {
+              $("#upload-file").addClass("is-invalid");
+              $("#iv-upload-file").html(response.err_file)
+            }
+            else{
+              clear_form('upload-file')
+            }
+
+            createNotification(1, response.info)
+            
+
+
+          } else {
+            $('#modal-konfirmasi-upload').modal('hide')
+            createNotification(3, response.info)
+            clear_form('upload-file')
+
+          }
+
+        }
+      });
+
+
+    })
+
+
+
+
+
     function reset_form() {
 
       $('#tanggal-jadwal').val('<?php echo date("Y-m-d"); ?>')
       $('#id-user').val('')
 
       clear_form('id-gedung')
-      // clear_form('id-ruangan')
-      $('#id-ruangan').val('').trigger('change')
-      // clear_form('id-item')
-      $('#id-item').val('').trigger('change')
-      clear_form('id-pkrutin')
+      clear_form_h('id-ruangan')
+      clear_form_h('id-item')
+      //$('#id-item').val('').trigger('change')
+      clear_form_h('id-pkrutin')
 
       $('#cont-det').addClass('d-none')
       $('#id-user').removeClass("is-invalid").prop('disabled', false)
@@ -426,6 +492,13 @@
     function clear_form(id) {
       $("#" + id).removeClass("is-invalid");
       $("#" + id).val("");
+      $("#er-" + id).val('')
+
+    };
+
+    function clear_form_h(id) {
+      $("#" + id).removeClass("is-invalid");
+      $("#" + id).html("");
       $("#er-" + id).val('')
 
     };
