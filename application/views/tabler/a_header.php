@@ -36,6 +36,7 @@ function cek_role($array, $kode_halaman)
   <link href="<?php echo base_url(); ?>dist/css/tabler-payments.min.css" rel="stylesheet" />
   <link href="<?php echo base_url(); ?>dist/css/tabler-vendors.min.css" rel="stylesheet" />
   <link href="<?php echo base_url(); ?>dist/css/demo.min.css" rel="stylesheet" />
+  <!-- ink href="<?php echo base_url(); ?>dist/css/custom.css?v=1.0" rel="stylesheet" /-->
   <!-- Custom CSS Files -->
   <?php echo $cust_css; ?>
 
@@ -46,7 +47,7 @@ function cek_role($array, $kode_halaman)
     .sb-side {
       width: 12px !important;
       background-color: #254a5b;
-      color : white;
+      color: white;
       position: fixed;
       top: 0;
       left: 0;
@@ -63,7 +64,7 @@ function cek_role($array, $kode_halaman)
       width: 12px !important;
       background-color: #254a5b;
       position: fixed;
-      color : white;
+      color: white;
       top: 0;
       left: 0;
       bottom: 0;
@@ -74,6 +75,10 @@ function cek_role($array, $kode_halaman)
       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke-width='3' stroke='%23d9dbde' fill='none' stroke-linecap='round' stroke-linejoin='round'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><polyline points='9 6 15 12 9 18' /></svg>");
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    .form-select:focus {
+      color: inherit;
     }
   </style>
 
@@ -407,9 +412,9 @@ function cek_role($array, $kode_halaman)
               <span id="badge-rutin" class=""></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
-              <div class="card">
-                <div class="card-body" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
-                  <div class="divide-y" id="container-rutin">
+              <div class="">
+                <div class="" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
+                  <div class="" id="container-rutin">
                     <?php  /*
                     for ($x = 1; $x <= 10; $x++) {
                     ?>
@@ -449,9 +454,9 @@ function cek_role($array, $kode_halaman)
               <span id="badge-nonrutin" class=""></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-card">
-              <div class="card">
-                <div class="card-body" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
-                  <div class="divide-y" id="container-nonrutin">
+              <div class="">
+                <div class="" style="max-height:500px;overflow-y:auto;width:80vw;max-width:500px;">
+                  <div class="" id="container-nonrutin">
                     <?php /*
                     for ($x = 1; $x <= 10; $x++) {
                     ?>
@@ -491,9 +496,9 @@ function cek_role($array, $kode_halaman)
               <a href="<?php echo base_url(); ?>profile" class="dropdown-item">Edit Profile</a>
               <a href="<?php echo base_url(); ?>gpass" class="dropdown-item">Ganti Password</a>
               <div class="dropdown-divider"></div>
-              <a href="<?php echo base_url(); ?>um" class="dropdown-item">User Manual</a>
-              <?php if($this->session->userdata('spc')==99){ ?>
-              <a href="<?php echo base_url(); ?>um/edit" class="dropdown-item">Edit User Manual</a>
+              <a href="<?php echo base_url(); ?>um/view" class="dropdown-item">User Manual</a>
+              <?php if ($this->session->userdata('spc') == 99) { ?>
+                <a href="<?php echo base_url(); ?>um/edit" class="dropdown-item">Edit User Manual</a>
               <?php } ?>
               <div class="dropdown-divider"></div>
               <a href="<?php echo base_url(); ?>logout" class="dropdown-item">Logout</a>

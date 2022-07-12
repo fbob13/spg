@@ -124,8 +124,8 @@
         else if (prioritas == 4) rating = starfill + starfill + starfill + starfill + starfill
 
         var t_info = ""
-        t_info += '<div><a href="<?php echo base_url();?>kerusakan/view/nok">'
-        t_info += '    <div class="row">'
+        t_info += '<div><a href="<?php echo base_url(); ?>kerusakan/view/nok" class="card">'
+        t_info += '    <div class="row card-body w-full">'
         t_info += '        <div class="col">'
         t_info += '            <div class="d-flex justify-content-between">'
         t_info += '                <div>' + gedung + '</div>'
@@ -146,17 +146,27 @@
 
     function createRutin(gedung, ruangan, item, tanggal, status_pekerjaan, jenis_pekerjaan, uraian_pekerjaan, status_teks) {
         var border = ""
+        /*
         if (status_pekerjaan == 0) border = "border-danger"
         else if (status_pekerjaan == 1) border = "border-azure"
         else if (status_pekerjaan == 2) border = "border-warning"
         else if (status_pekerjaan == 3) border = "border-success"
         else if (status_pekerjaan == 4) border = "border-purple"
         else if (status_pekerjaan == 5) border = "border-success"
+        */
+
+        if (status_pekerjaan == 0) border = "bg-danger"
+        else if (status_pekerjaan == 1) border = "bg-azure"
+        else if (status_pekerjaan == 2) border = "bg-warning"
+        else if (status_pekerjaan == 3) border = "bg-success"
+        else if (status_pekerjaan == 4) border = "bg-purple"
+        else if (status_pekerjaan == 5) border = "bg-success"
 
         var t_info = ""
-        t_info += '<div><a href="<?php echo base_url();?>jadwal/rutin/view/today">'
-        t_info += '    <div class="row">'
-        t_info += '        <div class="col border-start border-5 ' + border + '">'
+        t_info += '<div><a href="<?php echo base_url(); ?>jadwal/rutin/view/today" class="card">'
+        t_info += '    <div class="card-status-start ' + border + '"></div>'
+        t_info += '    <div class="row card-body w-full">'
+        t_info += '        <div class="col">'
         t_info += '            <div class="d-flex justify-content-between">'
         t_info += '                <div>' + gedung + '</div>'
         t_info += '                <div>' + tanggal + '</div>'
@@ -178,6 +188,7 @@
 
 
     function getNonRutin() {
+
         $.ajax({
             url: "<?php echo base_url(); ?>dashboard/info/nonrutin",
             type: 'get',
@@ -187,11 +198,10 @@
                     //
                 } else {
                     var hasil = response.data
-                    $('#container-nonrutin').html('')
-
+                    $('#container-nonrutin').html('<div class="card card-body">No Data</div>')
+                    $('#badge-nonrutin').removeClass('badge bg-red')
                     if (response.jumlah == 0) {
-                        $('#container-nonrutin').html('No Data')
-                        $('#badge-nonrutin').removeClass('badge bg-red')
+                       //
                     } else {
                         $('#badge-nonrutin').addClass('badge bg-red')
                         $('#container-nonrutin').html('')
@@ -207,7 +217,7 @@
     }
 
     function getRutin() {
-        $('#badge-rutin').removeClass('badge bg-red')
+        
         var selesai = true;
         $.ajax({
             url: "<?php echo base_url(); ?>dashboard/info/rutin",
@@ -217,12 +227,12 @@
                 if (response.status == 'nok') {
                     //
                 } else {
-                   
-                    var hasil = response.data
 
+                    var hasil = response.data
+                    $('#container-rutin').html('<div class="card card-body">No Data</div>')
+                    $('#badge-rutin').removeClass('badge bg-red')
                     if (response.jumlah == 0) {
-                        $('#container-rutin').html('No Data')
-                        //$('#badge-rutin').removeClass('badge bg-red')
+                        //
                     } else {
                         $('#container-rutin').html('')
                         hasil.forEach(function(item, index, arr) {
@@ -349,9 +359,9 @@
                 $('#sidebar').removeClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
                 $('#sidebar').addClass('d-none')
                 $('#sidebar2').addClass('sb-side2')
-                $('#sidebar2').attr('sb-stat','close')
-            }else{
-                $('#sidebar2').attr('sb-stat','open')
+                $('#sidebar2').attr('sb-stat', 'close')
+            } else {
+                $('#sidebar2').attr('sb-stat', 'open')
                 $('#sidebar2').addClass('navbar navbar-vertical navbar-expand-lg navbar-dark sb-side')
                 $('#sidebar').addClass('navbar navbar-vertical navbar-expand-lg navbar-dark')
                 $('#sidebar').removeClass('d-none')
