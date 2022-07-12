@@ -8,7 +8,7 @@
         //2console.log(('0' + (d.getMonth() + 1)).slice(-2))
 
         var string_btn_tbl = ''
-        const today = '<?php echo $today; ?>';
+        var today = '<?php echo $today; ?>';
         
         const akses_edit = '<?php echo $edit; ?>';
         const akses_delete = '<?php echo $delete; ?>';
@@ -329,6 +329,7 @@
         });
 
         $('#btn-query').on('click', function() {
+            today = 'nok'
             update_datatables()
         })
 
@@ -354,6 +355,7 @@
                         'status_pekerjaan': $('#s-status').val(),
                         'tahun': $('#s-year').val(),
                         'bulan': $('#s-month').val(),
+                        'today': today,
                     }
                 },
                 pageLength: 10,

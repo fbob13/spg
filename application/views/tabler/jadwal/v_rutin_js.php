@@ -220,12 +220,13 @@
         dataType: 'json',
         success: function(response) {
           $('#id-ruangan').html(create_option(response.data));
-          $('#id-item').html("");
+          $('#id-item').val("");
           $('#id-pkrutin').html("");
         }
       });
     });
 
+    /*
     $('#id-ruangan').change(function(e) {
       if ($('#id-ruangan').val() == "") {
         $('#id-item').html("");
@@ -247,7 +248,7 @@
         }
       });
     });
-
+*/
     $('#id-item').change(function(e) {
       if ($('#id-item').val() == "") {
         $('#id-pkrutin').html("");
@@ -285,7 +286,9 @@
           if (response.status == "ok") {
             clear_form('id-gedung')
             clear_form_h('id-ruangan')
-            clear_form_h('id-item')
+            //clear_form('id-item')
+            $('#id-item').val('').trigger('change')
+            $('#id-item').removeClass("is-invalid");
             //$('#id-item').val('').trigger('change')
             clear_form_h('id-pkrutin')
             create_draft()

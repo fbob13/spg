@@ -69,6 +69,9 @@ class C_jadwal extends CI_Controller
             $query = $this->db->query("select id_pkrutin val,jenis_pekerjaan deskripsi from mst_pkrutin");
             $data['pkrutin'] = $query->result();
 
+            $query = $this->db->query("select id_item val,nama_item deskripsi from mst_item");
+            $data['item'] = $query->result();
+
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/jadwal/v_rutin', $data);
