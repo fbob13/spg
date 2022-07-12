@@ -580,9 +580,9 @@ class C_jadwal extends CI_Controller
                     move_uploaded_file($_FILES['dokumen']['tmp_name'], $simpan_dokumen);
                     $err = false;
 
-                    if($this->Excel_model->upload($simpan_dokumen,$id_user,$tanggal_jadwal)){
+                    if ($this->Excel_model->upload($simpan_dokumen, $id_user, $tanggal_jadwal)) {
                         $data['info'] = 'Data Berhasil di upload';
-                    }else{
+                    } else {
                         $err = true;
                     }
                     //return;
@@ -596,13 +596,10 @@ class C_jadwal extends CI_Controller
             if ($err) {
                 $data['status'] = 'nok';
                 $data['info'] = 'Silahkan koreksi data yang di input';
-                
             } else {
 
-                
-                $data['status'] = 'ok';
 
-                
+                $data['status'] = 'ok';
             }
         } else {
             $data['status'] = 'nok';
@@ -662,6 +659,8 @@ class C_jadwal extends CI_Controller
             $data['edit'] = $this->Login_model->cekLogin('RUTIN_DATA', 'edit') ? 'ok' : 'nok';
             $data['delete'] = $this->Login_model->cekLogin('RUTIN_DATA', 'delete') ? 'ok' : 'nok';
 
+            $query = $this->db->query('select * from mst_subkategori');
+            $data['subkategori'] = $query->result();
 
             $tipe = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
             if ($tipe == 'today') $data['today'] = 'ok';
@@ -710,7 +709,32 @@ class C_jadwal extends CI_Controller
                 array('db' => 'jenis_pekerjaan',   'dt' => 'jenis_pekerjaan'),
                 array('db' => 'status_pekerjaan_text',   'dt' => 'status_pekerjaan_text'),
                 array('db' => 'status_pekerjaan',   'dt' => 'status_pekerjaan'),
-                array('db' => 'keterangan',   'dt' => 'keterangan')
+                array('db' => 'keterangan',   'dt' => 'keterangan'),
+                array('db' => 'id_subkategori',   'dt' => 'id_subkategori'),
+
+                array('db' => 'pk',   'dt' => 'pk'),
+                array('db' => 'arus_r',   'dt' => 'arus_r'),
+                array('db' => 'arus_s',   'dt' => 'arus_s'),
+                array('db' => 'arus_t',   'dt' => 'arus_t'),
+                array('db' => 'teg_r',   'dt' => 'teg_r'),
+                array('db' => 'teg_s',   'dt' => 'teg_s'),
+                array('db' => 'teg_t',   'dt' => 'teg_t'),
+                array('db' => 'teg_v',   'dt' => 'teg_v'),
+                array('db' => 'psi',   'dt' => 'psi'),
+                array('db' => 'oli',   'dt' => 'oli'),
+                array('db' => 'solar',   'dt' => 'solar'),
+                array('db' => 'radiator',   'dt' => 'radiator'),
+                array('db' => 'eng_hours',   'dt' => 'eng_hours'),
+                array('db' => 'accu',   'dt' => 'accu'),
+                array('db' => 'temp',   'dt' => 'temp'),
+                array('db' => 'kap',   'dt' => 'kap'),
+                array('db' => 'noice',   'dt' => 'noice'),
+                array('db' => 'qty',   'dt' => 'qty'),
+                array('db' => 'vol',   'dt' => 'vol'),
+                array('db' => 'tgl_kadaluarsa',   'dt' => 'tgl_kadaluarsa'),
+                array('db' => 'kondisi',   'dt' => 'kondisi'),
+                array('db' => 'tindakan',   'dt' => 'tindakan'),
+
             );
 
             $sql_details = array(
@@ -824,6 +848,30 @@ class C_jadwal extends CI_Controller
                 (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
                 (isset($_POST['id_user']))         ? $id_user =      $_POST['id_user']         : $id_user = "";
 
+                (isset($_POST['pk']))         ? $pk =      $_POST['pk']         : $pk = '';
+                (isset($_POST['arus_r']))         ? $arus_r =      $_POST['arus_r']         : $arus_r = '';
+                (isset($_POST['arus_s']))         ? $arus_s =      $_POST['arus_s']         : $arus_s = '';
+                (isset($_POST['arus_t']))         ? $arus_t =      $_POST['arus_t']         : $arus_t = '';
+                (isset($_POST['teg_r']))         ? $teg_r =      $_POST['teg_r']         : $teg_r = '';
+                (isset($_POST['teg_s']))         ? $teg_s =      $_POST['teg_s']         : $teg_s = '';
+                (isset($_POST['teg_t']))         ? $teg_t =      $_POST['teg_t']         : $teg_t = '';
+                (isset($_POST['teg_v']))         ? $teg_v =      $_POST['teg_v']         : $teg_v = '';
+                (isset($_POST['psi']))         ? $psi =      $_POST['psi']         : $psi = '';
+                (isset($_POST['oli']))         ? $oli =      $_POST['oli']         : $oli = '';
+                (isset($_POST['solar']))         ? $solar =      $_POST['solar']         : $solar = '';
+                (isset($_POST['radiator']))         ? $radiator =      $_POST['radiator']         : $radiator = '';
+                (isset($_POST['eng_hours']))         ? $eng_hours =      $_POST['eng_hours']         : $eng_hours = '';
+                (isset($_POST['accu']))         ? $accu =      $_POST['accu']         : $accu = '';
+                (isset($_POST['temp']))         ? $temp =      $_POST['temp']         : $temp = '';
+                (isset($_POST['kap']))         ? $kap =      $_POST['kap']         : $kap = '';
+                (isset($_POST['noice']))         ? $noice =      $_POST['noice']         : $noice = '';
+                (isset($_POST['qty']))         ? $qty =      $_POST['qty']         : $qty = '';
+                (isset($_POST['vol']))         ? $vol =      $_POST['vol']         : $vol = '';
+                (isset($_POST['tgl_kadaluarsa']))         ? $tgl_kadaluarsa =      $_POST['tgl_kadaluarsa']         : $tgl_kadaluarsa = '';
+                (isset($_POST['kondisi']))         ? $kondisi =      $_POST['kondisi']         : $kondisi = '';
+                (isset($_POST['tindakan']))         ? $tindakan =      $_POST['tindakan']         : $tindakan = '';
+
+
 
                 $data['err_status_pekerjaan'] = "";
                 $data['err_keterangan'] = "";
@@ -890,7 +938,32 @@ class C_jadwal extends CI_Controller
                         'status_pekerjaan' => $status_pekerjaan,
                         'keterangan' => $keterangan,
                         'tanggal_realisasi' => $tanggal_realisasi,
-                        'id_user' => $id_user
+                        'id_user' => $id_user,
+
+                        'pk' => $pk,
+                        'arus_r' => $arus_r,
+                        'arus_s' => $arus_s,
+                        'arus_t' => $arus_t,
+                        'teg_r' => $teg_r,
+                        'teg_s' => $teg_s,
+                        'teg_t' => $teg_t,
+                        'teg_v' => $teg_v,
+                        'psi' => $psi,
+                        'oli' => $oli,
+                        'solar' => $solar,
+                        'radiator' => $radiator,
+                        'eng_hours' => $eng_hours,
+                        'accu' => $accu,
+                        'temp' => $temp,
+                        'kap' => $kap,
+                        'noice' => $noice,
+                        'qty' => $qty,
+                        'vol' => $vol,
+                        'tgl_kadaluarsa' => $tgl_kadaluarsa,
+                        'kondisi' => $kondisi,
+                        'tindakan' => $tindakan,
+
+
                     );
                     $this->db->where('id_rutin', $id_rutin);
                     $this->db->update('as_rutin', $data_insert);

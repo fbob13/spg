@@ -65,6 +65,7 @@
                                 <th>nn id rutin</th>
                                 <th>nn </th>
                                 <th>nn status pekerjaan</th>
+                                <th>nn subkat</th>
                                 <th>Tanggal</th>
                                 <th>Nama Teknisi</th>
                                 <th>Gedung</th>
@@ -212,6 +213,47 @@
                                 'value' => '',
                                 'attr' => ''
                             ));
+
+                            ?>
+                        </div>
+
+                        <div class="hr-text mb-1">Detail</div>
+                        <div class="d-flex flex-wrap justify-content-between mt-0">
+                            <?php
+                            function create_f_det($judul, $id_js, $id_php, $width = 100)
+                            {
+                                $tulis = "";
+                                $tulis = $tulis . '<div class="d-flex flex-column text-center p-1 mt-2" id="cont-'. $id_js .'">';
+                                $tulis = $tulis . '<label class="form-label  fs-6">' . $judul . '</label>';
+                                $tulis = $tulis . '<input type="text" class="form-control align-self-center" style="max-width:'. $width .'px;" id="' . $id_js . '">';
+                                $tulis = $tulis . '</div>';
+
+                                return $tulis;
+                            }
+
+                            echo create_f_det('Kap. (PK)', 'upd-pk', 'pk');
+                            echo create_f_det('Arus R', 'upd-arus-r', 'arus_r');
+                            echo create_f_det('Arus S', 'upd-arus-s', 'arus_s');
+                            echo create_f_det('Arus T', 'upd-arus-t', 'arus_t');
+                            echo create_f_det('Tegangan (F - N) R', 'upd-teg-r', 'teg_r');
+                            echo create_f_det('Tegangan (F - N) S', 'upd-teg-s', 'teg_s');
+                            echo create_f_det('Tegangan (F - N) T', 'upd-teg-t', 'teg_t');
+                            echo create_f_det('Teg. (V)', 'upd-teg-v', 'teg_v');
+                            echo create_f_det(' (PSI)', 'upd-psi', 'psi');
+                            echo create_f_det('Oli', 'upd-oli', 'oli');
+                            echo create_f_det('Solar', 'upd-solar', 'solar');
+                            echo create_f_det('Radiator', 'upd-radiator', 'radiator');
+                            echo create_f_det('Eng. Hours', 'upd-eng-hours', 'eng_hours');
+                            echo create_f_det('Accu', 'upd-accu', 'accu');
+                            echo create_f_det('Temp.', 'upd-temp', 'temp');
+                            echo create_f_det('kap', 'upd-kap', 'kap');
+                            echo create_f_det('noice', 'upd-noice', 'noice');
+                            echo create_f_det('qty', 'upd-qty', 'qty');
+                            echo create_f_det('vol', 'upd-vol', 'vol');
+                            echo create_f_det('tgl kadaluarsa', 'upd-tgl-kadaluarsa', 'tgl_kadaluarsa');
+                            echo create_f_det('kondisi', 'upd-kondisi', 'kondisi');
+                            echo create_f_det('Tindakan', 'upd-tindakan', 'tindakan',300);
+
 
                             ?>
                         </div>

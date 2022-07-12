@@ -34,9 +34,10 @@ $judul['terlambat'] = 'Pencarian : Dokumen Terlambat Dikembalikan';
                                     <option value="">Pilih Jenis Laporan </option>
                                     <option value="1" <?php echo ($type == 1 ? 'selected' : ''); ?>>Laporan Pekerjaan Rutin</option>
                                     <option value="2" <?php echo ($type == 2 ? 'selected' : ''); ?>>Laporan Kerusakan</option>
+                                    <option value="4" <?php echo ($type == 4 ? 'selected' : ''); ?>>Laporan Pemeliharaan Rutin</option>
                                 </select>
                             </div>
-                            <div class="d-flex align-items-center mb-3" id="s-kat">
+                            <div class="d-flex align-items-center mb-3" id="s-teknisi">
                                 <select id="qs-teknisi" class="form-select" name="qs-teknisi">
                                     <option value="">Semua Teknisi</option>
                                     <?php
@@ -53,7 +54,7 @@ $judul['terlambat'] = 'Pencarian : Dokumen Terlambat Dikembalikan';
                                 <input type="text" class="form-control" id="qs-tanggal-akhir" name="qs-tanggal-akhir" value="<?php echo $tanggal_akhir; ?>" style="max-width:120px;">
 
                             </div>
-                            <div class="d-flex align-items-center mb-3" id="s-kat">
+                            <div class="d-flex align-items-center mb-3" id="s-status">
                                 <select id="qs-status" class="form-select" name="qs-status">
                                     <option value="99">Semua Status</option>
                                     <option value="0">Belum Dikerjakan</option>
@@ -61,6 +62,14 @@ $judul['terlambat'] = 'Pencarian : Dokumen Terlambat Dikembalikan';
                                     <option value="2">Pending</option>
                                     <option value="3">Selesai</option>
                                     <option value="4">Tidak Dikerjakan</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3 d-none" id="s-subkat">
+                                <select id="qs-subkat" class="form-select" name="qs-subkat">
+                                    <?php foreach($subkategori as $sk){
+                                        echo '<option value="'. $sk->val .'">'. $sk->deskripsi .'</option>';
+                                    }?>
                                 </select>
                             </div>
 

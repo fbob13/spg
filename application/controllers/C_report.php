@@ -50,6 +50,7 @@ class C_report extends CI_Controller
             (isset($_POST['qs-tanggal-akhir']))                 ? $tanggal_akhir = $_POST['qs-tanggal-akhir']     : $tanggal_akhir = $hari;
             (isset($_POST['qs-status']))                 ? $status = $_POST['qs-status']     : $status = 99;
             (isset($_POST['qs-teknisi']))                 ? $teknisi = $_POST['qs-teknisi']     : $teknisi = '';
+            (isset($_POST['qs-subkat']))                 ? $id_subkategori = $_POST['qs-subkat']     : $id_subkategori = '';
 
 
             $data['type'] = $type;
@@ -57,13 +58,13 @@ class C_report extends CI_Controller
             $data['tanggal_akhir'] = $tanggal_akhir;
             $data['status'] = $status;
             $data['teknisi'] = $teknisi;
+            $data['id_subkategori'] = $id_subkategori;
 
-
+            $query = $this->db->query("select id_subkategori val,uraian_subkategori deskripsi from mst_subkategori");
+            $data['subkategori'] = $query->result();
 
             $query = $this->db->query('select id_user,nama from mst_user where spc = 0');
             $data['data_teknisi'] = $query->result();
-
-
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/report/v_report', $data);
@@ -96,48 +97,53 @@ class C_report extends CI_Controller
             (isset($_POST['tanggal_akhir']))           ? $tanggal_akhir       = $_POST['tanggal_akhir']     : $tanggal_akhir = "";
             (isset($_POST['teknisi']))           ? $teknisi       = $_POST['teknisi']     : $teknisi = "";
             (isset($_POST['status']))           ? $status       = $_POST['status']     : $status = "99";
+            (isset($_POST['id_subkategori']))           ? $id_subkategori       = $_POST['id_subkategori']     : $id_subkategori = "";
 
             $data['type'] = $type;
 
             $str_query_a = "";
             $str_query_b = "";
+            $str_query_d = "";
             $where = 'where';
 
             if ($tanggal_awal <> "" && $tanggal_akhir <> "") {
                 $str_query_a = "$where tanggal_jadwal between '$tanggal_awal' and '$tanggal_akhir'";
                 $str_query_b = "$where tanggal_laporan between '$tanggal_awal' and '$tanggal_akhir'";
+                $str_query_d = "$where tanggal_jadwal between '$tanggal_awal' and '$tanggal_akhir'";
                 $where = 'and';
             }
 
             if ($teknisi <> "") {
                 $str_query_a = $str_query_a . " $where id_user =$teknisi";
                 $str_query_b = $str_query_b . " $where id_teknisi =$teknisi";
+                $str_query_d = $str_query_d . " $where id_user =$teknisi";
                 $where = 'and';
             }
 
-            if ($status <> "" && $status <> "99") {
+            if ($status <> "" && $status <> "99" && $type <> 4) {
                 $str_query_a = $str_query_a . " $where status_pekerjaan =$status";
                 $str_query_b = $str_query_b . " $where status_pekerjaan =$status";
+                //$str_query_d = $str_query_d . " $where status_pekerjaan =$status";
                 $where = 'and';
             }
 
-
+            $data['data'] = "";
             if ($type == '') {
                 //$query = $this->db->query('select nik,spc from mst_user');
             } elseif ($type == 1) {
                 $query = $this->db->query("select * from view_rutin $str_query_a order by tanggal_jadwal,nama_teknisi");
+                $data['data'] = $query->result();
+                $data['last_query'] = $this->db->last_query();
             } elseif ($type == 2) {
                 $query = $this->db->query("select * from view_nonrutin $str_query_b order by tanggal_laporan, nama_teknisi");
-            }
-
-            $data['last_query'] = $this->db->last_query();
-            if ($type == "") {
-                $data['data'] = "";
-            } else {
                 $data['data'] = $query->result();
+                $data['last_query'] = $this->db->last_query();
+            }elseif ($type == 4) {
+                $data['filename'] = $this->Excel_model->report_4($teknisi, $tanggal_awal,$tanggal_akhir, $id_subkategori);
             }
 
-            $data["data"] = $query->result();
+            
+
             $data['status'] = 'ok';
         }
         //Jika bukan kembali ke base_url (home)
