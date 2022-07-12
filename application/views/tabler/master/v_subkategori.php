@@ -35,7 +35,7 @@
                                 <th>Kode Kategori</th>
                                 <th>Kode Subkategori</th>
                                 <th>Uraian Subkategori</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

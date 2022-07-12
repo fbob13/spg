@@ -33,7 +33,7 @@
                                 <th>nn</th>
                                 <th>Nama Gedung</th>
                                 <th>Keterangan</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

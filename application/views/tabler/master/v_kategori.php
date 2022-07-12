@@ -33,7 +33,7 @@
                                 <th>nn</th>
                                 <th>Kode Kategori</th>
                                 <th>Uraian Kategori</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

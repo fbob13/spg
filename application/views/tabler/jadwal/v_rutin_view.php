@@ -73,7 +73,7 @@
                                 <th>Jenis Pekerjaan</th>
                                 <th>Status</th>
                                 <th>Keterangan</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

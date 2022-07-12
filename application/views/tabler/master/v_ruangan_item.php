@@ -39,7 +39,7 @@
                                 <th>Nama Item</th>
                                 <th>Merek</th>
                                 <th>Tahun Pengadaan</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

@@ -43,7 +43,7 @@
                                 <th>Jenis Kelamin</th>
                                 <th>Telp</th>
                                 <th>Email</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

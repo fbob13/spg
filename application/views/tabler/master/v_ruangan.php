@@ -36,7 +36,7 @@
                                 <th>Kode Ruangan</th>
                                 <th>Uraian Ruangan</th>
                                 <th>Keterangan</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">

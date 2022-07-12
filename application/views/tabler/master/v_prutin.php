@@ -40,7 +40,7 @@
                                 <th>Kategori</th>
                                 <th>Subkategori</th>
                                 <th>Interval</th>
-                                <th></th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabel-body">
