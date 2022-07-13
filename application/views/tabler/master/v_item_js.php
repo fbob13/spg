@@ -100,18 +100,22 @@
                 clear_form('upd-tipe-item')
                 clear_form('upd-kategori')
                 clear_form('upd-subkategori')
+                
 
                 $('#upd-id-item').val(data['id_item']);
                 $('#upd-nama-item').val(data['nama_item']);
                 $('#upd-merek-item').val(data['merek_item']);
                 $('#upd-tipe-item').val(data['tipe_item']);
                 $('#upd-kategori').val(data['id_kategori']);
+                ambil_subkategori_upd('#upd-subkategori',data['id_subkategori'])
+                //$('#upd-subkategori').val(data['id_subkategori']);
+                
                 $('#modal-update').modal('show')
 
 
 
-                ambil_subkategori_upd()
-                $('#upd-subkategori').val(data['id_subkategori']);
+                
+                
 
             } else if (aksi == 'delete') {
                 $('#del-id-item').val(data['id_item']);
@@ -292,7 +296,7 @@
             });
         }
 
-        function ambil_subkategori_upd() {
+        function ambil_subkategori_upd(id_select = '',data_select = '') {
             //$("#cari_kelurahan").empty();
             kategori = $('#upd-kategori').val();
 
@@ -307,6 +311,9 @@
                 success: function(response) {
 
                     $('#upd-subkategori').html(create_option(response.data));
+                    if(id_select != ''){
+                        $(id_select).val(data_select);
+                    }
                 }
             });
         }
