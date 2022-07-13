@@ -451,6 +451,7 @@
               clear_form('upload-file')
             }
 
+            $('#modal-konfirmasi-upload').modal('hide')
             createNotification(1, response.info)
             
 

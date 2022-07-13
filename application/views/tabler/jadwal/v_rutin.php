@@ -15,9 +15,42 @@
           <div class="container-fluid">
 
             <!-- Content here -->
+            <?php /* FORM UPLOAD */ ?>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 mb-2">
+                <div class="card ">
+                  <div class="card-header">
+                    <h3 class="card-title">Upload Jadwal (excel)</h3>
+                  </div>
+                  <div class="card-body my-1 pb-0">
+                    <form id="form-upload-dokumen" enctype="multipart/form-data">
+                      <div class="d-flex align-items-start flex-wrap ">
+                        <div class="form-group mb-3 row  pe-3">
+                          <label class="form-label col-3 col-form-label">File Dokumen</label>
+                          <div class="col">
+                            <input type="file" class="form-control" aria-describedby="File Dokumen" id='upload-file' name='upload-file'>
+                            <small class="form-hint">
+                              <a href="<?php echo base_url(); ?>upload/template.xlsx" target="_BLANK">Klik untuk download template</a>
+                            </small>
+                            <div class="invalid-feedback mb-0" id="iv-upload-file"></div>
+                          </div>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Dokumen</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php /* END FORM UPLOAD */ ?>
             <div class="row row-cards">
               <div class="col-12">
                 <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Input Jadwal</h3>
+                  </div>
                   <div class="card-body">
                     <form id="form-head">
 
@@ -50,7 +83,7 @@
                     <div class="d-none" id="cont-det">
                       <div class="row">
                         <?php /* FORM INPUT MANUAL */ ?>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                           <div class="card ">
                             <div class="card-header bg-blue-lt">
                               <h3 class="card-title">Draft Jadwal</h3>
@@ -113,36 +146,6 @@
                           </div>
                         </div>
                         <?php /* END FORM INPUT MANUAL */ ?>
-
-                        <?php /* FORM UPLOAD */ ?>
-                        <div class="col-md-6 col-sm-12">
-                          <div class="card ">
-                            <div class="card-header bg-blue-lt">
-                              <h3 class="card-title">Upload Dokumen Baru</h3>
-                            </div>
-                            <div class="card-body">
-                              <form id="form-upload-dokumen" enctype="multipart/form-data">
-                                <div class="form-group mb-3 row">
-                                  <label class="form-label col-3 col-form-label">File Dokumen</label>
-                                  <div class="col">
-                                    <input type="file" class="form-control" aria-describedby="File Dokumen" id='upload-file' name='upload-file'>
-                                    <small class="form-hint">
-                                      <a href="<?php echo base_url(); ?>upload/template.xlsx" target="_BLANK">Klik untuk download template</a>
-                                    </small>
-                                    <div class="invalid-feedback mb-0" id="iv-upload-file"></div>
-                                  </div>
-                                </div>
-
-                                <div class="form-footer">
-                                  <button type="submit" class="btn btn-primary">Upload Dokumen</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <?php /* END FORM UPLOAD */ ?>
-
-
                       </div>
 
 
