@@ -266,7 +266,7 @@ class Excel_model extends CI_Model
 
         //$this->db->query("select $arr_field_select from view_rutin where id_subkategori = $id_subkategori and $tanggal ");
 
-        $query = $this->db->query("select $arr_field_select from view_rutin where id_subkategori = $id_subkategori and $tanggal $teknisi");
+        $query = $this->db->query("select $arr_field_select from view_rutin where id_subkategori = $id_subkategori and $tanggal $teknisi order by id_user,tanggal_jadwal,id_gedung,id_ruangan,id_item,id_pkrutin");
         $master_pekerjaan = array_merge($arr_xx, $query->result_array());
         //return $query->db->last_query();
 
@@ -274,11 +274,11 @@ class Excel_model extends CI_Model
 
         $xlsx = $this->simplexlsxgen->fromArray($master_pekerjaan)->mergeCells('A1:J1')
             ->setColWidth(1, 20)
-            ->setColWidth(2, 35)
-            ->setColWidth(3, 35)
-            ->setColWidth(4, 35)
-            ->setColWidth(5, 35)
-            ->setColWidth(6, 35)
+            ->setColWidth(2, 30)
+            ->setColWidth(3, 30)
+            ->setColWidth(4, 30)
+            ->setColWidth(5, 30)
+            ->setColWidth(6, 30)
             ->setColWidth(7, 10)
             ->setColWidth(8, 10)
             ->setColWidth(9, 10)
