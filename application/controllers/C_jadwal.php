@@ -580,7 +580,7 @@ class C_jadwal extends CI_Controller
                     move_uploaded_file($_FILES['dokumen']['tmp_name'], $simpan_dokumen);
                     $err = false;
 
-                    if ($this->Excel_model->upload($simpan_dokumen, $id_user, $tanggal_jadwal)) {
+                    if ($this->Excel_model->upload($simpan_dokumen, $tanggal_jadwal)) {
                         $data['info'] = 'Data Berhasil di upload';
                     } else {
                         $err = true;

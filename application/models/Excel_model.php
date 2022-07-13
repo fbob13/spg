@@ -23,7 +23,7 @@ class Excel_model extends CI_Model
             [''],
             ['<left>Input data jadwal di bawah</left>', null],
             [''],
-            ['<style bgcolor="#FFFF00"><b>Tanggal</b></style></border>', '<style bgcolor="#FFFF00"><b>Nama Gedung</b></style>', '<style bgcolor="#FFFF00"><b>Nama Ruangan</b></style>', '<style bgcolor="#FFFF00"><b>Nama Item</b></style>', '<style bgcolor="#FFFF00"><b>Pekerjaan</b></style>'],
+            ['<style bgcolor="#FFFF00"><b>Username</b></style>','<style bgcolor="#FFFF00"><b>Tanggal</b></style>', '<style bgcolor="#FFFF00"><b>Nama Gedung</b></style>', '<style bgcolor="#FFFF00"><b>Nama Ruangan</b></style>', '<style bgcolor="#FFFF00"><b>Nama Item</b></style>', '<style bgcolor="#FFFF00"><b>Pekerjaan</b></style>'],
         ];
 
         //Master Gedung
@@ -72,11 +72,12 @@ class Excel_model extends CI_Model
         $xlsx = $this->simplexlsxgen->fromArray($sheet1)->mergeCells('A1:J1')
             ->mergeCells('A3:J3')->mergeCells('A4:J4')->mergeCells('A5:J5')->mergeCells('A6:J6')
             ->mergeCells('A7:J7')->mergeCells('A8:J8')->mergeCells('A10:J10')
-            ->setColWidth(1, 20)
-            ->setColWidth(2, 35)
-            ->setColWidth(3, 35)
+            ->setColWidth(1, 30)
+            ->setColWidth(2, 20)
+            ->setColWidth(3, 30)
             ->setColWidth(4, 35)
             ->setColWidth(5, 35)
+            ->setColWidth(6, 35)
             ->addSheet($master_gedung, 'Master Gedung')
             ->setColWidth(1, 35)
             ->setColWidth(2, 50)
@@ -98,7 +99,7 @@ class Excel_model extends CI_Model
     }
 
 
-    public function upload($nama_file, $id_teknisi, $tanggal_jadwal)
+    public function upload($nama_file,$tanggal_jadwal)
     {
         //
 
@@ -119,12 +120,22 @@ class Excel_model extends CI_Model
                 //Jika row 14 (di bawah row nama gedung)
                 //sesuaikan $counter jika ada penambahan keterangan di atas row nama gedung
 
-                if ($counter >= 14 && isset($r[0]) && isset($r[1]) && isset($r[2]) && isset($r[3]) && isset($r[4])) {
-                    $tanggal_jadwal = $r[0];
-                    $nama_gedung = strtoupper($r[1]);
-                    $nama_ruangan = strtoupper($r[2]);
-                    $nama_item = strtoupper($r[3]);
-                    $pekerjaan = strtoupper($r[4]);
+                if ($counter >= 14 && isset($r[0]) && isset($r[1]) && isset($r[2]) && isset($r[3]) && isset($r[4]) && isset($r[5])) {
+                    $teknisi = $r[0];
+                    $tanggal_jadwal = $r[1];
+                    $nama_gedung = strtoupper($r[2]);
+                    $nama_ruangan = strtoupper($r[3]);
+                    $nama_item = strtoupper($r[4]);
+                    $pekerjaan = strtoupper($r[5]);
+
+                    //ID USER
+                    $query = $this->db->query("select id_user from mst_user where UPPER(username) = '$teknisi'");
+                    $result = $query->first_row();
+                    $id_teknisi = $result->id_user;
+
+                    $query = $this->db->query("select id_gedung from mst_gedung where UPPER(nama_gedung) = '$nama_gedung'");
+                    $result = $query->first_row();
+                    $id_gedung = $result->id_gedung;
 
                     //master gedung
                     $query = $this->db->query("select id_gedung from mst_gedung where UPPER(nama_gedung) = '$nama_gedung'");
