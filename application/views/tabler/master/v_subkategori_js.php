@@ -13,8 +13,96 @@
             data: 'id_kategori',
             visible: false,
             searchable: false,
-        },{
+        }, {
             data: 'id_subkategori',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'pk',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'arus_r',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'arus_s',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'arus_t',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'teg_r',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'teg_s',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'teg_t',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'teg_v',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'psi',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'oli',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'solar',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'radiator',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'eng_hours',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'accu',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'temp',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'kap',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'noice',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'qty',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'vol',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'tgl_kadaluarsa',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'kondisi',
+            visible: false,
+            searchable: false,
+        }, {
+            data: 'tindakan',
             visible: false,
             searchable: false,
         }, {
@@ -73,6 +161,32 @@
                 $('#upd-kode-subkategori').val(data['kode_subkategori']);
                 $('#upd-uraian-subkategori').val(data['uraian_subkategori']);
 
+                (data['pk'] == 1) ? $('#upd-pk').prop('checked', true): $('#upd-pk').prop('checked', false);
+                (data['arus_r'] == 1) ? $('#upd-arus-r').prop('checked', true): $('#upd-arus-r').prop('checked', false);
+                (data['arus_s'] == 1) ? $('#upd-arus-s').prop('checked', true): $('#upd-arus-s').prop('checked', false);
+                (data['arus_t'] == 1) ? $('#upd-arus-t').prop('checked', true): $('#upd-arus-t').prop('checked', false);
+                (data['teg_r'] == 1) ? $('#upd-teg-r').prop('checked', true): $('#upd-teg-r').prop('checked', false);
+                (data['teg_s'] == 1) ? $('#upd-teg-s').prop('checked', true): $('#upd-teg-s').prop('checked', false);
+                (data['teg_t'] == 1) ? $('#upd-teg-t').prop('checked', true): $('#upd-teg-t').prop('checked', false);
+                (data['teg_v'] == 1) ? $('#upd-teg-v').prop('checked', true): $('#upd-teg-v').prop('checked', false);
+                (data['psi'] == 1) ? $('#upd-psi').prop('checked', true): $('#upd-psi').prop('checked', false);
+                (data['oli'] == 1) ? $('#upd-oli').prop('checked', true): $('#upd-oli').prop('checked', false);
+                (data['solar'] == 1) ? $('#upd-solar').prop('checked', true): $('#upd-solar').prop('checked', false);
+                (data['radiator'] == 1) ? $('#upd-radiator').prop('checked', true): $('#upd-radiator').prop('checked', false);
+                (data['eng_hours'] == 1) ? $('#upd-eng-hours').prop('checked', true): $('#upd-eng-hours').prop('checked', false);
+                (data['accu'] == 1) ? $('#upd-accu').prop('checked', true): $('#upd-accu').prop('checked', false);
+                (data['temp'] == 1) ? $('#upd-temp').prop('checked', true): $('#upd-temp').prop('checked', false);
+                (data['kap'] == 1) ? $('#upd-kap').prop('checked', true): $('#upd-kap').prop('checked', false);
+                (data['noice'] == 1) ? $('#upd-noice').prop('checked', true): $('#upd-noice').prop('checked', false);
+                (data['qty'] == 1) ? $('#upd-qty').prop('checked', true): $('#upd-qty').prop('checked', false);
+                (data['vol'] == 1) ? $('#upd-vol').prop('checked', true): $('#upd-vol').prop('checked', false);
+                (data['tgl_kadaluarsa'] == 1) ? $('#upd-tgl-kadaluarsa').prop('checked', true): $('#upd-tgl-kadaluarsa').prop('checked', false);
+                (data['kondisi'] == 1) ? $('#upd-kondisi').prop('checked', true): $('#upd-kondisi').prop('checked', false);
+                (data['tindakan'] == 1) ? $('#upd-tindakan').prop('checked', true): $('#upd-tindakan').prop('checked', false);
+
+
+
+
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
                 $('#del-id-subkategori').val(data['id_subkategori']);
@@ -114,10 +228,10 @@
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('show')
                     } else {
-                        
+
                         $('#modal-konfirmasi-new').modal('hide')
                         $('#modal-new').modal('hide')
-                        createNotification(3,  response.info)
+                        createNotification(3, response.info)
                         update_datatables()
 
                         clear_form('id-kategori')
@@ -153,6 +267,10 @@
         $('#btn-yes').on('click', function(e) {
             e.preventDefault();
 
+            var detail_item = $('input[name="upd-det[]"]:checked').map(function() {
+                return this.value;
+            }).get()
+
             $.ajax({
                 url: "<?php echo base_url(); ?>master/subkategori/upd",
                 type: 'post',
@@ -162,6 +280,7 @@
                     'id_subkategori': $('#upd-id-subkategori').val(),
                     'kode_subkategori': $('#upd-kode-subkategori').val(),
                     'uraian_subkategori': $('#upd-uraian-subkategori').val(),
+                    'detail_item': detail_item,
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -174,7 +293,7 @@
                     } else {
                         $('#modal-konfirmasi').modal('hide')
                         $('#modal-update').modal('hide')
-                        createNotification(3,  response.info)
+                        createNotification(3, response.info)
                         update_datatables()
 
                     }
@@ -198,10 +317,10 @@
                 success: function(response) {
                     if (response.status == 'nok') {
                         $('#modal-del').modal('hide')
-                        createNotification(1,  response.info)
+                        createNotification(1, response.info)
                     } else {
                         $('#modal-update').modal('hide')
-                        createNotification(3,  response.info)
+                        createNotification(3, response.info)
                         update_datatables()
                     }
 
@@ -242,8 +361,8 @@
                 type: 'json',
                 columns: col,
                 dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 buttons: [
                     'pdfHtml5',
                     'excel',

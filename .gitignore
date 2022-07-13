@@ -40,6 +40,9 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 upload/*.*
+download/*.*
+!download/text.xlsx
+
 
 
 

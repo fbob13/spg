@@ -164,7 +164,7 @@ class C_master extends CI_Controller
                     );
 
                     $this->db->insert('mst_item', $data_insert);
-                    
+
                     //Update Template Upload
                     $this->Excel_model->create_template();
 
@@ -266,7 +266,7 @@ class C_master extends CI_Controller
                     );
                     $this->db->where('id_item', $id_item);
                     $this->db->update('mst_item', $data_insert);
-                    
+
                     //Update Template Upload
                     $this->Excel_model->create_template();
 
@@ -348,7 +348,7 @@ class C_master extends CI_Controller
                 (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
                 $query = $this->db->query("select id_subkategori val,CONCAT_WS(' / ', kode_subkategori, uraian_subkategori) AS deskripsi from mst_subkategori where id_kategori = $id_kategori");
                 $data["data"] = $query->result();
-            } 
+            }
         }
         //Jika bukan kembali ke base_url (home)
         else {
@@ -957,7 +957,7 @@ class C_master extends CI_Controller
                 (isset($_POST['id_gedung']))         ? $id_gedung =       $_POST['id_gedung']         : $id_gedung = "";
                 $query = $this->db->query("select id_ruangan val,CONCAT_WS(' / ', kode_ruangan, uraian_ruangan) AS deskripsi from mst_ruangan where status_ruangan = 1 and id_gedung='$id_gedung'");
                 $data["data"] = $query->result();
-            } 
+            }
         }
         //Jika bukan kembali ke base_url (home)
         else {
@@ -1607,7 +1607,7 @@ class C_master extends CI_Controller
                 (isset($_POST['id_kategori']))         ? $id_kategori =       $_POST['id_kategori']         : $id_kategori = "";
                 $query = $this->db->query("select id_subkategori val,CONCAT_WS(' / ', kode_subkategori, uraian_subkategori) AS deskripsi from mst_subkategori where id_kategori = $id_kategori");
                 $data["data"] = $query->result();
-            } 
+            }
         }
         //Jika bukan kembali ke base_url (home)
         else {
@@ -2075,6 +2075,13 @@ class C_master extends CI_Controller
                 (isset($_POST['kode_subkategori']))         ? $kode_subkategori =       $_POST['kode_subkategori']         : $kode_subkategori = "";
                 (isset($_POST['uraian_subkategori']))         ? $uraian_subkategori =      $_POST['uraian_subkategori']         : $uraian_subkategori = "";
 
+                (isset($_POST['detail_item']))         ? $detail_item =      $_POST['detail_item']         : $detail_item = "";
+
+
+                $pk = $arus_r = $arus_s = $arus_t = $teg_r = $teg_s = $teg_t = $teg_v = $psi = $oli = $solar = $radiator = $eng_hours = $accu = $temp =
+                    $kap = $noice = $qty = $vol = $tgl_kadaluarsa = $kondisi = $tindakan = 0;
+
+
                 $data['err_kode_subkategori'] = "";
                 $data['err_uraian_subkategori'] = "";
 
@@ -2104,10 +2111,62 @@ class C_master extends CI_Controller
                 else {
 
                     //Update data
+
+                    if ($detail_item <> "") {
+                        foreach ($detail_item as $vw) {
+                            if ($vw == 'pk') $pk = 1;
+                            if ($vw == 'arus_r') $arus_r = 1;
+                            if ($vw == 'arus_s') $arus_s = 1;
+                            if ($vw == 'arus_t') $arus_t = 1;
+                            if ($vw == 'teg_r') $teg_r = 1;
+                            if ($vw == 'teg_s') $teg_s = 1;
+                            if ($vw == 'teg_t') $teg_t = 1;
+                            if ($vw == 'teg_v') $teg_v = 1;
+                            if ($vw == 'psi') $psi = 1;
+                            if ($vw == 'oli') $oli = 1;
+                            if ($vw == 'solar') $solar = 1;
+                            if ($vw == 'radiator') $radiator = 1;
+                            if ($vw == 'eng_hours') $eng_hours = 1;
+                            if ($vw == 'accu') $accu = 1;
+                            if ($vw == 'temp') $temp = 1;
+                            if ($vw == 'kap') $kap = 1;
+                            if ($vw == 'noice') $noice = 1;
+                            if ($vw == 'qty') $qty = 1;
+                            if ($vw == 'vol') $vol = 1;
+                            if ($vw == 'tgl_kadaluarsa') $tgl_kadaluarsa = 1;
+                            if ($vw == 'kondisi') $kondisi = 1;
+                            if ($vw == 'tindakan') $tindakan = 1;
+                        }
+                    }
+
                     $data_insert = array(
                         'id_kategori' => $id_kategori,
                         'kode_subkategori' => $kode_subkategori,
                         'uraian_subkategori' => $uraian_subkategori,
+
+                        'pk' => $pk,
+                        'arus_r' => $arus_r,
+                        'arus_s' => $arus_s,
+                        'arus_t' => $arus_t,
+                        'teg_r' => $teg_r,
+                        'teg_s' => $teg_s,
+                        'teg_t' => $teg_t,
+                        'teg_v' => $teg_v,
+                        'psi' => $psi,
+                        'oli' => $oli,
+                        'solar' => $solar,
+                        'radiator' => $radiator,
+                        'eng_hours' => $eng_hours,
+                        'accu' => $accu,
+                        'temp' => $temp,
+                        'kap' => $kap,
+                        'noice' => $noice,
+                        'qty' => $qty,
+                        'vol' => $vol,
+                        'tgl_kadaluarsa' => $tgl_kadaluarsa,
+                        'kondisi' => $kondisi,
+                        'tindakan' => $tindakan,
+
                     );
                     $this->db->where('id_subkategori', $id_subkategori);
                     $this->db->update('mst_subkategori', $data_insert);
@@ -2173,7 +2232,4 @@ class C_master extends CI_Controller
 
         //END FUNCTION
     }
-
-
-
 }

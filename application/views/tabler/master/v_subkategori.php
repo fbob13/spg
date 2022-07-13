@@ -32,6 +32,31 @@
                                 <th class="w-1">No.</th>
                                 <th>nn</th>
                                 <th>nn</th>
+
+                                <th>nn Kap. (PK)</th>
+                                <th>nn Arus R</th>
+                                <th>nn Arus S</th>
+                                <th>nn Arus T</th>
+                                <th>nn Tegangan (F - N) R</th>
+                                <th>nn Tegangan (F - N) S</th>
+                                <th>nn Tegangan (F - N) T</th>
+                                <th>nn Teg. (V)</th>
+                                <th>nn (PSI)</th>
+                                <th>nn Oli</th>
+                                <th>nn Solar</th>
+                                <th>nn Radiator</th>
+                                <th>nn Eng. Hours</th>
+                                <th>nn Accu</th>
+                                <th>nn Temp.</th>
+                                <th>nn kap</th>
+                                <th>nn noice</th>
+                                <th>nn qty</th>
+                                <th>nn vol</th>
+                                <th>nn tgl kadaluarsa</th>
+                                <th>nn kondisi</th>
+                                <th>nn Tindakan</th>
+
+
                                 <th>Kode Kategori</th>
                                 <th>Kode Subkategori</th>
                                 <th>Uraian Subkategori</th>
@@ -156,6 +181,55 @@
                             ));
 
                             ?>
+
+                            <div class="hr-text">Kolom Report</div>
+                            <div class="d-flex flex-wrap justify-content-start">
+                                <?php
+                                function create_f_det($judul, $id, $val)
+                                {
+
+                                    $tulis = "";
+                                    $tulis = $tulis . '<label class="form-check mx-2" style="min-width :150px;">';
+                                    $tulis = $tulis . '<input class="form-check-input" type="checkbox" value="' . $val . '" id="' . $id . '" name="upd-det[]" >';
+                                    $tulis = $tulis . '<span class="form-check-label ">' . $judul . '</span>';
+                                    $tulis = $tulis . '</label>';
+
+
+                                    return $tulis;
+                                }
+
+                                echo create_f_det('Kap. (PK)', 'upd-pk', 'pk');
+                                echo create_f_det('Arus R', 'upd-arus-r', 'arus_r');
+                                echo create_f_det('Arus S', 'upd-arus-s', 'arus_s');
+                                echo create_f_det('Arus T', 'upd-arus-t', 'arus_t');
+                                echo create_f_det('Tegangan (F - N) R', 'upd-teg-r', 'teg_r');
+                                echo create_f_det('Tegangan (F - N) S', 'upd-teg-s', 'teg_s');
+                                echo create_f_det('Tegangan (F - N) T', 'upd-teg-t', 'teg_t');
+                                echo create_f_det('Teg. (V)', 'upd-teg-v', 'teg_v');
+                                echo create_f_det(' (PSI)', 'upd-psi', 'psi');
+                                echo create_f_det('Oli', 'upd-oli', 'oli');
+                                echo create_f_det('Solar', 'upd-solar', 'solar');
+                                echo create_f_det('Radiator', 'upd-radiator', 'radiator');
+                                echo create_f_det('Eng. Hours', 'upd-eng-hours', 'eng_hours');
+                                echo create_f_det('Accu', 'upd-accu', 'accu');
+                                echo create_f_det('Temp.', 'upd-temp', 'temp');
+                                echo create_f_det('kap', 'upd-kap', 'kap');
+                                echo create_f_det('noice', 'upd-noice', 'noice');
+                                echo create_f_det('qty', 'upd-qty', 'qty');
+                                echo create_f_det('vol', 'upd-vol', 'vol');
+                                echo create_f_det('tgl kadaluarsa', 'upd-tgl-kadaluarsa', 'tgl_kadaluarsa');
+                                echo create_f_det('kondisi', 'upd-kondisi', 'kondisi');
+                                echo create_f_det('Tindakan', 'upd-tindakan', 'tindakan');
+
+
+
+
+
+
+
+                                ?>
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">

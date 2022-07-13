@@ -7,17 +7,25 @@
         $('#s-year').val(d.getFullYear())
         //2console.log(('0' + (d.getMonth() + 1)).slice(-2))
 
+        const subkategori = <?php echo json_encode($subkategori); ?>;
+
+        function ceksub(currentValue) {
+            return currentValue.id_subkategori == this;
+        }
+
+
+
         var string_btn_tbl = ''
         var today = '<?php echo $today; ?>';
-        
+
         const akses_edit = '<?php echo $edit; ?>';
         const akses_delete = '<?php echo $delete; ?>';
         var string_btn_tbl = ""
-        if (akses_edit == 'ok'){
+        if (akses_edit == 'ok') {
             string_btn_tbl += '<a href="#" class="btn btn-icon text-primary btn-light me-2 " c-aksi="update"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" /><path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" /><line x1="16" y1="5" x2="19" y2="8" /></svg></a>'
         }
 
-        if (akses_delete == 'ok'){
+        if (akses_delete == 'ok') {
             string_btn_tbl += '<a href="#" class="btn btn-icon text-danger btn-light " c-aksi="delete"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></a>'
         }
 
@@ -42,6 +50,10 @@
             visible: false,
             searchable: false,
         }, {
+            data: 'id_subkategori',
+            visible: false,
+            searchable: false,
+        }, {
             data: 'tanggal_jadwal',
             className: 'text-center'
         }, {
@@ -62,8 +74,8 @@
         }, {
             data: 'status_pekerjaan',
             className: 'text-center',
-            render: function(data,type,row){
-                return '<div class="card w-full p-1 fs-5">' +  row.status_pekerjaan_text + '</div>'
+            render: function(data, type, row) {
+                return '<div class="card w-full p-1 fs-5">' + row.status_pekerjaan_text + '</div>'
             }
         }, {
             data: 'keterangan',
@@ -81,9 +93,9 @@
                         return ''
                     }
 
-                } else if(row.status_pekerjaan == '5') {
+                } else if (row.status_pekerjaan == '5') {
                     return ''
-                }else {
+                } else {
                     return string_btn_tbl
                 }
             },
@@ -95,12 +107,12 @@
             serverSide: true,
             //ajax: '<?php echo base_url(); ?>jadwal/rutin/view/data',
             ajax: {
-                    url: '<?php echo base_url(); ?>jadwal/rutin/view/data',
-                    type: 'POST',
-                    data: {
-                        'today': today,
-                    }
-                },
+                url: '<?php echo base_url(); ?>jadwal/rutin/view/data',
+                type: 'POST',
+                data: {
+                    'today': today,
+                }
+            },
             pageLength: 10,
             type: 'json',
             columns: col,
@@ -165,6 +177,59 @@
                 $('#upd-status-pekerjaan').val(data['status_pekerjaan']);
                 $('#upd-id-user').val(data['id_user']);
 
+                $('#upd-pk').val(data['pk']);
+                $('#upd-arus-r').val(data['arus_r']);
+                $('#upd-arus-s').val(data['arus_s']);
+                $('#upd-arus-t').val(data['arus_t']);
+                $('#upd-teg-r').val(data['teg_r']);
+                $('#upd-teg-s').val(data['teg_s']);
+                $('#upd-teg-t').val(data['teg_t']);
+                $('#upd-teg-v').val(data['teg_v']);
+                $('#upd-psi').val(data['psi']);
+                $('#upd-oli').val(data['oli']);
+                $('#upd-solar').val(data['solar']);
+                $('#upd-radiator').val(data['radiator']);
+                $('#upd-eng-hours').val(data['eng_hours']);
+                $('#upd-accu').val(data['accu']);
+                $('#upd-temp').val(data['temp']);
+                $('#upd-kap').val(data['kap']);
+                $('#upd-noice').val(data['noice']);
+                $('#upd-qty').val(data['qty']);
+                $('#upd-vol').val(data['vol']);
+                $('#upd-tgl-kadaluarsa').val(data['tgl_kadaluarsa']);
+                $('#upd-kondisi').val(data['kondisi']);
+                $('#upd-tindakan').val(data['tindakan']);
+
+
+
+                var testx = subkategori.filter(ceksub, data['id_subkategori']);
+                //menampilkan kolom yang perlu di isi
+                testx.map(function(arr) {
+                    (arr.pk == 1) ? $('#cont-upd-pk').removeClass('d-none'): $('#cont-upd-pk').addClass('d-none');
+                    (arr.arus_r == 1) ? $('#cont-upd-arus-r').removeClass('d-none'): $('#cont-upd-arus-r').addClass('d-none');
+                    (arr.arus_s == 1) ? $('#cont-upd-arus-s').removeClass('d-none'): $('#cont-upd-arus-s').addClass('d-none');
+                    (arr.arus_t == 1) ? $('#cont-upd-arus-t').removeClass('d-none'): $('#cont-upd-arus-t').addClass('d-none');
+                    (arr.teg_r == 1) ? $('#cont-upd-teg-r').removeClass('d-none'): $('#cont-upd-teg-r').addClass('d-none');
+                    (arr.teg_s == 1) ? $('#cont-upd-teg-s').removeClass('d-none'): $('#cont-upd-teg-s').addClass('d-none');
+                    (arr.teg_t == 1) ? $('#cont-upd-teg-t').removeClass('d-none'): $('#cont-upd-teg-t').addClass('d-none');
+                    (arr.teg_v == 1) ? $('#cont-upd-teg-v').removeClass('d-none'): $('#cont-upd-teg-v').addClass('d-none');
+                    (arr.psi == 1) ? $('#cont-upd-psi').removeClass('d-none'): $('#cont-upd-psi').addClass('d-none');
+                    (arr.oli == 1) ? $('#cont-upd-oli').removeClass('d-none'): $('#cont-upd-oli').addClass('d-none');
+                    (arr.solar == 1) ? $('#cont-upd-solar').removeClass('d-none'): $('#cont-upd-solar').addClass('d-none');
+                    (arr.radiator == 1) ? $('#cont-upd-radiator').removeClass('d-none'): $('#cont-upd-radiator').addClass('d-none');
+                    (arr.eng_hours == 1) ? $('#cont-upd-eng-hours').removeClass('d-none'): $('#cont-upd-eng-hours').addClass('d-none');
+                    (arr.accu == 1) ? $('#cont-upd-accu').removeClass('d-none'): $('#cont-upd-accu').addClass('d-none');
+                    (arr.temp == 1) ? $('#cont-upd-temp').removeClass('d-none'): $('#cont-upd-temp').addClass('d-none');
+                    (arr.kap == 1) ? $('#cont-upd-kap').removeClass('d-none'): $('#cont-upd-kap').addClass('d-none');
+                    (arr.noice == 1) ? $('#cont-upd-noice').removeClass('d-none'): $('#cont-upd-noice').addClass('d-none');
+                    (arr.qty == 1) ? $('#cont-upd-qty').removeClass('d-none'): $('#cont-upd-qty').addClass('d-none');
+                    (arr.vol == 1) ? $('#cont-upd-vol').removeClass('d-none'): $('#cont-upd-vol').addClass('d-none');
+                    (arr.tgl_kadaluarsa == 1) ? $('#cont-upd-tgl-kadaluarsa').removeClass('d-none'): $('#cont-upd-tgl-kadaluarsa').addClass('d-none');
+                    (arr.kondisi == 1) ? $('#cont-upd-kondisi').removeClass('d-none'): $('#cont-upd-kondisi').addClass('d-none');
+                    (arr.tindakan == 1) ? $('#cont-upd-tindakan').removeClass('d-none'): $('#cont-upd-tindakan').addClass('d-none');
+
+                })
+
                 $('#modal-update').modal('show')
             } else if (aksi == 'delete') {
                 $('#del-id-rutin').val(data['id_rutin']);
@@ -212,6 +277,30 @@
                     'status_pekerjaan': $('#upd-status-pekerjaan').val(),
                     'keterangan': $('#upd-keterangan').val(),
                     'id_user': $('#upd-id-user').val(),
+
+                    'pk': $('#upd-pk').val(),
+                    'arus_r': $('#upd-arus-r').val(),
+                    'arus_s': $('#upd-arus-s').val(),
+                    'arus_t': $('#upd-arus-t').val(),
+                    'teg_r': $('#upd-teg-r').val(),
+                    'teg_s': $('#upd-teg-s').val(),
+                    'teg_t': $('#upd-teg-t').val(),
+                    'teg_v': $('#upd-teg-v').val(),
+                    'psi': $('#upd-psi').val(),
+                    'oli': $('#upd-oli').val(),
+                    'solar': $('#upd-solar').val(),
+                    'radiator': $('#upd-radiator').val(),
+                    'eng_hours': $('#upd-eng-hours').val(),
+                    'accu': $('#upd-accu').val(),
+                    'temp': $('#upd-temp').val(),
+                    'kap': $('#upd-kap').val(),
+                    'noice': $('#upd-noice').val(),
+                    'qty': $('#upd-qty').val(),
+                    'vol': $('#upd-vol').val(),
+                    'tgl_kadaluarsa': $('#upd-tgl-kadaluarsa').val(),
+                    'kondisi': $('#upd-kondisi').val(),
+                    'tindakan': $('#upd-tindakan').val(),
+
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
@@ -250,7 +339,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'status' : 'ok',
+                    'status': 'ok',
                     'id_rutin': $('#id-approve').val(),
                 },
                 success: function(response) {
@@ -279,7 +368,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    'status' : 'nok',
+                    'status': 'nok',
                     'id_rutin': $('#id-approve').val(),
                 },
                 success: function(response) {
