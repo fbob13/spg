@@ -325,7 +325,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-approve">Batal</button>
+                    <button type="button" class="btn me-auto" id="btn-batal-approve">Batal</button>
                     <button type="button" class="btn btn-danger" id="btn-no-approve">Tolak</button>
                     <button type="button" class="btn btn-success" id="btn-yes-approve">Ya, approve</button>
                 </div>
