@@ -176,7 +176,7 @@ function cek_role($array, $kode_halaman)
                           Item
                         </a>
                       <?php }
-                      if (cek_role($user_role, 'MST_RUA_ITE') == 1) {
+                      if (cek_role($user_role, 'MST_RUA_ITE') == 99) {
                       ?>
                         <a class="dropdown-item <?php echo $sublink == 'ruangan_item' ? 'active ' : ''; ?>" href="<?php echo base_url(); ?>master/ruangan-item">
                           Item Ruangan
