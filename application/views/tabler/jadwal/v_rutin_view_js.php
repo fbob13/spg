@@ -79,7 +79,8 @@
             }
         }, {
             data: 'keterangan',
-            className: 'text-center'
+            className: 'text-center',
+            visible: false,
         }, {
             data: null,
             className: 'text-center text-nowrap',
@@ -166,13 +167,30 @@
             aksi = $(this).attr('c-aksi');
 
             if (aksi == 'update') {
+
+                clear_form('upd-status-pekerjaan')
+                clear_form('upd-id-user')
+                clear_form('upd-keterangan-new')
+
                 $('#upd-id-rutin').val(data['id_rutin']);
                 $('#upd-tanggal-jadwal').html(data['tanggal_jadwal']);
                 $('#upd-gedung').html(data['nama_gedung']);
                 $('#upd-ruangan').html(data['nama_ruangan']);
                 $('#upd-item').html(data['nama_item']);
                 $('#upd-pekerjaan').html(data['jenis_pekerjaan']);
+
+                //Keterangan
+                //Data keterangan baru pake -new
+                if (data['keterangan'] == null || data['keterangan'] == '') {
+                    $('#upd-keterangan').addClass("d-none");
+                } else {
+                    $('#upd-keterangan').removeClass("d-none");
+
+                }
+                $('#upd-keterangan-new').val('');
                 $('#upd-keterangan').val(data['keterangan']);
+
+                //end Keterangan
 
                 $('#upd-status-pekerjaan').val(data['status_pekerjaan']);
                 $('#upd-id-user').val(data['id_user']);
@@ -244,7 +262,22 @@
                 $('#approve-ruangan').text(data['nama_ruangan']);
                 $('#approve-item').text(data['nama_item']);
                 $('#approve-pekerjaan').text(data['jenis_pekerjaan']);
-                $('#approve-keterangan').text(data['keterangan']);
+                //$('#approve-keterangan').val(data['keterangan']);
+
+                //Keterangan
+                //Data keterangan baru pake -new
+                if (data['keterangan'] == null || data['keterangan'] == '') {
+                    $('#approve-keterangan').addClass("d-none");
+                } else {
+                    $('#approve-keterangan').removeClass("d-none");
+
+                }
+                $('#approve-keterangan-new').val('');
+                $('#approve-keterangan').val(data['keterangan']);
+
+                //end Keterangan
+
+
 
             }
         });
@@ -275,7 +308,7 @@
                 data: {
                     'id_rutin': $('#upd-id-rutin').val(),
                     'status_pekerjaan': $('#upd-status-pekerjaan').val(),
-                    'keterangan': $('#upd-keterangan').val(),
+                    'keterangan': $('#upd-keterangan-new').val(),
                     'id_user': $('#upd-id-user').val(),
 
                     'pk': $('#upd-pk').val(),
@@ -310,12 +343,11 @@
                         // Fungsi untuk menampilkan pesan error jika inputan tidak sesuai (form_validation) 
                         cek_error(response.err_jenis_pekerjaan, 'upd-jenis-pekerjaan');
                         cek_error(response.err_uraian_pekerjaan, 'upd-uraian-pekerjaan');
-                        cek_error(response.err_keterangan, 'upd-keterangan');
+                        cek_error(response.err_keterangan, 'upd-keterangan-new');
 
                     } else {
                         $('#modal-konfirmasi').modal('hide')
                         //$('#modal-update').modal('hide')
-
                         createNotification(3, response.info)
                         update_datatables()
                         getRutin()
@@ -332,7 +364,28 @@
             $('#modal-konfirmasi-approve').modal('hide')
         })
 
+
+
+        //konfirmasi Approve yes
         $('#btn-yes-approve').on('click', function(e) {
+            e.preventDefault();
+            //$('#modal-update').modal('hide')
+            $('#modal-konfirmasi-approve').modal('hide')
+            $('#modal-konfirmasi-apryes').modal('show')
+
+        });
+
+        $('#btn-batal-apryes').on('click', function(e) {
+            e.preventDefault();
+
+            $('#modal-konfirmasi-apryes').modal('hide')
+            $('#modal-konfirmasi-approve').modal('show')
+
+
+
+        })
+
+        $('#btn-yes-apryes').on('click', function(e) {
             e.preventDefault();
             $.ajax({
                 url: "<?php echo base_url(); ?>jadwal/rutin/view/approve",
@@ -341,15 +394,15 @@
                 data: {
                     'status': 'ok',
                     'id_rutin': $('#id-approve').val(),
+                    'keterangan': $('#approve-keterangan-new').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-konfirmasi-approve').modal('hide')
+                        $('#modal-konfirmasi-apryes').modal('hide')
                         $('#id-approve').val('');
-
+                        createNotification(1, response.info)
                     } else {
-                        $('#modal-konfirmasi-approve').modal('hide')
-                        //$('#modal-update').modal('hide')
+                        $('#modal-konfirmasi-apryes').modal('hide')
                         $('#id-approve').val('');
                         createNotification(3, response.info)
                         update_datatables()
@@ -361,8 +414,33 @@
             });
         })
 
+
         $('#btn-no-approve').on('click', function(e) {
             e.preventDefault();
+            //$('#modal-update').modal('hide')
+            if ($('#approve-keterangan-new').val() == "") {
+                add_error('approve-keterangan-new')
+            } else {
+                $('#modal-konfirmasi-approve').modal('hide')
+                $('#modal-konfirmasi-aprno').modal('show')
+            }
+
+
+        });
+
+        $('#btn-batal-aprno').on('click', function(e) {
+            e.preventDefault();
+
+            $('#modal-konfirmasi-aprno').modal('hide')
+            $('#modal-konfirmasi-approve').modal('show')
+
+
+
+        })
+
+        $('#btn-yes-aprno').on('click', function(e) {
+            e.preventDefault();
+
             $.ajax({
                 url: "<?php echo base_url(); ?>jadwal/rutin/view/approve",
                 type: 'post',
@@ -370,15 +448,15 @@
                 data: {
                     'status': 'nok',
                     'id_rutin': $('#id-approve').val(),
+                    'keterangan': $('#approve-keterangan-new').val(),
                 },
                 success: function(response) {
                     if (response.status == 'nok') {
-                        $('#modal-konfirmasi-approve').modal('hide')
+                        $('#modal-konfirmasi-aprno').modal('hide')
                         $('#id-approve').val('');
 
                     } else {
-                        $('#modal-konfirmasi-approve').modal('hide')
-                        //$('#modal-update').modal('hide')
+                        $('#modal-konfirmasi-aprno').modal('hide')
                         $('#id-approve').val('');
                         createNotification(3, response.info)
                         update_datatables()
@@ -388,7 +466,9 @@
 
                 }
             });
+
         })
+
 
         //Hapus Data
         $('#form-delete').submit(function(e) {
@@ -431,6 +511,18 @@
                 $("#" + id).removeClass("is-invalid");
                 $("#er-" + id).html("")
             };
+        }
+
+        function clear_form(id) {
+            $("#" + id).removeClass("is-invalid");
+            $("#" + id).val("");
+            $("#er-" + id).val('')
+
+        };
+
+        function add_error(id) {
+            $("#" + id).addClass("is-invalid");
+            $("#er-" + id).html('Harus di isi')
         }
 
         function update_datatables() {

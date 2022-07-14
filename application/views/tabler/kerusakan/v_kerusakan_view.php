@@ -225,12 +225,14 @@
                             ));
 
                             echo create_form(array(
-                                'type' => 'text',
+                                'type' => 'textarea_history',
                                 'id' => 'upd-keterangan',
                                 'label' => 'Keterangan',
-                                'placeholder' => 'Keteragan',
-                                'value' => '',
-                                'attr' => ''
+                                'placeholder' => 'Keteragan baru...',
+                                'value' => 'xx',
+                                'attr' => '',
+                                'row' => 3,
+                                //'old' => ''
                             ));
 
                             ?>
@@ -298,12 +300,45 @@
     </div>
 
     <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-apryes" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Data sebelumnya akan di update</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-apryes">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes-apryes">Ya, update data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-aprno" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Data sebelumnya akan di update</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-aprno">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes-aprno">Ya, update data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Konfirmasi -->
     <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-centered" role="document">
             <div class="modal-content">
                 <input type="hidden" value="" id="id-approve">
                 <div class="modal-body">
-                <div class="modal-title">Approve data</div>
+                    <div class="modal-title">Approve data</div>
                     <div class="mb-3">
                         <div class="d-flex flex-column">
 
@@ -316,9 +351,21 @@
                             <div class="pt-1" id="approve-ruangan">Ruangan</div>
                             <div class="pt-1" id="approve-item">AC DAIKIN</div>
                             <div class="pt-2">Keluhan : </div>
-                            <div class="card mt-1 p-2" id="approve-keluhan">Cek Freon AC</div>
-                            <div class="pt-2">Keterangan : </div>
-                            <div class="card mt-1 p-2" id="approve-keterangan">AC sudah di cek dan tidak ada masalah</div>
+                            <div class="card mt-1 p-2 mb-2" id="approve-keluhan">Cek Freon AC</div>
+                            <?php
+
+                            echo create_form(array(
+                                'type' => 'textarea_history',
+                                'id' => 'approve-keterangan',
+                                'label' => 'Keterangan',
+                                'placeholder' => 'Keteragan baru...',
+                                'value' => 'xxx',
+                                'attr' => '',
+                                'row' => 3,
+                                //'old' => ''
+                            ));
+
+                            ?>
 
 
                         </div>

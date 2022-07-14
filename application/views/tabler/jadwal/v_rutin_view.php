@@ -206,12 +206,14 @@
                             ));
 
                             echo create_form(array(
-                                'type' => 'text',
+                                'type' => 'textarea_history',
                                 'id' => 'upd-keterangan',
                                 'label' => 'Keterangan',
-                                'placeholder' => 'Keteragan',
-                                'value' => '',
-                                'attr' => ''
+                                'placeholder' => 'Keteragan baru...',
+                                'value' => 'xx',
+                                'attr' => '',
+                                'row' => 3,
+                                //'old' => ''
                             ));
 
                             ?>
@@ -223,9 +225,9 @@
                             function create_f_det($judul, $id_js, $id_php, $width = 100)
                             {
                                 $tulis = "";
-                                $tulis = $tulis . '<div class="d-flex flex-column text-center p-1 mt-2" id="cont-'. $id_js .'">';
+                                $tulis = $tulis . '<div class="d-flex flex-column text-center p-1 mt-2" id="cont-' . $id_js . '">';
                                 $tulis = $tulis . '<label class="form-label  fs-6">' . $judul . '</label>';
-                                $tulis = $tulis . '<input type="text" class="form-control align-self-center" style="max-width:'. $width .'px;" id="' . $id_js . '">';
+                                $tulis = $tulis . '<input type="text" class="form-control align-self-center" style="max-width:' . $width . 'px;" id="' . $id_js . '">';
                                 $tulis = $tulis . '</div>';
 
                                 return $tulis;
@@ -252,7 +254,7 @@
                             echo create_f_det('vol', 'upd-vol', 'vol');
                             echo create_f_det('tgl kadaluarsa', 'upd-tgl-kadaluarsa', 'tgl_kadaluarsa');
                             echo create_f_det('kondisi', 'upd-kondisi', 'kondisi');
-                            echo create_f_det('Tindakan', 'upd-tindakan', 'tindakan',300);
+                            echo create_f_det('Tindakan', 'upd-tindakan', 'tindakan', 300);
 
 
                             ?>
@@ -319,6 +321,40 @@
         </div>
     </div>
 
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-apryes" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Data sebelumnya akan di update</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-apryes">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes-apryes">Ya, update data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal modal-blur fade" id="modal-konfirmasi-aprno" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Anda Yakin</div>
+                    <div>Data sebelumnya akan di update</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto" id="btn-batal-aprno">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-yes-aprno">Ya, update data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Modal Approve -->
     <div class="modal modal-blur fade" id="modal-konfirmasi-approve" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -338,9 +374,22 @@
                             <div class="pt-1" id="approve-ruangan">Ruangan</div>
                             <div class="pt-1" id="approve-item">AC DAIKIN</div>
 
-                            <div class="pt-1" id="approve-pekerjaan">Cek Freon AC</div>
-                            <div class="pt-2">Keterangan : </div>
-                            <div class="card mt-1 p-2" id="approve-keterangan">AC sudah di cek dan tidak ada masalah</div>
+                            <div class="pt-1 mb-2" id="approve-pekerjaan">Cek Freon AC</div>
+
+                            <?php
+
+                            echo create_form(array(
+                                'type' => 'textarea_history',
+                                'id' => 'approve-keterangan',
+                                'label' => 'Keterangan',
+                                'placeholder' => 'Keteragan baru...',
+                                'value' => 'xxx',
+                                'attr' => '',
+                                'row' => 3,
+                                //'old' => ''
+                            ));
+
+                            ?>
 
 
                         </div>

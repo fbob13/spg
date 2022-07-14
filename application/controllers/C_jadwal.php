@@ -933,10 +933,19 @@ class C_jadwal extends CI_Controller
                     }
                     */
 
+                    //ambil data keterangan lama
+                    $query = $this->db->query("select * from as_rutin where id_rutin = $id_rutin");
+                    $old_data = $query->first_row();
+                    $old_keterangan = $old_data->keterangan;
+
+                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
+------------------
+';
+
                     //Update data
                     $data_insert = array(
                         'status_pekerjaan' => $status_pekerjaan,
-                        'keterangan' => $keterangan,
+                        'keterangan' => $nketerangan,
                         'tanggal_realisasi' => $tanggal_realisasi,
                         'id_user' => $id_user,
 
@@ -1013,9 +1022,20 @@ class C_jadwal extends CI_Controller
                 //Ambil data POST
                 (isset($_POST['id_rutin']))         ? $id_rutin =       $_POST['id_rutin']         : $id_rutin = "";
                 (isset($_POST['status']))         ? $status =       $_POST['status']         : $status = "";
+                (isset($_POST['keterangan']))         ? $keterangan =       $_POST['keterangan']         : $keterangan = "";
 
 
                 $this->db->trans_begin();
+
+                //ambil data keterangan lama
+                $query = $this->db->query("select * from as_rutin where id_rutin = $id_rutin");
+                $old_data = $query->first_row();
+                $old_keterangan = $old_data->keterangan;
+
+                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
+------------------
+';
+                //Update data
 
                 //$tanggal_realisasi = null;
                 //$tanggal_realisasi =  date("Y-m-d");
@@ -1048,9 +1068,10 @@ class C_jadwal extends CI_Controller
                     }
 
 
-                    //Update data
+
                     $data_insert = array(
-                        'status_pekerjaan' => 5
+                        'status_pekerjaan' => 5,
+                        'keterangan' => $nketerangan
                     );
                     $this->db->where('id_rutin', $id_rutin);
                     $this->db->update('as_rutin', $data_insert);
@@ -1059,7 +1080,8 @@ class C_jadwal extends CI_Controller
 
                     //Update data
                     $data_insert = array(
-                        'status_pekerjaan' => 1
+                        'status_pekerjaan' => 1,
+                        'keterangan' => $nketerangan
                     );
                     $this->db->where('id_rutin', $id_rutin);
                     $this->db->update('as_rutin', $data_insert);

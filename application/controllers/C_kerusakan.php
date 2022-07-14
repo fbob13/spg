@@ -251,7 +251,7 @@ class C_kerusakan extends CI_Controller
 
 
             $tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : '';
-            if($tipe =='nok') $data['stat'] = 'nok';
+            if ($tipe == 'nok') $data['stat'] = 'nok';
             else $data['stat'] = 'all';
 
 
@@ -380,24 +380,24 @@ class C_kerusakan extends CI_Controller
 
             //$where  = "id_user='2' and status_pekerjaan = 3";
             $where = "";
-            if ($stat == "nok"){
+            if ($stat == "nok") {
                 $where = "status_pekerjaan in (0,1,2,4) ";
-            }else{
+            } else {
                 if ($bulan == 99) {
                     $where = "DATE_FORMAT(tanggal_laporan,'%Y') = '$tahun'";
                 } else {
                     $where = "DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan'";
                 }
-    
+
                 if ($status_pekerjaan <> "" && $status_pekerjaan <> 99) {
                     $where = $where . " and status_pekerjaan = $status_pekerjaan";
                 }
-    
+
                 if ($prioritas <> "") {
                     $where = $where . " and prioritas = $prioritas";
                 }
             }
-            
+
 
             echo json_encode(
                 //SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns );
@@ -484,6 +484,16 @@ class C_kerusakan extends CI_Controller
                     $this->db->trans_begin();
                     $tanggal_perbaikan = null;
 
+                    //ambil data keterangan lama
+                    $query = $this->db->query("select * from as_nonrutin where id_nonrutin = $id_nonrutin");
+                    $old_data = $query->first_row();
+                    $old_keterangan = $old_data->keterangan;
+
+                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
+------------------
+';
+
+
                     if ($status_pekerjaan == 3) {
                         $tanggal_perbaikan =  date("Y-m-d");
                     }
@@ -491,7 +501,7 @@ class C_kerusakan extends CI_Controller
                     $data_insert = array(
                         'id_teknisi' => $id_teknisi,
                         'status_pekerjaan' => $status_pekerjaan,
-                        'keterangan' => $keterangan,
+                        'keterangan' => $nketerangan,
                         'prioritas' => $prioritas,
                         'tanggal_perbaikan' => $tanggal_perbaikan
                     );
@@ -544,14 +554,24 @@ class C_kerusakan extends CI_Controller
                 //Ambil data POST
                 (isset($_POST['id_nonrutin']))         ? $id_nonrutin =       $_POST['id_nonrutin']         : $id_nonrutin = "";
                 (isset($_POST['status']))         ? $status =       $_POST['status']         : $status = "";
-
+                (isset($_POST['keterangan']))         ? $keterangan =      $_POST['keterangan']         : $keterangan = "";
 
                 $this->db->trans_begin();
+
+                //ambil data keterangan lama
+                $query = $this->db->query("select * from as_nonrutin where id_nonrutin = $id_nonrutin");
+                $old_data = $query->first_row();
+                $old_keterangan = $old_data->keterangan;
+
+                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
+------------------
+';
 
                 if ($status == 'ok') {
                     //Update data
                     $data_insert = array(
                         'status_pekerjaan' => 5,
+                        'keterangan' => $nketerangan,
                     );
                     $this->db->where('id_nonrutin', $id_nonrutin);
                     $this->db->update('as_nonrutin', $data_insert);
@@ -560,6 +580,7 @@ class C_kerusakan extends CI_Controller
                     //Update data
                     $data_insert = array(
                         'status_pekerjaan' => 1,
+                        'keterangan' => $nketerangan,
                     );
                     $this->db->where('id_nonrutin', $id_nonrutin);
                     $this->db->update('as_nonrutin', $data_insert);
@@ -572,7 +593,7 @@ class C_kerusakan extends CI_Controller
                     $data['status'] = 'nok';
                 } else {
                     $this->db->trans_commit();
-                    
+
                     $data['status'] = 'ok';
                 }
             }
