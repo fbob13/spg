@@ -62,7 +62,7 @@
 
         }, {
             data: null,
-            className: 'text-center',
+            className: 'text-center text-nowrap',
             "searchable": false,
             "orderable": false,
             defaultContent: string_btn_tbl
