@@ -47,7 +47,7 @@ class C_um extends CI_Controller
 
 		} else {
 			$myfile = fopen("application/views/tabler/um/v_um_content.php", "r") or die("Unable to open file!");
-			$data['content'] = fread($myfile,50000);
+			$data['content'] = fread($myfile,100000);
 			fclose($myfile);
 		}
 

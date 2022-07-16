@@ -220,6 +220,7 @@
             } else if (aksi == 'approve') {
                 $('#id-approve').val(data['id_nonrutin']);
                 $('#modal-konfirmasi-approve').modal('show');
+                clear_form('approve-keterangan-new')
 
                 $('#approve-nama').text(data['nama_teknisi']);
                 $('#approve-jadwal').text(data['tanggal_jadwal']);
