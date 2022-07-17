@@ -116,7 +116,7 @@ class C_jadwal extends CI_Controller
                     $qitem = $query->first_row();
                     $subkategori = $qitem->id_subkategori;
                     //Ambil data pkrutin berdasarkan id_kategori
-                    $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' / ' , jenis_pekerjaan, uraian_pekerjaan) as deskripsi 
+                    $query = $this->db->query("select id_pkrutin val, CONCAT_WS(' / ' , jenis_pekerjaan) as deskripsi 
                                 from mst_pkrutin where id_subkategori =$subkategori");
                 } else if ($tipe == "draft") {
 

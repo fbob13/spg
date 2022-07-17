@@ -150,7 +150,7 @@
 
 
                       <div class="table-responsive mt-3">
-                        <table class="table table-vcenter text-nowrap table-bordered" id='postsList' width="100%" cellspacing="0">
+                        <table class="table table-vcenter text-wrap table-bordered" id='postsList' width="100%" cellspacing="0">
                           <thead>
                             <tr>
                               <th class="w-1">Aksi</th>
