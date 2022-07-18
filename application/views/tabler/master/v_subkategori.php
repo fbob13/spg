@@ -57,9 +57,9 @@
                                 <th>nn Tindakan</th>
 
 
-                                <th>Kode Kategori</th>
                                 <th>Kode Subkategori</th>
                                 <th>Uraian Subkategori</th>
+                                <th>Uraian Kategori</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

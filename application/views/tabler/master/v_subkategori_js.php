@@ -106,13 +106,13 @@
             visible: false,
             searchable: false,
         }, {
-            data: 'kode_kategori',
-            className: 'text-center'
-        }, {
             data: 'kode_subkategori',
             className: 'text-center'
         }, {
             data: 'uraian_subkategori',
+            className: 'text-center'
+        }, {
+            data: 'uraian_kategori',
             className: 'text-center'
         }, {
             data: null,
