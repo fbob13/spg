@@ -489,10 +489,7 @@ class C_kerusakan extends CI_Controller
                     $old_data = $query->first_row();
                     $old_keterangan = $old_data->keterangan;
 
-                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
-------------------
-';
-
+                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . chr(10) . chr(13) . '------------------'. chr(10) . chr(13);
 
                     if ($status_pekerjaan == 3) {
                         $tanggal_perbaikan =  date("Y-m-d");
@@ -563,10 +560,7 @@ class C_kerusakan extends CI_Controller
                 $old_data = $query->first_row();
                 $old_keterangan = $old_data->keterangan;
 
-                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
-------------------
-';
-
+                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . chr(10) . chr(13) . '------------------'. chr(10) . chr(13);
                 if ($status == 'ok') {
                     //Update data
                     $data_insert = array(

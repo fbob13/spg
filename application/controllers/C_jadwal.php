@@ -904,6 +904,10 @@ class C_jadwal extends CI_Controller
                     $this->db->trans_begin();
 
                     $tanggal_realisasi = null;
+
+                    if ($status_pekerjaan == 3) {
+                        $tanggal_realisasi =  date("Y-m-d");
+                    }
                     /*
                     if ($status_pekerjaan == 3) {
                         $tanggal_realisasi =  date("Y-m-d");
@@ -938,9 +942,7 @@ class C_jadwal extends CI_Controller
                     $old_data = $query->first_row();
                     $old_keterangan = $old_data->keterangan;
 
-                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
-------------------
-';
+                    $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . chr(10) . chr(13) . '------------------'. chr(10) . chr(13);
 
                     //Update data
                     $data_insert = array(
@@ -1032,9 +1034,12 @@ class C_jadwal extends CI_Controller
                 $old_data = $query->first_row();
                 $old_keterangan = $old_data->keterangan;
 
-                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
+                $nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . chr(10) . chr(13) . '------------------'. chr(10) . chr(13);
+/*
+$nketerangan = $old_keterangan . $this->session->userdata('nama') . ' : ' . $keterangan . '
 ------------------
 ';
+*/
                 //Update data
 
                 //$tanggal_realisasi = null;

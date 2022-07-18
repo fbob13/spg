@@ -13,17 +13,19 @@
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').addClass('d-none')
             $('#s-status').removeClass('d-none')
+            $('#s-subkat-none').removeClass('d-none')
         } else if (type_report == 2) {
 
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').addClass('d-none')
             $('#s-status').removeClass('d-none')
-
+            $('#s-subkat-none').addClass('d-none')
         } else if (type_report == 4) {
 
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').removeClass('d-none')
             $('#s-status').addClass('d-none')
+            $('#s-subkat-none').addClass('d-none')
         }
 
 
@@ -57,7 +59,17 @@
                     className: 'text-center'
                 }, {
                     data: 'keterangan',
-                    className: 'text-center'
+                    className: 'text-center',
+                    render: function(data, type, row) {
+
+                        if (row.keterangan == "" || row.keterangan == null || row.keterangan == undefined) {
+                            var keterangan_y = ""
+                        } else {
+                            var keterangan_x = row.keterangan
+                            var keterangan_y = keterangan_x.replace(/['\n']/g, '<br>')
+                        }
+                        return keterangan_y
+                    }
                 }
             ]
         } else if (type_report == 2) {
@@ -88,7 +100,17 @@
                     className: 'text-center'
                 }, {
                     data: 'keterangan',
-                    className: 'text-center'
+                    className: 'text-center text-wrap',
+                    render: function(data, type, row) {
+
+                        if (row.keterangan == "" || row.keterangan == null || row.keterangan == undefined) {
+                            var keterangan_y = ""
+                        } else {
+                            var keterangan_x = row.keterangan
+                            var keterangan_y = keterangan_x.replace(/['\n']/g, '<br>')
+                        }
+                        return keterangan_y
+                    }
                 }
             ]
         }
@@ -98,6 +120,7 @@
             $('#qs-tanggal-awal').val('<?php echo $tanggal_awal; ?>')
             $('#qs-tanggal-akhir').val('<?php echo $tanggal_akhir; ?>')
             $('#qs-status').val('<?php echo $status; ?>')
+            $('#qs-subkat-none').val('<?php echo $id_subkategori; ?>')
 
             judul = $('#type-report option:selected').text() + ' / ' + $('#qs-teknisi option:selected').text()
             $('#my-title').text(judul)
@@ -112,6 +135,7 @@
                         "tanggal_akhir": $('#qs-tanggal-akhir').val(),
                         "teknisi": $('#qs-teknisi').val(),
                         "status": $('#qs-status').val(),
+                        "id_subkategori": $('#qs-subkat-none').val(),
 
                     }
                 },
@@ -126,8 +150,7 @@
                     'print'
                 ],
             });
-        <?php }
-        else if ($type == '4') {
+        <?php } else if ($type == '4') {
         ?>
             $('#qs-teknisi').val('<?php echo $teknisi; ?>')
             $('#qs-tanggal-awal').val('<?php echo $tanggal_awal; ?>')
@@ -153,7 +176,7 @@
                     if (response.status == 'nok') {
                         $('#result-report thead').html('<th class="text-center">no data</th>')
                     } else {
-                        document.location.href = '<?php echo base_url();?>download/' + response.filename;
+                        document.location.href = '<?php echo base_url(); ?>download/' + response.filename;
 
                     }
 
@@ -170,6 +193,7 @@
         $('#qs-tanggal-awal').val('')
         $('#qs-tanggal-akhir').val('')
         $('#qs-status').val('')
+        $('#qs-subkat-none').val('')
     })
 
     $('#type-report').on('change', function(e) {
@@ -180,15 +204,18 @@
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').addClass('d-none')
             $('#s-status').removeClass('d-none')
+            $('#s-subkat-none').removeClass('d-none')
         } else if ($(this).val() == 2) {
 
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').addClass('d-none')
             $('#s-status').removeClass('d-none')
+            $('#s-subkat-none').addClass('d-none')
         } else if ($(this).val() == 4) {
 
             $('#s-btn').removeClass('d-none')
             $('#s-subkat').removeClass('d-none')
+            $('#s-subkat-none').addClass('d-none')
             $('#s-status').addClass('d-none')
 
         }

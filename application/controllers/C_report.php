@@ -50,7 +50,11 @@ class C_report extends CI_Controller
             (isset($_POST['qs-tanggal-akhir']))                 ? $tanggal_akhir = $_POST['qs-tanggal-akhir']     : $tanggal_akhir = $hari;
             (isset($_POST['qs-status']))                 ? $status = $_POST['qs-status']     : $status = 99;
             (isset($_POST['qs-teknisi']))                 ? $teknisi = $_POST['qs-teknisi']     : $teknisi = '';
-            (isset($_POST['qs-subkat']))                 ? $id_subkategori = $_POST['qs-subkat']     : $id_subkategori = '';
+            (isset($_POST['qs-subkat-none']))                 ? $id_subkategori = $_POST['qs-subkat-none']     : $id_subkategori = '';            
+            if($type == 4){
+                (isset($_POST['qs-subkat']))                 ? $id_subkategori = $_POST['qs-subkat']     : $id_subkategori = '';
+            }
+            
 
 
             $data['type'] = $type;
@@ -123,6 +127,13 @@ class C_report extends CI_Controller
             if ($status <> "" && $status <> "99" && $type <> 4) {
                 $str_query_a = $str_query_a . " $where status_pekerjaan =$status";
                 $str_query_b = $str_query_b . " $where status_pekerjaan =$status";
+                //$str_query_d = $str_query_d . " $where status_pekerjaan =$status";
+                $where = 'and';
+            }
+
+            if ($id_subkategori <> "" && $id_subkategori <> "99" && $id_subkategori <> 4) {
+                $str_query_a = $str_query_a . " $where id_subkategori = $id_subkategori";
+                //$str_query_b = $str_query_b . " $where status_pekerjaan =$status";
                 //$str_query_d = $str_query_d . " $where status_pekerjaan =$status";
                 $where = 'and';
             }
