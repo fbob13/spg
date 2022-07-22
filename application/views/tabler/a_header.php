@@ -110,7 +110,7 @@ function cek_role($array, $kode_halaman)
         <!-- </h1> -->
         <div class="collapse navbar-collapse" id="navbar-menu">
           <ul class="navbar-nav pt-lg-3">
-            <li class="nav-item <?php echo $link == 'dashboard' ? 'active ' : ''; ?>">
+            <li class="nav-item <?php echo $link == 'dashboard' ? 'active ' : ''; ?> <?php echo $this->session->userdata('spc') == 2 ? 'd-none ' : ''; ?>">
               <a class="nav-link" href="<?php echo base_url(); ?>">
                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                   <!-- Download SVG icon from http://tabler-icons.io/i/home -->

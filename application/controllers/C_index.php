@@ -25,6 +25,8 @@ class C_index extends CI_Controller
 		//$cek = $this->session->userdata('logged_in');
 		if (empty($cek) || $cek <> "yes") {
 			return $this->load->view('auth/v_login');
+		}else if($this->session->userdata('spc')==2){
+			return redirect(base_url() . "kerusakan/new");
 		}
 
 		$data['link'] = 'dashboard';
@@ -176,7 +178,10 @@ class C_index extends CI_Controller
 			$tipe = ($this->uri->segment(3)) ? $this->uri->segment(3) : 'tipe';
 			$tanggal = date('Y-m-d');
 			if ($tipe == 'rutin') {
-				$query = $this->db->query("select * from view_rutin where tanggal_jadwal='$tanggal' order by tanggal_jadwal,status_pekerjaan");
+				$query = $this->db->query("select * from (select * from view_rutin where tanggal_jadwal<='$tanggal' and status_pekerjaan in (0,1,2,4)
+				union
+				select * from view_rutin where tanggal_jadwal='$tanggal')a order by tanggal_jadwal desc,status_pekerjaan
+				");
 				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;

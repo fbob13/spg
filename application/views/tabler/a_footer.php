@@ -144,7 +144,7 @@
         return t_info;
     }
 
-    function createRutin(gedung, ruangan, item, tanggal, status_pekerjaan, jenis_pekerjaan, uraian_pekerjaan, status_teks) {
+    function createRutin(gedung, ruangan, item, tanggal, status_pekerjaan, jenis_pekerjaan, uraian_pekerjaan, status_teks,teknisi) {
         var border = ""
         /*
         if (status_pekerjaan == 0) border = "border-danger"
@@ -168,7 +168,7 @@
         t_info += '    <div class="row card-body w-full">'
         t_info += '        <div class="col">'
         t_info += '            <div class="d-flex justify-content-between">'
-        t_info += '                <div>' + gedung + '</div>'
+        t_info += '                <div>' + gedung + ' ('+ teknisi +')</div>'
         t_info += '                <div>' + tanggal + '</div>'
         t_info += '            </div>'
         t_info += '            <div class="d-flex justify-content-between">'
@@ -238,7 +238,7 @@
                         hasil.forEach(function(item, index, arr) {
                             //console.log(arr[index].nama_gedung)
 
-                            $('#container-rutin').append(createRutin(arr[index].nama_gedung, arr[index].nama_ruangan, arr[index].nama_item, arr[index].tanggal_jadwal, arr[index].status_pekerjaan, arr[index].jenis_pekerjaan, arr[index].uraian_pekerjaan, arr[index].status_pekerjaan_text))
+                            $('#container-rutin').append(createRutin(arr[index].nama_gedung, arr[index].nama_ruangan, arr[index].nama_item, arr[index].tanggal_jadwal, arr[index].status_pekerjaan, arr[index].jenis_pekerjaan, arr[index].uraian_pekerjaan, arr[index].status_pekerjaan_text,arr[index].nama_teknisi))
                             //function createRutin(gedung, ruangan, item, tanggal, status_pekerjaan)
 
                             if (arr[index].status_pekerjaan != 3 && arr[index].status_pekerjaan != 5) {
