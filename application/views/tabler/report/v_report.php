@@ -34,9 +34,15 @@ $judul['terlambat'] = 'Pencarian : Dokumen Terlambat Dikembalikan';
                                     <select id="type-report" name="type" class="form-select">
 
                                         <option value="">Pilih Jenis Laporan </option>
+                                        <?php if($rep_1 == true) { ?>
                                         <option value="1" <?php echo ($type == 1 ? 'selected' : ''); ?>>Laporan Pekerjaan Rutin</option>
+                                        <?php } ?>
+                                        <?php if($rep_2 == true) { ?>
                                         <option value="2" <?php echo ($type == 2 ? 'selected' : ''); ?>>Laporan Kerusakan</option>
+                                        <?php } ?>
+                                        <?php if($rep_4 == true) { ?>
                                         <option value="4" <?php echo ($type == 4 ? 'selected' : ''); ?>>Laporan Pemeliharaan Rutin</option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 

@@ -111,6 +111,7 @@
                                     array('val' => '0', 'deskripsi' => 'Teknisi'),
                                     array('val' => '1', 'deskripsi' => 'Admin'),
                                     array('val' => '2', 'deskripsi' => 'User'),
+                                    array('val' => '3', 'deskripsi' => 'Pimpinan'),
                                     array('val' => '99', 'deskripsi' => 'Super User'),
                                 ),
                                 'attr' => ''
@@ -238,6 +239,7 @@
                                     array('val' => '0', 'deskripsi' => 'Teknisi'),
                                     array('val' => '1', 'deskripsi' => 'Admin'),
                                     array('val' => '2', 'deskripsi' => 'User'),
+                                    array('val' => '3', 'deskripsi' => 'Pimpinan'),
                                 ),
                                 'attr' => ''
                             ));

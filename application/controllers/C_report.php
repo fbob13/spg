@@ -30,7 +30,7 @@ class C_report extends CI_Controller
         }
         //Jika User = 99(IT) atau 1(admin)
 
-        if ($this->Login_model->cekLogin('REP', 'view')) {
+        if ($this->Login_model->cekLogin('REP_PKR', 'view') || $this->Login_model->cekLogin('REP_KRS', 'view') || $this->Login_model->cekLogin('REP_PMR', 'view')) {
             $data['link'] = 'report';
             $data['sublink'] = '';
             $data['subsublink'] = '';
@@ -50,11 +50,11 @@ class C_report extends CI_Controller
             (isset($_POST['qs-tanggal-akhir']))                 ? $tanggal_akhir = $_POST['qs-tanggal-akhir']     : $tanggal_akhir = $hari;
             (isset($_POST['qs-status']))                 ? $status = $_POST['qs-status']     : $status = 99;
             (isset($_POST['qs-teknisi']))                 ? $teknisi = $_POST['qs-teknisi']     : $teknisi = '';
-            (isset($_POST['qs-subkat-none']))                 ? $id_subkategori = $_POST['qs-subkat-none']     : $id_subkategori = '';            
-            if($type == 4){
+            (isset($_POST['qs-subkat-none']))                 ? $id_subkategori = $_POST['qs-subkat-none']     : $id_subkategori = '';
+            if ($type == 4) {
                 (isset($_POST['qs-subkat']))                 ? $id_subkategori = $_POST['qs-subkat']     : $id_subkategori = '';
             }
-            
+
 
 
             $data['type'] = $type;
@@ -69,6 +69,10 @@ class C_report extends CI_Controller
 
             $query = $this->db->query('select id_user,nama from mst_user where spc = 0');
             $data['data_teknisi'] = $query->result();
+
+            $data['rep_1'] = $this->Login_model->cekLogin('REP_PKR', 'view');
+            $data['rep_2'] = $this->Login_model->cekLogin('REP_KRS', 'view');
+            $data['rep_4'] = $this->Login_model->cekLogin('REP_PMR', 'view');
 
             $this->load->view('tabler/a_header', $data);
             $this->load->view('tabler/report/v_report', $data);
@@ -93,7 +97,7 @@ class C_report extends CI_Controller
             $data['info'] = 'Anda Tidak Berhak';
         }
         //Jika User = 99(IT) atau 1(admin)
-        elseif ($this->Login_model->cekLogin('REP', 'view')) {
+        elseif ($this->Login_model->cekLogin('REP_PKR', 'view') || $this->Login_model->cekLogin('REP_KRS', 'view') || $this->Login_model->cekLogin('REP_PMR', 'view')) {
 
             (isset($_POST['type']))           ? $type       = $_POST['type']     : $type = 0;
 
@@ -141,19 +145,19 @@ class C_report extends CI_Controller
             $data['data'] = "";
             if ($type == '') {
                 //$query = $this->db->query('select nik,spc from mst_user');
-            } elseif ($type == 1) {
+            } elseif ($type == 1 && $this->Login_model->cekLogin('REP_PKR', 'view') == true) {
                 $query = $this->db->query("select * from view_rutin $str_query_a order by tanggal_jadwal,nama_teknisi");
                 $data['data'] = $query->result();
                 $data['last_query'] = $this->db->last_query();
-            } elseif ($type == 2) {
+            } elseif ($type == 2 && $this->Login_model->cekLogin('REP_KRS', 'view') == true) {
                 $query = $this->db->query("select * from view_nonrutin $str_query_b order by tanggal_laporan, nama_teknisi");
                 $data['data'] = $query->result();
                 $data['last_query'] = $this->db->last_query();
-            }elseif ($type == 4) {
-                $data['filename'] = $this->Excel_model->report_4($teknisi, $tanggal_awal,$tanggal_akhir, $id_subkategori);
-            }
+            } elseif ($type == 4 && $this->Login_model->cekLogin('REP_PMR', 'view') == true) {
+                $data['filename'] = $this->Excel_model->report_4($teknisi, $tanggal_awal, $tanggal_akhir, $id_subkategori);
+            } 
 
-            
+
 
             $data['status'] = 'ok';
         }
