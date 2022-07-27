@@ -3,6 +3,7 @@ Tabel mst_user
           0  -> Teknisi
           1  -> Admin
           2  -> User
+          3  -> Pimpinan
 
 
 Tabel as_rutin

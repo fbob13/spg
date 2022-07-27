@@ -310,8 +310,10 @@ function cek_role($array, $kode_halaman)
               </li>
             <?php } ?>
             <?php
-            $countrole = cek_role($user_role, 'REP');
-            if ($countrole >= 1) {
+            $countrole1 = cek_role($user_role, 'REP_PKR');
+            $countrole2 = cek_role($user_role, 'REP_KRS');
+            $countrole4 = cek_role($user_role, 'REP_PMR');
+            if ($countrole1 >= 1 || $countrole2 >= 1 || $countrole4 >= 1  ) {
             ?>
               <li class="nav-item <?php echo $link == 'report' ? 'active ' : ''; ?>">
                 <a class="nav-link" href="<?php echo base_url(); ?>report">
