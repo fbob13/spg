@@ -58,6 +58,10 @@
             visible: false,
             searchable: false,
         }, {
+            data: 'tanggal_perbaikan',
+            visible: false,
+            searchable: false,
+        }, {
             data: 'tanggal_laporan',
             className: 'text-center'
         }, {
@@ -75,6 +79,27 @@
         }, {
             data: 'keluhan',
             className: 'text-center'
+        }, {
+            data: 'nodata',
+            className: 'text-center',
+            render: function(data, type, row) {
+                if (row.tanggal_perbaikan != null) {
+                    waktu1 = new Date(row.tanggal_laporan);
+                    waktu2 = new Date(row.tanggal_perbaikan);
+
+                    getwaktu1 = waktu1.getTime();
+                    getwaktu2 = waktu2.getTime();
+                    selisih = getwaktu2 - getwaktu1;
+                    
+                    return row.tanggal_perbaikan + "<br>(" + (selisih / 1000 / 60 / 60 / 24) + " Hari)"
+                    //return row.tanggal_perbaikan
+                }else{
+                    return null
+                }
+
+                
+
+            }
         }, {
             data: 'prioritas',
             className: 'text-center',
@@ -367,13 +392,13 @@
         $('#btn-no-approve').on('click', function(e) {
             e.preventDefault();
             //$('#modal-update').modal('hide')
-            if($('#approve-keterangan-new').val() == ""){
+            if ($('#approve-keterangan-new').val() == "") {
                 add_error('approve-keterangan-new')
-            }else{
+            } else {
                 $('#modal-konfirmasi-approve').modal('hide')
-            $('#modal-konfirmasi-aprno').modal('show')
+                $('#modal-konfirmasi-aprno').modal('show')
             }
-            
+
 
         });
 
@@ -405,7 +430,7 @@
                         $('#id-approve').val('');
 
                     } else {
-                        
+
                         $('#modal-konfirmasi-aprno').modal('hide')
                         $('#id-approve').val('');
                         createNotification(3, response.info)
@@ -460,6 +485,7 @@
                 $("#er-" + id).html("")
             };
         }
+
         function clear_form(id) {
             $("#" + id).removeClass("is-invalid");
             $("#" + id).val("");

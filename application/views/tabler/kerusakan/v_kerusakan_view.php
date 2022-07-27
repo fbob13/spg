@@ -75,12 +75,14 @@
                                 <th>nn status pekerjaan</th>
                                 <th>nn </th>
                                 <th>nn </th>
-                                <th>Tanggal Laporan</th>
+                                <th>nn </th>
+                                <th>Tgl Laporan</th>
                                 <th>Nama Teknisi</th>
                                 <th>Gedung</th>
                                 <th>Ruangan</th>
                                 <th>Item</th>
                                 <th>Keluhan</th>
+                                <th>Tgl Selesai</th>
                                 <th>Prioritas</th>
                                 <th>Status</th>
                                 <th>Keterangan</th>
