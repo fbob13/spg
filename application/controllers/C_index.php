@@ -221,7 +221,8 @@ class C_index extends CI_Controller
 				$data['jumlah'] = 0;
 				$data['data'] = "";
 			} else if ($tipe == 'nonrutin') {
-				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) order by prioritas desc, tanggal_laporan asc");
+				$id_user_bisa = $this->session->userdata('id_user');
+				$query = $this->db->query("select * from view_nonrutin where  status_pekerjaan not in (3,5) and id_pembuat = $id_user_bisa order by prioritas desc, tanggal_laporan asc");
 				$data['jumlah'] = $query->num_rows();
 				$result = $query->result();
 				$data['data'] = $result;

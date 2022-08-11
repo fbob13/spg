@@ -380,21 +380,26 @@ class C_kerusakan extends CI_Controller
 
             //$where  = "id_user='2' and status_pekerjaan = 3";
             $where = "";
+            $is_user = "";
+
+            if ($this->session->userdata('spc') == 2){
+                $is_user = " and id_pembuat =" . $this->session->userdata('id_user') ;
+            }
             if ($stat == "nok") {
-                $where = "status_pekerjaan in (0,1,2,4) ";
+                $where = "status_pekerjaan in (0,1,2,4) $is_user";
             } else {
                 if ($bulan == 99) {
-                    $where = "DATE_FORMAT(tanggal_laporan,'%Y') = '$tahun'";
+                    $where = "DATE_FORMAT(tanggal_laporan,'%Y') = '$tahun' $is_user";
                 } else {
-                    $where = "DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan'";
+                    $where = "DATE_FORMAT(tanggal_laporan,'%Y-%m') = '$tahun-$bulan' $is_user";
                 }
 
                 if ($status_pekerjaan <> "" && $status_pekerjaan <> 99) {
-                    $where = $where . " and status_pekerjaan = $status_pekerjaan";
+                    $where = $where . " and status_pekerjaan = $status_pekerjaan $is_user";
                 }
 
                 if ($prioritas <> "") {
-                    $where = $where . " and prioritas = $prioritas";
+                    $where = $where . " and prioritas = $prioritas $is_user";
                 }
             }
 
