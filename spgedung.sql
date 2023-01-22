@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 27, 2022 at 06:44 AM
+-- Generation Time: Aug 09, 2022 at 06:33 AM
 -- Server version: 8.0.29
 -- PHP Version: 7.4.30
 
@@ -182,7 +182,6 @@ INSERT INTO `mst_akses_detail` (`id_majabatan`, `spc`, `kode_halaman`, `vw`, `ed
 (9, 99, 'NRUTIN_DATA', 1, 1, 1),
 (10, 99, 'ADM_USER', 1, 1, 1),
 (11, 99, 'ADM_AKSES', 1, 1, 1),
-(12, 99, 'REP', 1, 1, 1),
 (16, 0, 'MST_KAT', 1, 0, 0),
 (17, 0, 'MST_GED', 1, 0, 0),
 (18, 0, 'MST_RUA', 1, 0, 0),
@@ -194,7 +193,6 @@ INSERT INTO `mst_akses_detail` (`id_majabatan`, `spc`, `kode_halaman`, `vw`, `ed
 (24, 0, 'NRUTIN_DATA', 1, 1, 0),
 (25, 0, 'ADM_USER', 0, 0, 0),
 (26, 0, 'ADM_AKSES', 0, 0, 0),
-(27, 0, 'REP', 1, 0, 0),
 (31, 1, 'MST_KAT', 1, 1, 1),
 (32, 1, 'MST_GED', 1, 1, 1),
 (33, 1, 'MST_RUA', 1, 1, 1),
@@ -206,7 +204,6 @@ INSERT INTO `mst_akses_detail` (`id_majabatan`, `spc`, `kode_halaman`, `vw`, `ed
 (39, 1, 'NRUTIN_DATA', 1, 1, 1),
 (40, 1, 'ADM_USER', 0, 0, 0),
 (41, 1, 'ADM_AKSES', 0, 0, 0),
-(42, 1, 'REP', 1, 1, 1),
 (46, 2, 'MST_KAT', 0, 0, 0),
 (47, 2, 'MST_GED', 0, 0, 0),
 (48, 2, 'MST_RUA', 0, 0, 0),
@@ -218,7 +215,6 @@ INSERT INTO `mst_akses_detail` (`id_majabatan`, `spc`, `kode_halaman`, `vw`, `ed
 (54, 2, 'NRUTIN_DATA', 1, 0, 0),
 (55, 2, 'ADM_USER', 0, 0, 0),
 (56, 2, 'ADM_AKSES', 0, 0, 0),
-(57, 2, 'REP', 0, 0, 0),
 (61, 0, 'MST_RUA_ITE', 1, 0, 0),
 (62, 1, 'MST_RUA_ITE', 1, 1, 1),
 (63, 2, 'MST_RUA_ITE', 0, 0, 0),
@@ -226,7 +222,35 @@ INSERT INTO `mst_akses_detail` (`id_majabatan`, `spc`, `kode_halaman`, `vw`, `ed
 (65, 99, 'MST_SUBKAT', 1, 1, 1),
 (66, 0, 'MST_SUBKAT', 1, 0, 0),
 (67, 1, 'MST_SUBKAT', 1, 1, 1),
-(68, 2, 'MST_SUBKAT', 0, 0, 0);
+(68, 2, 'MST_SUBKAT', 0, 0, 0),
+(69, 3, 'MST_KAT', 0, 0, 0),
+(70, 3, 'MST_GED', 0, 0, 0),
+(71, 3, 'MST_RUA', 0, 0, 0),
+(72, 3, 'MST_ITE', 0, 0, 0),
+(73, 3, 'MST_PEK', 0, 0, 0),
+(74, 3, 'RUTIN_INPUT', 0, 0, 0),
+(75, 3, 'RUTIN_DATA', 0, 0, 0),
+(76, 3, 'NRUTIN_INPUT', 0, 0, 0),
+(77, 3, 'NRUTIN_DATA', 0, 0, 0),
+(78, 3, 'ADM_USER', 0, 0, 0),
+(79, 3, 'ADM_AKSES', 0, 0, 0),
+(81, 3, 'MST_RUA_ITE', 0, 0, 0),
+(82, 3, 'MST_SUBKAT', 0, 0, 0),
+(84, 99, 'REP_PKR', 0, 0, 0),
+(85, 99, 'REP_KRS', 0, 0, 0),
+(86, 99, 'REP_PMR', 0, 0, 0),
+(87, 0, 'REP_PKR', 0, 0, 0),
+(88, 0, 'REP_KRS', 0, 0, 0),
+(89, 0, 'REP_PMR', 0, 0, 0),
+(90, 1, 'REP_PKR', 0, 0, 0),
+(91, 1, 'REP_KRS', 0, 0, 0),
+(92, 1, 'REP_PMR', 0, 0, 0),
+(93, 2, 'REP_PKR', 0, 0, 0),
+(94, 2, 'REP_KRS', 0, 0, 0),
+(95, 2, 'REP_PMR', 0, 0, 0),
+(96, 3, 'REP_PKR', 0, 0, 0),
+(97, 3, 'REP_KRS', 0, 0, 0),
+(98, 3, 'REP_PMR', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -256,9 +280,11 @@ INSERT INTO `mst_akses_halaman` (`id_mahalaman`, `kode_halaman`, `deskripsi_hala
 (9, 'NRUTIN_DATA', 'Lihat / Edit Data Kerusakan'),
 (10, 'ADM_USER', 'Buat User Aplikasi'),
 (11, 'ADM_AKSES', 'Rubah Hak Akses'),
-(12, 'REP', 'Laporan'),
 (13, 'MST_RUA_ITE', 'Master Ruangan Item'),
-(14, 'MST_SUBKAT', 'Master Subkategori');
+(14, 'MST_SUBKAT', 'Master Subkategori'),
+(15, 'REP_PKR', 'Laporan Pekerjaan Rutin'),
+(16, 'REP_KRS', 'Laporan Kerusakan'),
+(17, 'REP_PMR', 'Laporan Pemeliharaan Rutin');
 
 -- --------------------------------------------------------
 
@@ -729,15 +755,15 @@ CREATE TABLE `notification` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_akses` (
-`id_user` int
-,`username` varchar(255)
+`del` tinyint
+,`deskripsi_halaman` varchar(255)
+,`edt` tinyint
+,`id_user` int
+,`kode_halaman` varchar(255)
 ,`nama` varchar(255)
 ,`spc` tinyint(1)
-,`kode_halaman` varchar(255)
-,`deskripsi_halaman` varchar(255)
+,`username` varchar(255)
 ,`vw` tinyint
-,`edt` tinyint
-,`del` tinyint
 );
 
 -- --------------------------------------------------------
@@ -747,12 +773,12 @@ CREATE TABLE `view_akses` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_akses_spc` (
-`spc` int
-,`kode_halaman` varchar(255)
+`del` tinyint
 ,`deskripsi_halaman` varchar(255)
-,`vw` tinyint
 ,`edt` tinyint
-,`del` tinyint
+,`kode_halaman` varchar(255)
+,`spc` int
+,`vw` tinyint
 );
 
 -- --------------------------------------------------------
@@ -762,18 +788,18 @@ CREATE TABLE `view_akses_spc` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_item` (
-`id_item` int
-,`nama_item` varchar(255)
-,`merek_item` varchar(255)
-,`tipe_item` varchar(255)
+`created_at` timestamp
+,`id_item` int
 ,`id_kategori` int
-,`kode_kategori` varchar(255)
-,`uraian_kategori` varchar(255)
 ,`id_subkategori` int
+,`kode_kategori` varchar(255)
 ,`kode_subkategori` varchar(255)
-,`uraian_subkategori` varchar(255)
+,`merek_item` varchar(255)
+,`nama_item` varchar(255)
 ,`status_item` tinyint
-,`created_at` timestamp
+,`tipe_item` varchar(255)
+,`uraian_kategori` varchar(255)
+,`uraian_subkategori` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -783,25 +809,25 @@ CREATE TABLE `view_item` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_nonrutin` (
-`id_nonrutin` bigint
-,`id_teknisi` int
-,`nama_teknisi` varchar(255)
-,`id_pembuat` int
-,`nama_pembuat` varchar(255)
-,`tanggal_laporan` date
-,`tanggal_perbaikan` date
-,`id_gedung` int
-,`nama_gedung` varchar(255)
-,`id_ruangan` int
-,`nama_ruangan` text
+`id_gedung` int
 ,`id_item` int
+,`id_nonrutin` bigint
+,`id_pembuat` int
+,`id_ruangan` int
+,`id_teknisi` int
+,`keluhan` text
+,`keterangan` text
+,`nama_gedung` varchar(255)
 ,`nama_item` text
+,`nama_pembuat` varchar(255)
+,`nama_ruangan` text
+,`nama_teknisi` varchar(255)
 ,`prioritas` tinyint
 ,`prioritas_text` varchar(8)
-,`keluhan` text
 ,`status_pekerjaan` tinyint
 ,`status_pekerjaan_text` varchar(16)
-,`keterangan` text
+,`tanggal_laporan` date
+,`tanggal_perbaikan` date
 );
 
 -- --------------------------------------------------------
@@ -811,17 +837,17 @@ CREATE TABLE `view_nonrutin` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_pkrutin` (
-`id_pkrutin` int
-,`jenis_pekerjaan` varchar(255)
-,`uraian_pekerjaan` varchar(255)
-,`id_kategori` int
-,`kode_kategori` varchar(255)
-,`uraian_kategori` varchar(255)
+`id_kategori` int
+,`id_pkrutin` int
 ,`id_subkategori` int
-,`kode_subkategori` varchar(255)
-,`uraian_subkategori` varchar(255)
 ,`interval_hari` int
+,`jenis_pekerjaan` varchar(255)
+,`kode_kategori` varchar(255)
+,`kode_subkategori` varchar(255)
 ,`pengali` int
+,`uraian_kategori` varchar(255)
+,`uraian_pekerjaan` varchar(255)
+,`uraian_subkategori` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -831,13 +857,13 @@ CREATE TABLE `view_pkrutin` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_ruangan` (
-`id_ruangan` int
-,`id_gedung` int
-,`nama_gedung` varchar(255)
-,`kode_ruangan` varchar(255)
-,`uraian_ruangan` varchar(255)
+`id_gedung` int
+,`id_ruangan` int
 ,`keterangan` varchar(255)
+,`kode_ruangan` varchar(255)
+,`nama_gedung` varchar(255)
 ,`status_ruangan` tinyint
+,`uraian_ruangan` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -847,20 +873,20 @@ CREATE TABLE `view_ruangan` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_ruangan_item` (
-`id_ruangan_item` int
+`id_gedung` int
 ,`id_item` int
-,`nama_item` varchar(255)
-,`merek_item` varchar(255)
-,`tipe_item` varchar(255)
 ,`id_kategori` int
-,`kode_kategori` varchar(255)
-,`uraian_kategori` varchar(255)
-,`id_gedung` int
-,`nama_gedung` varchar(255)
 ,`id_ruangan` int
+,`id_ruangan_item` int
+,`kode_kategori` varchar(255)
 ,`kode_ruangan` varchar(255)
-,`uraian_ruangan` varchar(255)
+,`merek_item` varchar(255)
+,`nama_gedung` varchar(255)
+,`nama_item` varchar(255)
 ,`tahun_pengadaan` year
+,`tipe_item` varchar(255)
+,`uraian_kategori` varchar(255)
+,`uraian_ruangan` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -870,49 +896,49 @@ CREATE TABLE `view_ruangan_item` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_rutin` (
-`id_rutin` bigint
-,`id_user` int
-,`nama_teknisi` varchar(255)
-,`id_pembuat` int
-,`nama_pembuat` varchar(255)
-,`tanggal_jadwal` date
-,`id_gedung` int
-,`nama_gedung` varchar(255)
-,`id_ruangan` int
-,`nama_ruangan` text
-,`id_item` int
-,`nama_item` text
-,`id_pkrutin` int
-,`jenis_pekerjaan` varchar(255)
-,`uraian_pekerjaan` varchar(255)
-,`status_pekerjaan` tinyint
-,`status_pekerjaan_text` varchar(16)
-,`keterangan` text
-,`tanggal_realisasi` date
-,`id_kategori` int
-,`id_subkategori` int
-,`pk` varchar(255)
+`accu` varchar(255)
 ,`arus_r` varchar(255)
 ,`arus_s` varchar(255)
 ,`arus_t` varchar(255)
+,`eng_hours` varchar(255)
+,`id_gedung` int
+,`id_item` int
+,`id_kategori` int
+,`id_pembuat` int
+,`id_pkrutin` int
+,`id_ruangan` int
+,`id_rutin` bigint
+,`id_subkategori` int
+,`id_user` int
+,`jenis_pekerjaan` varchar(255)
+,`kap` varchar(255)
+,`keterangan` text
+,`kondisi` varchar(255)
+,`nama_gedung` varchar(255)
+,`nama_item` text
+,`nama_pembuat` varchar(255)
+,`nama_ruangan` text
+,`nama_teknisi` varchar(255)
+,`noice` varchar(255)
+,`oli` varchar(255)
+,`pk` varchar(255)
+,`psi` varchar(255)
+,`qty` varchar(255)
+,`radiator` varchar(255)
+,`solar` varchar(255)
+,`status_pekerjaan` tinyint
+,`status_pekerjaan_text` varchar(16)
+,`tanggal_jadwal` date
+,`tanggal_realisasi` date
 ,`teg_r` varchar(255)
 ,`teg_s` varchar(255)
 ,`teg_t` varchar(255)
 ,`teg_v` varchar(255)
-,`psi` varchar(255)
-,`oli` varchar(255)
-,`solar` varchar(255)
-,`radiator` varchar(255)
-,`eng_hours` varchar(255)
-,`accu` varchar(255)
 ,`temp` varchar(255)
-,`kap` varchar(255)
-,`noice` varchar(255)
-,`qty` varchar(255)
-,`vol` varchar(255)
 ,`tgl_kadaluarsa` varchar(255)
-,`kondisi` varchar(255)
 ,`tindakan` varchar(255)
+,`uraian_pekerjaan` varchar(255)
+,`vol` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -922,20 +948,20 @@ CREATE TABLE `view_rutin` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_rutin_draft` (
-`id_rutin_draft` bigint
-,`id_user` int
-,`nama_teknisi` varchar(255)
-,`id_pembuat` int
-,`nama_pembuat` varchar(255)
-,`tanggal_jadwal` date
-,`id_gedung` int
-,`nama_gedung` varchar(255)
-,`id_ruangan` int
-,`nama_ruangan` text
+`id_gedung` int
 ,`id_item` int
-,`nama_item` text
+,`id_pembuat` int
 ,`id_pkrutin` int
+,`id_ruangan` int
+,`id_rutin_draft` bigint
+,`id_user` int
 ,`jenis_pekerjaan` varchar(255)
+,`nama_gedung` varchar(255)
+,`nama_item` text
+,`nama_pembuat` varchar(255)
+,`nama_ruangan` text
+,`nama_teknisi` varchar(255)
+,`tanggal_jadwal` date
 ,`uraian_pekerjaan` varchar(255)
 );
 
@@ -946,34 +972,34 @@ CREATE TABLE `view_rutin_draft` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_subkategori` (
-`id_subkategori` int
-,`id_kategori` int
-,`kode_kategori` varchar(255)
-,`uraian_kategori` varchar(255)
-,`kode_subkategori` varchar(255)
-,`uraian_subkategori` varchar(255)
-,`pk` varchar(255)
+`accu` varchar(255)
 ,`arus_r` varchar(255)
 ,`arus_s` varchar(255)
 ,`arus_t` varchar(255)
+,`eng_hours` varchar(255)
+,`id_kategori` int
+,`id_subkategori` int
+,`kap` varchar(255)
+,`kode_kategori` varchar(255)
+,`kode_subkategori` varchar(255)
+,`kondisi` varchar(255)
+,`noice` varchar(255)
+,`oli` varchar(255)
+,`pk` varchar(255)
+,`psi` varchar(255)
+,`qty` varchar(255)
+,`radiator` varchar(255)
+,`solar` varchar(255)
 ,`teg_r` varchar(255)
 ,`teg_s` varchar(255)
 ,`teg_t` varchar(255)
 ,`teg_v` varchar(255)
-,`psi` varchar(255)
-,`oli` varchar(255)
-,`solar` varchar(255)
-,`radiator` varchar(255)
-,`eng_hours` varchar(255)
-,`accu` varchar(255)
 ,`temp` varchar(255)
-,`kap` varchar(255)
-,`noice` varchar(255)
-,`qty` varchar(255)
-,`vol` varchar(255)
 ,`tgl_kadaluarsa` varchar(255)
-,`kondisi` varchar(255)
 ,`tindakan` varchar(255)
+,`uraian_kategori` varchar(255)
+,`uraian_subkategori` varchar(255)
+,`vol` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -983,21 +1009,21 @@ CREATE TABLE `view_subkategori` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_user` (
-`id_user` int
-,`username` varchar(255)
-,`nip` varchar(255)
-,`nama` varchar(255)
-,`spc` tinyint(1)
+`alamat` varchar(255)
+,`created_at` timestamp
 ,`deskripsi_spc` varchar(255)
-,`alamat` varchar(255)
-,`jabatan` varchar(255)
-,`j_kelamin` varchar(255)
-,`j_kelamin_text` varchar(9)
-,`telepon` varchar(255)
 ,`email` varchar(255)
 ,`foto` varchar(255)
-,`created_at` timestamp
+,`id_user` int
+,`j_kelamin` varchar(255)
+,`j_kelamin_text` varchar(9)
+,`jabatan` varchar(255)
+,`nama` varchar(255)
+,`nip` varchar(255)
+,`spc` tinyint(1)
+,`telepon` varchar(255)
 ,`updated_at` timestamp
+,`username` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -1219,13 +1245,13 @@ ALTER TABLE `as_rutin_draft`
 -- AUTO_INCREMENT for table `mst_akses_detail`
 --
 ALTER TABLE `mst_akses_detail`
-  MODIFY `id_majabatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_majabatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `mst_akses_halaman`
 --
 ALTER TABLE `mst_akses_halaman`
-  MODIFY `id_mahalaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_mahalaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `mst_akses_spc`

@@ -23,6 +23,9 @@
   <link href="<?php echo base_url(); ?>dist/css/demo.min.css" rel="stylesheet" />
   <link href="<?php echo base_url(); ?>dist/css/custom.css?v=1.0" rel="stylesheet" />
 
+  <!-- favicon -->
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>favicon.ico" />
+
   <style>
     .fstyle {
       font-family: 'frs' !important;
